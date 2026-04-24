@@ -27,7 +27,7 @@ export const copy = {
   home: {
     hero: {
       h1: "Websites and AI systems for the UAE's most ambitious clinics.",
-      sub: "Novacare builds the online presence your practice should already have. Designed, engineered, and automated by a small team obsessed with getting it right.",
+      subhead: "Novacare builds the online presence your practice should already have. Designed, engineered, and automated by a small team obsessed with getting it right.",
       primaryCta: { label: "Start a project", href: WHATSAPP_HREF },
       secondaryCta: { label: "See our work", href: "/work" },
     },
