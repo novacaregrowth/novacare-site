@@ -38,6 +38,9 @@ export const copy = {
         "Novacare builds fast, high-end websites for wellness centers, therapy practices, and medical clinics across the UAE, and pairs them with AI systems that handle the parts of your practice that shouldn't need a human. Instant replies on WhatsApp. 24/7 booking. Automatic follow-ups. You keep the human work. We automate the rest.",
       ],
     },
+    phoneScene: {
+      headline: "Every clinic in the UAE loses patients like this.",
+    },
     services: {
       label: "How we work together",
       tiers: [

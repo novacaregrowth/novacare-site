@@ -3,6 +3,7 @@ import { Fraunces, Inter } from "next/font/google";
 import "./globals.css";
 import { Nav } from "@/components/shared/Nav";
 import { ScrollProgress } from "@/components/shared/ScrollProgress";
+import { SmoothScroll } from "@/components/shared/SmoothScroll";
 
 const fraunces = Fraunces({
   weight: ["300", "400", "500"],
@@ -34,9 +35,11 @@ export default function RootLayout({
       className={`${fraunces.variable} ${inter.variable} antialiased`}
     >
       <body className="min-h-screen flex flex-col">
-        <Nav />
-        <ScrollProgress />
-        {children}
+        <SmoothScroll>
+          <Nav />
+          <ScrollProgress />
+          {children}
+        </SmoothScroll>
       </body>
     </html>
   );
