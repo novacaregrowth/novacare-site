@@ -1,6 +1,7 @@
 "use client";
 // TODO: replace WhatsApp placeholder in copy.ts once real number is issued.
 
+import Image from "next/image";
 import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
@@ -68,17 +69,50 @@ export function Hero() {
   return (
     <section
       aria-label="Novacare introduction"
-      className="relative bg-ink min-h-screen flex items-center"
+      className="relative overflow-hidden bg-ink min-h-screen flex items-center"
     >
-      <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-24 py-16 lg:py-24">
+      {reduce ? (
+        <Image
+          src="/hero-poster.jpg"
+          alt=""
+          aria-hidden={true}
+          fill
+          priority
+          sizes="100vw"
+          className="absolute inset-0 object-cover z-0"
+        />
+      ) : (
+        <video
+          src="/hero-bg.mp4"
+          poster="/hero-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
+      )}
+
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 pointer-events-none z-[1]"
+        style={{
+          background:
+            "linear-gradient(to right, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.45) 50%, rgba(10,10,10,0.2) 100%)",
+        }}
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-24 py-24 lg:py-32">
         <div className="flex max-w-[1200px] flex-col justify-center">
           <h1
             aria-label={hero.h1}
             className={cn(
               "font-serif font-light text-bone max-w-[16ch]",
-              "text-[60px] tracking-[-0.02em] leading-[1.02]",
-              "md:text-[88px] md:tracking-[-0.03em] md:leading-[0.98]",
-              "lg:text-[112px] lg:leading-[0.95]",
+              "text-[36px] tracking-[-0.02em] leading-[1.08]",
+              "md:text-[52px] md:tracking-[-0.025em] md:leading-[1.02]",
+              "lg:text-[64px] lg:leading-[1.0]",
             )}
           >
             {words.map((word, i) => (
