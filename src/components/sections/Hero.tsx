@@ -104,6 +104,15 @@ export function Hero() {
         }}
       />
 
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-[30%] pointer-events-none z-[1]"
+        style={{
+          background:
+            "linear-gradient(to bottom, rgba(10,10,10,0) 0%, rgba(10,10,10,0.4) 30%, rgba(10,10,10,0.85) 70%, rgba(10,10,10,1) 100%)",
+        }}
+      />
+
       <div className="relative z-10 mx-auto w-full max-w-[1440px] px-6 md:px-12 lg:px-24 py-24 lg:py-32">
         <div className="flex max-w-[1200px] flex-col justify-center">
           <h1
