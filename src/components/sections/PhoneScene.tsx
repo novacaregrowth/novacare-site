@@ -278,7 +278,7 @@ function SignalIcon() {
   return (
     <svg
       viewBox="0 0 14 11"
-      width="14"
+      width="12"
       height="11"
       aria-hidden="true"
       className="text-bone"
@@ -294,7 +294,7 @@ function WifiIcon() {
   return (
     <svg
       viewBox="0 0 14 11"
-      width="14"
+      width="12"
       height="11"
       aria-hidden="true"
       className="text-bone"
@@ -335,7 +335,7 @@ function BatteryIcon({
   return (
     <svg
       viewBox="0 0 24 11"
-      width="24"
+      width="20"
       height="11"
       aria-hidden="true"
       className="text-bone"
@@ -383,117 +383,116 @@ function BatteryIcon({
   );
 }
 
-function ChevronIcon() {
+function PhoneGlyphIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
-      viewBox="0 0 8 14"
-      width="8"
-      height="14"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
       aria-hidden="true"
-      className="text-bone"
+      className="text-current"
     >
       <path
-        d="M7 1L1 7L7 13"
+        d="M5 4.5C5 3.67 5.67 3 6.5 3h2.06a1.5 1.5 0 0 1 1.49 1.31l.36 2.85a1.5 1.5 0 0 1-.42 1.27L8.4 9.94a13 13 0 0 0 5.66 5.66l1.51-1.59a1.5 1.5 0 0 1 1.27-.42l2.85.36A1.5 1.5 0 0 1 21 15.44V17.5c0 .83-.67 1.5-1.5 1.5C11.49 19 5 12.51 5 4.5z"
         stroke="currentColor"
         strokeWidth="1.5"
         fill="none"
-        strokeLinecap="round"
         strokeLinejoin="round"
       />
     </svg>
   );
 }
 
-function CameraIcon() {
+function VideoGlyphIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
-      viewBox="0 0 18 16"
-      width="18"
-      height="16"
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
       aria-hidden="true"
-      className="text-bone"
+      className="text-current"
     >
       <rect
-        x="1.5"
-        y="3.5"
-        width="15"
-        height="10.5"
-        rx="2.5"
+        x="3"
+        y="6.5"
+        width="13"
+        height="11"
+        rx="2"
         stroke="currentColor"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      <rect
-        x="6.5"
-        y="2"
-        width="5"
-        height="2"
-        rx="0.6"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        fill="none"
-      />
-      <circle
-        cx="9"
-        cy="9"
-        r="2.6"
-        stroke="currentColor"
-        strokeWidth="1.2"
-        fill="none"
-      />
-    </svg>
-  );
-}
-
-function SearchIcon() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      width="16"
-      height="16"
-      aria-hidden="true"
-      className="text-bone"
-    >
-      <circle
-        cx="7"
-        cy="7"
-        r="4.6"
-        stroke="currentColor"
-        strokeWidth="1.4"
+        strokeWidth="1.5"
         fill="none"
       />
       <path
-        d="M10.5 10.5L14 14"
+        d="M16 10l4.4-2.5a.5.5 0 0 1 .75.43v8.14a.5.5 0 0 1-.75.43L16 14v-4z"
         stroke="currentColor"
-        strokeWidth="1.4"
-        strokeLinecap="round"
-      />
-    </svg>
-  );
-}
-
-function NewChatIcon() {
-  return (
-    <svg
-      viewBox="0 0 16 16"
-      width="16"
-      height="16"
-      aria-hidden="true"
-      className="text-bone"
-    >
-      <path
-        d="M2 7.5V13C2 13.55 2.45 14 3 14H12.5C13.05 14 13.5 13.55 13.5 13V8"
-        stroke="currentColor"
-        strokeWidth="1.3"
-        fill="none"
-        strokeLinecap="round"
-      />
-      <path
-        d="M11.4 1.6L14.4 4.6L7.5 11.5L4 11.5L4 8L11.4 1.6Z"
-        stroke="currentColor"
-        strokeWidth="1.3"
+        strokeWidth="1.5"
         fill="none"
         strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function ChatsTabIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <path
+        d="M4 4.5C4 3.67 4.67 3 5.5 3h13c.83 0 1.5.67 1.5 1.5v10c0 .83-.67 1.5-1.5 1.5h-7.3l-3.5 3a.5.5 0 0 1-.83-.38V16H5.5C4.67 16 4 15.33 4 14.5v-10z"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+function StatusTabIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function GearTabIcon({ size = 22 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <circle
+        cx="12"
+        cy="12"
+        r="3"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        fill="none"
+      />
+      <path
+        d="M12 2v3M12 19v3M22 12h-3M5 12H2M19.07 4.93l-2.12 2.12M7.05 16.95l-2.12 2.12M19.07 19.07l-2.12-2.12M7.05 7.05L4.93 4.93"
+        stroke="currentColor"
+        strokeWidth="1.6"
+        strokeLinecap="round"
       />
     </svg>
   );
@@ -503,7 +502,7 @@ function DynamicIsland() {
   return (
     <div
       aria-hidden="true"
-      className="absolute top-3 left-1/2 -translate-x-1/2 w-[90px] h-[26px] rounded-full bg-black z-20"
+      className="absolute top-3 left-1/2 -translate-x-1/2 w-[84px] h-[24px] rounded-[16px] bg-black z-20"
     />
   );
 }
@@ -520,13 +519,15 @@ function StatusBar({
   staticBattery?: number;
 }) {
   return (
-    <div className="relative flex items-center justify-between px-7 pt-[18px] pb-2 text-bone text-[14px] [font-family:system-ui,-apple-system,Inter,sans-serif] font-medium">
+    <div className="relative h-[44px] px-3 lg:px-4 flex items-center justify-between text-bone text-[14px] [font-family:system-ui,-apple-system,Inter,sans-serif] font-semibold">
       {clockMV ? (
-        <motion.span className="tabular-nums leading-none">{clockMV}</motion.span>
+        <motion.span className="tabular-nums leading-none">
+          {clockMV}
+        </motion.span>
       ) : (
         <span className="tabular-nums leading-none">{staticClock ?? "9:41"}</span>
       )}
-      <div className="flex items-center gap-1.5">
+      <div className="flex items-center gap-1">
         <SignalIcon />
         <WifiIcon />
         <BatteryIcon fillWidth={batteryFillMV} staticFill={staticBattery} />
@@ -535,44 +536,36 @@ function StatusBar({
   );
 }
 
-function InstagramHeader({ username }: { username: string }) {
+function AppHeader({ phone }: { phone: Phone }) {
+  const initial = phone.username.charAt(0).toUpperCase();
   return (
-    <div className="flex items-center justify-between px-5 py-3 border-b border-[rgba(244,241,234,0.08)]">
-      <div className="flex items-center gap-3">
-        <ChevronIcon />
-        <span className="text-bone text-[14px] font-medium">{username}</span>
-      </div>
-      <CameraIcon />
-    </div>
-  );
-}
-
-function WhatsAppHeader({
-  unreadMV,
-  staticUnread,
-}: {
-  unreadMV?: MotionValue<string>;
-  staticUnread?: number;
-}) {
-  return (
-    <div className="flex items-end justify-between px-5 py-3 border-b border-[rgba(244,241,234,0.08)]">
-      <div className="flex flex-col">
-        <span className="font-serif text-bone text-[22px] leading-none font-normal">
-          Chats
-        </span>
-        {unreadMV ? (
-          <motion.span className="text-stone-soft text-[12px] mt-1 tabular-nums">
-            {unreadMV}
-          </motion.span>
-        ) : (
-          <span className="text-stone-soft text-[12px] mt-1 tabular-nums">
-            {staticUnread ?? 0} unread
+    <div className="h-[50px] lg:h-[60px] px-4 flex items-center justify-between [border-bottom:0.5px_solid_rgba(244,241,234,0.06)]">
+      <div className="flex items-center gap-3 min-w-0">
+        <div
+          className="w-8 h-8 rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[14px] flex-shrink-0"
+          style={{ backgroundImage: AVATAR_GRADIENTS[0] }}
+          aria-hidden="true"
+        >
+          {initial}
+        </div>
+        <div className="flex flex-col min-w-0">
+          <span className="text-bone text-[15px] font-medium leading-tight font-sans truncate">
+            {phone.username}
           </span>
-        )}
+          <div className="flex items-center gap-1 mt-0.5">
+            <span
+              aria-hidden="true"
+              className="w-1.5 h-1.5 rounded-full bg-[#34C759] flex-shrink-0"
+            />
+            <span className="text-stone-soft text-[11px] leading-none font-sans">
+              Active now
+            </span>
+          </div>
+        </div>
       </div>
-      <div className="flex items-center gap-3 pb-1">
-        <SearchIcon />
-        <NewChatIcon />
+      <div className="flex items-center gap-3 text-bone flex-shrink-0">
+        <PhoneGlyphIcon size={18} />
+        <VideoGlyphIcon size={18} />
       </div>
     </div>
   );
@@ -597,7 +590,9 @@ function MessageRow({
   const tsMV = useTransform(hoursAgoMV, formatTimestamp);
 
   const initialName = slot.name.charAt(0);
-  const dotColor = isWhatsApp ? "bg-[#25D366]" : "bg-destructive";
+  const dotColor = isWhatsApp
+    ? "bg-[rgba(37,211,102,0.95)]"
+    : "bg-[rgba(184,86,74,0.95)]";
 
   const finalTs = formatTimestamp(slot.curveHours[slot.curveHours.length - 1]);
 
@@ -608,10 +603,10 @@ function MessageRow({
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
       transition={{ duration: 0.4, ease: EASE }}
-      className="flex items-start gap-3 px-5 py-3 border-b border-[rgba(244,241,234,0.06)]"
+      className="flex items-center gap-3 px-4 py-2.5 [border-bottom:0.5px_solid_rgba(244,241,234,0.06)]"
     >
       <div
-        className="w-10 h-10 rounded-full flex items-center justify-center font-serif text-bone text-[16px] flex-shrink-0"
+        className="w-[38px] h-[38px] rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[15px] flex-shrink-0"
         style={{ backgroundImage: slot.gradient }}
         aria-hidden="true"
       >
@@ -619,56 +614,97 @@ function MessageRow({
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-baseline justify-between gap-2">
-          <span className="text-bone text-[14px] font-semibold truncate">
+          <span className="text-bone text-[15px] font-semibold truncate font-sans">
             {slot.name}
           </span>
           {isStatic ? (
-            <span className="text-stone-soft text-[12px] tabular-nums flex-shrink-0">
+            <span className="text-[rgba(244,241,234,0.4)] text-[13px] font-normal tabular-nums flex-shrink-0 font-sans">
               {finalTs}
             </span>
           ) : (
-            <motion.span className="text-stone-soft text-[12px] tabular-nums flex-shrink-0">
+            <motion.span className="text-[rgba(244,241,234,0.4)] text-[13px] font-normal tabular-nums flex-shrink-0 font-sans">
               {tsMV}
             </motion.span>
           )}
         </div>
-        <p className="text-stone-soft text-[13px] mt-0.5 line-clamp-1">
+        <p className="text-[rgba(244,241,234,0.55)] text-[14px] font-normal mt-0.5 line-clamp-1 font-sans">
           {slot.text}
         </p>
       </div>
       <span
         aria-hidden="true"
-        className={`w-2.5 h-2.5 rounded-full mt-1.5 flex-shrink-0 ${dotColor}`}
+        className={`w-2 h-2 rounded-full flex-shrink-0 ${dotColor}`}
       />
     </motion.div>
   );
 }
 
-function UnreadBadge({
-  countMV,
-  staticCount,
-  isWhatsApp,
-}: {
-  countMV?: MotionValue<number>;
-  staticCount?: number;
-  isWhatsApp: boolean;
-}) {
-  const bg = isWhatsApp ? "bg-[#25D366]" : "bg-destructive";
-  const shadow = isWhatsApp
-    ? "shadow-[0_4px_12px_rgba(37,211,102,0.4)]"
-    : "shadow-[0_4px_12px_rgba(184,86,74,0.4)]";
-  const label = isWhatsApp ? "WhatsApp unread count" : "Instagram unread count";
+function HomeIndicator() {
   return (
     <div
-      className={`absolute bottom-6 right-6 w-7 h-7 rounded-full ${bg} ${shadow} flex items-center justify-center font-serif text-bone text-[14px] tabular-nums leading-none`}
-      aria-label={label}
-    >
-      {countMV ? (
-        <motion.span aria-hidden="true">{countMV}</motion.span>
-      ) : (
-        staticCount ?? 0
-      )}
+      aria-hidden="true"
+      className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 w-[100px] lg:w-[134px] h-[4px] lg:h-[5px] rounded-[3px] bg-[rgba(244,241,234,0.35)]"
+    />
+  );
+}
+
+function TabBar({
+  isWhatsApp,
+  countMV,
+  staticCount,
+}: {
+  isWhatsApp: boolean;
+  countMV?: MotionValue<number>;
+  staticCount?: number;
+}) {
+  const badgeBg = isWhatsApp ? "bg-[#25D366]" : "bg-destructive";
+  return (
+    <div className="absolute bottom-0 left-0 right-0 h-[48px] lg:h-[56px] [border-top:0.5px_solid_rgba(244,241,234,0.06)] backdrop-blur-md bg-[rgba(15,15,15,0.92)]">
+      <HomeIndicator />
+      <div className="relative flex h-full items-center justify-around px-2">
+        <div className="flex flex-col items-center gap-1 text-bone">
+          <div className="relative">
+            <ChatsTabIcon size={22} />
+            <div
+              className={`absolute -top-1 -right-2 min-w-[18px] h-[18px] px-[5px] rounded-full ${badgeBg} flex items-center justify-center text-[#fff] text-[11px] font-bold tabular-nums leading-none font-sans`}
+              aria-label="unread chats"
+            >
+              {countMV ? (
+                <motion.span aria-hidden="true">{countMV}</motion.span>
+              ) : (
+                staticCount ?? 0
+              )}
+            </div>
+          </div>
+          <span className="text-[9px] leading-none font-sans">Chats</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-stone-soft">
+          <PhoneGlyphIcon size={22} />
+          <span className="text-[9px] leading-none font-sans">Calls</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-stone-soft">
+          <StatusTabIcon size={22} />
+          <span className="text-[9px] leading-none font-sans">Status</span>
+        </div>
+        <div className="flex flex-col items-center gap-1 text-stone-soft">
+          <GearTabIcon size={22} />
+          <span className="text-[9px] leading-none font-sans">Settings</span>
+        </div>
+      </div>
     </div>
+  );
+}
+
+function ScreenReflection() {
+  return (
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute top-0 left-0 right-0 h-1/2 z-10"
+      style={{
+        backgroundImage:
+          "linear-gradient(to bottom, rgba(244,241,234,0.04) 0%, rgba(244,241,234,0.01) 50%, rgba(244,241,234,0) 100%)",
+      }}
+    />
   );
 }
 
@@ -679,7 +715,6 @@ function PhoneDevice({
   batteryFillMV,
   visibleSlotIndices,
   badgeCountMV,
-  whatsappUnreadMV,
   reduce,
 }: {
   phone: Phone;
@@ -688,7 +723,6 @@ function PhoneDevice({
   batteryFillMV: MotionValue<number> | null;
   visibleSlotIndices: number[];
   badgeCountMV: MotionValue<number> | null;
-  whatsappUnreadMV: MotionValue<string> | null;
   reduce: boolean;
 }) {
   const isWhatsApp = phone.variant === "whatsapp-therapy";
@@ -699,14 +733,14 @@ function PhoneDevice({
 
   return (
     <div
-      className="relative w-[240px] h-[490px] lg:w-[280px] lg:h-[580px] rounded-[46px]"
+      className="relative w-[220px] h-[450px] lg:w-[260px] lg:h-[540px] rounded-[44px]"
       style={{
         backgroundImage: "linear-gradient(180deg, #1f1a15 0%, #15110d 100%)",
         boxShadow:
-          "inset 0 0 0 1px rgba(244,241,234,0.06), 0 20px 40px rgba(0,0,0,0.35), 0 8px 16px rgba(0,0,0,0.25)",
+          "inset 0 1px 0 rgba(244,241,234,0.08), inset 0 0 0 1px rgba(244,241,234,0.06), 0 20px 40px rgba(0,0,0,0.35), 0 8px 16px rgba(0,0,0,0.25)",
       }}
     >
-      <div className="absolute inset-[4px] rounded-[42px] bg-ink overflow-hidden">
+      <div className="absolute inset-[3px] rounded-[41px] bg-ink overflow-hidden">
         <DynamicIsland />
         <StatusBar
           clockMV={reduce ? undefined : clockMV ?? undefined}
@@ -714,14 +748,7 @@ function PhoneDevice({
           staticClock={reduce ? "8:33" : undefined}
           staticBattery={reduce ? 23 : undefined}
         />
-        {isWhatsApp ? (
-          <WhatsAppHeader
-            unreadMV={reduce ? undefined : whatsappUnreadMV ?? undefined}
-            staticUnread={reduce ? phone.badgeEnd : undefined}
-          />
-        ) : (
-          <InstagramHeader username={phone.username} />
-        )}
+        <AppHeader phone={phone} />
         <div className="flex flex-col">
           <AnimatePresence initial={false}>
             {visibleSlots.map(({ slot, index }) => (
@@ -735,11 +762,12 @@ function PhoneDevice({
             ))}
           </AnimatePresence>
         </div>
-        <UnreadBadge
+        <TabBar
+          isWhatsApp={isWhatsApp}
           countMV={reduce ? undefined : badgeCountMV ?? undefined}
           staticCount={reduce ? phone.badgeEnd : undefined}
-          isWhatsApp={isWhatsApp}
         />
+        <ScreenReflection />
       </div>
     </div>
   );
@@ -792,7 +820,6 @@ function PhoneShell({
   clockMV,
   batteryFillMV,
   badgeCountMV,
-  whatsappUnreadMV,
   smoothMouseX,
   smoothMouseY,
   isLg,
@@ -806,7 +833,6 @@ function PhoneShell({
   clockMV: MotionValue<string>;
   batteryFillMV: MotionValue<number>;
   badgeCountMV: MotionValue<number>;
-  whatsappUnreadMV: MotionValue<string>;
   smoothMouseX: MotionValue<number>;
   smoothMouseY: MotionValue<number>;
   isLg: boolean;
@@ -894,7 +920,6 @@ function PhoneShell({
         batteryFillMV={null}
         visibleSlotIndices={phone.slots.map((_, i) => i)}
         badgeCountMV={null}
-        whatsappUnreadMV={null}
         reduce
       />
     );
@@ -912,7 +937,7 @@ function PhoneShell({
         rotateX,
         rotateY,
         boxShadow,
-        borderRadius: 46,
+        borderRadius: 44,
       }}
       className="[transform-style:preserve-3d]"
     >
@@ -933,7 +958,6 @@ function PhoneShell({
             batteryFillMV={batteryFillMV}
             visibleSlotIndices={visibleSlotIndices}
             badgeCountMV={badgeCountMV}
-            whatsappUnreadMV={whatsappUnreadMV}
             reduce={false}
           />
         </motion.div>
@@ -1023,10 +1047,6 @@ export function PhoneScene() {
   const badge1 = useTransform(badge1Raw, (v) => Math.round(v));
   const badge2 = useTransform(badge2Raw, (v) => Math.round(v));
 
-  const whatsappUnread = useTransform(badge1, (v) => `${v} unread`);
-  // Phones 0 and 2 are Instagram — their WhatsApp header MV is unused but type-required.
-  const unusedSubtitle = useTransform(badge0, (v) => `${v} unread`);
-
   const headlineOverlayOpacity = useTransform(scrollYProgress, [0.8, 1.0], [0, 1]);
 
   const mouseX = useMotionValue(0);
@@ -1050,24 +1070,9 @@ export function PhoneScene() {
   }, [isLg, reduce, mouseX, mouseY]);
 
   const phoneArgs = [
-    {
-      phone: PHONES[0],
-      index: 0 as const,
-      badgeCountMV: badge0,
-      whatsappUnreadMV: unusedSubtitle,
-    },
-    {
-      phone: PHONES[1],
-      index: 1 as const,
-      badgeCountMV: badge1,
-      whatsappUnreadMV: whatsappUnread,
-    },
-    {
-      phone: PHONES[2],
-      index: 2 as const,
-      badgeCountMV: badge2,
-      whatsappUnreadMV: unusedSubtitle,
-    },
+    { phone: PHONES[0], index: 0 as const, badgeCountMV: badge0 },
+    { phone: PHONES[1], index: 1 as const, badgeCountMV: badge1 },
+    { phone: PHONES[2], index: 2 as const, badgeCountMV: badge2 },
   ];
 
   return (
@@ -1092,7 +1097,6 @@ export function PhoneScene() {
                 clockMV={clockMV}
                 batteryFillMV={batteryFillMV}
                 badgeCountMV={badge0}
-                whatsappUnreadMV={whatsappUnread}
                 smoothMouseX={smoothMouseX}
                 smoothMouseY={smoothMouseY}
                 isLg={isLg}
@@ -1116,7 +1120,6 @@ export function PhoneScene() {
                 clockMV={clockMV}
                 batteryFillMV={batteryFillMV}
                 badgeCountMV={args.badgeCountMV}
-                whatsappUnreadMV={args.whatsappUnreadMV}
                 smoothMouseX={smoothMouseX}
                 smoothMouseY={smoothMouseY}
                 isLg={isLg}
