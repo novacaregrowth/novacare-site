@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   AnimatePresence,
   motion,
@@ -383,6 +383,135 @@ function BatteryIcon({
   );
 }
 
+function ChevronLeftIcon({ size = 10 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <path
+        d="M15 6L9 12L15 18"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function CameraIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <rect
+        x="3"
+        y="7"
+        width="18"
+        height="13"
+        rx="2"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+      />
+      <path
+        d="M9 7L10 4H14L15 7"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinejoin="round"
+      />
+      <circle
+        cx="12"
+        cy="13.5"
+        r="3.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+      />
+    </svg>
+  );
+}
+
+function NewChatIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <path
+        d="M11 4H6C4.9 4 4 4.9 4 6V18C4 19.1 4.9 20 6 20H18C19.1 20 20 19.1 20 18V13"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinecap="round"
+      />
+      <path
+        d="M16.5 3.5L20.5 7.5L13 15H9V11L16.5 3.5Z"
+        stroke="currentColor"
+        strokeWidth="1.5"
+        fill="none"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+function MoreIcon({ size = 18 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-current"
+    >
+      <circle cx="12" cy="6" r="1.5" fill="currentColor" />
+      <circle cx="12" cy="12" r="1.5" fill="currentColor" />
+      <circle cx="12" cy="18" r="1.5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function SearchIconSmall({ size = 14 }: { size?: number }) {
+  return (
+    <svg
+      viewBox="0 0 16 16"
+      width={size}
+      height={size}
+      aria-hidden="true"
+      className="text-stone-soft flex-shrink-0"
+    >
+      <circle
+        cx="7"
+        cy="7"
+        r="4.6"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        fill="none"
+      />
+      <path
+        d="M10.5 10.5L14 14"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 function PhoneGlyphIcon({ size = 18 }: { size?: number }) {
   return (
     <svg
@@ -403,37 +532,7 @@ function PhoneGlyphIcon({ size = 18 }: { size?: number }) {
   );
 }
 
-function VideoGlyphIcon({ size = 18 }: { size?: number }) {
-  return (
-    <svg
-      viewBox="0 0 24 24"
-      width={size}
-      height={size}
-      aria-hidden="true"
-      className="text-current"
-    >
-      <rect
-        x="3"
-        y="6.5"
-        width="13"
-        height="11"
-        rx="2"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-      />
-      <path
-        d="M16 10l4.4-2.5a.5.5 0 0 1 .75.43v8.14a.5.5 0 0 1-.75.43L16 14v-4z"
-        stroke="currentColor"
-        strokeWidth="1.5"
-        fill="none"
-        strokeLinejoin="round"
-      />
-    </svg>
-  );
-}
-
-function ChatsTabIcon({ size = 22 }: { size?: number }) {
+function ChatsTabIcon({ size = 20 }: { size?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -450,7 +549,7 @@ function ChatsTabIcon({ size = 22 }: { size?: number }) {
   );
 }
 
-function StatusTabIcon({ size = 22 }: { size?: number }) {
+function UpdatesIcon({ size = 20 }: { size?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -464,14 +563,16 @@ function StatusTabIcon({ size = 22 }: { size?: number }) {
         cy="12"
         r="9"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.5"
         fill="none"
+        strokeDasharray="2 3"
       />
+      <circle cx="12" cy="12" r="2.6" fill="currentColor" />
     </svg>
   );
 }
 
-function GearTabIcon({ size = 22 }: { size?: number }) {
+function CommunitiesIcon({ size = 20 }: { size?: number }) {
   return (
     <svg
       viewBox="0 0 24 24"
@@ -480,21 +581,86 @@ function GearTabIcon({ size = 22 }: { size?: number }) {
       aria-hidden="true"
       className="text-current"
     >
-      <circle
-        cx="12"
-        cy="12"
-        r="3"
+      <rect
+        x="4"
+        y="4"
+        width="16"
+        height="6"
+        rx="1.5"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.5"
         fill="none"
       />
-      <path
-        d="M12 2v3M12 19v3M22 12h-3M5 12H2M19.07 4.93l-2.12 2.12M7.05 16.95l-2.12 2.12M19.07 19.07l-2.12-2.12M7.05 7.05L4.93 4.93"
+      <rect
+        x="4"
+        y="13"
+        width="16"
+        height="7"
+        rx="1.5"
         stroke="currentColor"
-        strokeWidth="1.6"
+        strokeWidth="1.5"
+        fill="none"
+      />
+      <line
+        x1="7"
+        y1="16.5"
+        x2="14"
+        y2="16.5"
+        stroke="currentColor"
+        strokeWidth="1.5"
         strokeLinecap="round"
       />
     </svg>
+  );
+}
+
+function IconButton({
+  children,
+  reduce,
+}: {
+  children: ReactNode;
+  reduce: boolean;
+}) {
+  return (
+    <motion.div
+      className="relative w-8 h-8 flex items-center justify-center cursor-pointer flex-shrink-0"
+      initial="rest"
+      animate="rest"
+      whileHover={reduce ? undefined : "hover"}
+    >
+      <motion.div
+        aria-hidden="true"
+        className="absolute inset-0 rounded-full bg-[rgba(244,241,234,0.06)]"
+        variants={{ rest: { opacity: 0 }, hover: { opacity: 1 } }}
+        transition={{ duration: 0.2 }}
+      />
+      <div className="relative z-10">{children}</div>
+    </motion.div>
+  );
+}
+
+function ClinicAvatar({
+  initial,
+  reduce,
+}: {
+  initial: string;
+  reduce: boolean;
+}) {
+  return (
+    <motion.div
+      className="w-8 h-8 rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[14px] flex-shrink-0 cursor-pointer"
+      style={{ backgroundImage: AVATAR_GRADIENTS[0] }}
+      initial={{ scale: 1, boxShadow: "0 0 0 rgba(200,109,79,0)" }}
+      whileHover={
+        reduce
+          ? undefined
+          : { scale: 1.05, boxShadow: "0 0 12px rgba(200,109,79,0.25)" }
+      }
+      transition={{ duration: 0.2 }}
+      aria-hidden="true"
+    >
+      {initial}
+    </motion.div>
   );
 }
 
@@ -536,18 +702,34 @@ function StatusBar({
   );
 }
 
-function AppHeader({ phone }: { phone: Phone }) {
+function AppHeaderInstagram({
+  phone,
+  countMV,
+  staticCount,
+  reduce,
+}: {
+  phone: Phone;
+  countMV?: MotionValue<number>;
+  staticCount?: number;
+  reduce: boolean;
+}) {
   const initial = phone.username.charAt(0).toUpperCase();
   return (
     <div className="h-[50px] lg:h-[60px] px-4 flex items-center justify-between [border-bottom:0.5px_solid_rgba(244,241,234,0.06)]">
-      <div className="flex items-center gap-3 min-w-0">
-        <div
-          className="w-8 h-8 rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[14px] flex-shrink-0"
-          style={{ backgroundImage: AVATAR_GRADIENTS[0] }}
-          aria-hidden="true"
-        >
-          {initial}
+      <div className="flex items-center gap-2.5 min-w-0">
+        <div className="flex items-center gap-1 text-bone flex-shrink-0">
+          <ChevronLeftIcon size={10} />
+          {countMV ? (
+            <motion.span className="text-bone text-[13px] font-semibold tabular-nums font-sans leading-none">
+              {countMV}
+            </motion.span>
+          ) : (
+            <span className="text-bone text-[13px] font-semibold tabular-nums font-sans leading-none">
+              {staticCount ?? 0}
+            </span>
+          )}
         </div>
+        <ClinicAvatar initial={initial} reduce={reduce} />
         <div className="flex flex-col min-w-0">
           <span className="text-bone text-[15px] font-medium leading-tight font-sans truncate">
             {phone.username}
@@ -563,24 +745,75 @@ function AppHeader({ phone }: { phone: Phone }) {
           </div>
         </div>
       </div>
-      <div className="flex items-center gap-3 text-bone flex-shrink-0">
-        <PhoneGlyphIcon size={18} />
-        <VideoGlyphIcon size={18} />
+      <div className="text-bone flex-shrink-0">
+        <IconButton reduce={reduce}>
+          <CameraIcon size={18} />
+        </IconButton>
       </div>
     </div>
   );
 }
 
-function MessageRow({
+function AppHeaderWhatsApp({ reduce }: { reduce: boolean }) {
+  return (
+    <div className="h-[56px] lg:h-[64px] px-4 flex items-center justify-between [border-bottom:0.5px_solid_rgba(244,241,234,0.06)]">
+      <span className="font-serif font-light text-bone text-[24px] leading-none">
+        Chats
+      </span>
+      <div className="flex items-center gap-1 text-bone">
+        <IconButton reduce={reduce}>
+          <CameraIcon size={18} />
+        </IconButton>
+        <IconButton reduce={reduce}>
+          <NewChatIcon size={18} />
+        </IconButton>
+        <IconButton reduce={reduce}>
+          <MoreIcon size={18} />
+        </IconButton>
+      </div>
+    </div>
+  );
+}
+
+function SearchField({
+  placeholder,
+  reduce,
+}: {
+  placeholder: string;
+  reduce: boolean;
+}) {
+  const [isFocused, setIsFocused] = useState(false);
+  return (
+    <div
+      tabIndex={0}
+      onClick={() => {
+        if (!reduce) setIsFocused(true);
+      }}
+      onBlur={() => setIsFocused(false)}
+      className={`h-9 mx-4 my-2 px-3 rounded-[10px] bg-[rgba(244,241,234,0.06)] flex items-center gap-2 cursor-text border outline-none transition-colors duration-200 ${
+        isFocused && !reduce
+          ? "border-[rgba(200,109,79,0.5)]"
+          : "border-transparent"
+      }`}
+    >
+      <SearchIconSmall />
+      <span className="text-stone-soft text-[13px] font-sans select-none">
+        {placeholder}
+      </span>
+    </div>
+  );
+}
+
+function MessageRowInstagram({
   slot,
   scrollYProgress,
-  isWhatsApp,
   isStatic,
+  reduce,
 }: {
   slot: Slot;
   scrollYProgress: MotionValue<number>;
-  isWhatsApp: boolean;
   isStatic?: boolean;
+  reduce: boolean;
 }) {
   const hoursAgoMV = useTransform(
     scrollYProgress,
@@ -588,13 +821,9 @@ function MessageRow({
     slot.curveHours,
   );
   const tsMV = useTransform(hoursAgoMV, formatTimestamp);
-
-  const initialName = slot.name.charAt(0);
-  const dotColor = isWhatsApp
-    ? "bg-[rgba(37,211,102,0.95)]"
-    : "bg-[rgba(184,86,74,0.95)]";
-
   const finalTs = formatTimestamp(slot.curveHours[slot.curveHours.length - 1]);
+  const initialName = slot.name.charAt(0);
+  const [isHovered, setIsHovered] = useState(false);
 
   return (
     <motion.div
@@ -602,8 +831,21 @@ function MessageRow({
       initial={isStatic ? false : { opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
-      transition={{ duration: 0.4, ease: EASE }}
-      className="flex items-center gap-3 px-4 py-2.5 [border-bottom:0.5px_solid_rgba(244,241,234,0.06)]"
+      whileHover={
+        reduce ? undefined : { backgroundColor: "rgba(244,241,234,0.04)" }
+      }
+      onHoverStart={() => {
+        if (!reduce) setIsHovered(true);
+      }}
+      onHoverEnd={() => {
+        if (!reduce) setIsHovered(false);
+      }}
+      transition={{
+        duration: 0.4,
+        ease: EASE,
+        backgroundColor: { duration: 0.2 },
+      }}
+      className="flex items-center gap-3 px-4 py-2.5 [border-bottom:0.5px_solid_rgba(244,241,234,0.06)] cursor-pointer"
     >
       <div
         className="w-[38px] h-[38px] rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[15px] flex-shrink-0"
@@ -617,24 +859,113 @@ function MessageRow({
           <span className="text-bone text-[15px] font-semibold truncate font-sans">
             {slot.name}
           </span>
-          {isStatic ? (
-            <span className="text-[rgba(244,241,234,0.4)] text-[13px] font-normal tabular-nums flex-shrink-0 font-sans">
-              {finalTs}
-            </span>
-          ) : (
-            <motion.span className="text-[rgba(244,241,234,0.4)] text-[13px] font-normal tabular-nums flex-shrink-0 font-sans">
-              {tsMV}
-            </motion.span>
-          )}
+          <div className="flex items-center gap-1.5 flex-shrink-0">
+            {isStatic ? (
+              <span className="text-stone-soft text-[12px] tabular-nums font-sans">
+                {finalTs}
+              </span>
+            ) : (
+              <motion.span className="text-stone-soft text-[12px] tabular-nums font-sans">
+                {tsMV}
+              </motion.span>
+            )}
+            <motion.span
+              aria-hidden="true"
+              className="w-[7px] h-[7px] rounded-full bg-destructive flex-shrink-0"
+              animate={
+                isHovered && !reduce ? { scale: [1, 1.3, 1] } : { scale: 1 }
+              }
+              transition={{ duration: 0.4, ease: "easeInOut" }}
+            />
+          </div>
         </div>
-        <p className="text-[rgba(244,241,234,0.55)] text-[14px] font-normal mt-0.5 line-clamp-1 font-sans">
+        <p className="text-stone-soft text-[13px] mt-0.5 line-clamp-1 font-sans">
           {slot.text}
         </p>
       </div>
-      <span
+    </motion.div>
+  );
+}
+
+function MessageRowWhatsApp({
+  slot,
+  scrollYProgress,
+  isStatic,
+  reduce,
+}: {
+  slot: Slot;
+  scrollYProgress: MotionValue<number>;
+  isStatic?: boolean;
+  reduce: boolean;
+}) {
+  const hoursAgoMV = useTransform(
+    scrollYProgress,
+    slot.curveProgress,
+    slot.curveHours,
+  );
+  const tsMV = useTransform(hoursAgoMV, formatTimestamp);
+  const finalTs = formatTimestamp(slot.curveHours[slot.curveHours.length - 1]);
+  const initialName = slot.name.charAt(0);
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <motion.div
+      layout="position"
+      initial={isStatic ? false : { opacity: 0, y: -20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      whileHover={
+        reduce ? undefined : { backgroundColor: "rgba(244,241,234,0.04)" }
+      }
+      onHoverStart={() => {
+        if (!reduce) setIsHovered(true);
+      }}
+      onHoverEnd={() => {
+        if (!reduce) setIsHovered(false);
+      }}
+      transition={{
+        duration: 0.4,
+        ease: EASE,
+        backgroundColor: { duration: 0.2 },
+      }}
+      className="flex items-center gap-3 px-4 py-2.5 [border-bottom:0.5px_solid_rgba(244,241,234,0.06)] cursor-pointer"
+    >
+      <div
+        className="w-[42px] h-[42px] rounded-full flex items-center justify-center font-sans font-semibold text-bone text-[16px] flex-shrink-0"
+        style={{ backgroundImage: slot.gradient }}
         aria-hidden="true"
-        className={`w-2 h-2 rounded-full flex-shrink-0 ${dotColor}`}
-      />
+      >
+        {initialName}
+      </div>
+      <div className="flex-1 min-w-0">
+        <span className="text-bone text-[15px] font-semibold truncate font-sans block">
+          {slot.name}
+        </span>
+        <p className="text-stone-soft text-[13px] mt-0.5 line-clamp-1 font-sans">
+          {slot.text}
+        </p>
+      </div>
+      <div className="flex flex-col items-end gap-1 flex-shrink-0">
+        {isStatic ? (
+          <span className="text-[#25D366] text-[12px] tabular-nums font-sans leading-none">
+            {finalTs}
+          </span>
+        ) : (
+          <motion.span className="text-[#25D366] text-[12px] tabular-nums font-sans leading-none">
+            {tsMV}
+          </motion.span>
+        )}
+        <motion.span
+          aria-hidden="true"
+          className="bg-[#25D366] text-white text-[10px] font-bold rounded-full h-4 min-w-[16px] px-1.5 flex items-center justify-center font-sans tabular-nums leading-none"
+          animate={
+            isHovered && !reduce ? { scale: [1, 1.3, 1] } : { scale: 1 }
+          }
+          transition={{ duration: 0.4, ease: "easeInOut" }}
+        >
+          1
+        </motion.span>
+      </div>
     </motion.div>
   );
 }
@@ -643,30 +974,26 @@ function HomeIndicator() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 w-[100px] lg:w-[134px] h-[4px] lg:h-[5px] rounded-[3px] bg-[rgba(244,241,234,0.35)]"
+      className="pointer-events-none absolute bottom-2 left-1/2 -translate-x-1/2 w-[100px] lg:w-[134px] h-[4px] lg:h-[5px] rounded-[3px] bg-[rgba(244,241,234,0.35)] z-[15]"
     />
   );
 }
 
-function TabBar({
-  isWhatsApp,
+function TabBarWhatsApp({
   countMV,
   staticCount,
 }: {
-  isWhatsApp: boolean;
   countMV?: MotionValue<number>;
   staticCount?: number;
 }) {
-  const badgeBg = isWhatsApp ? "bg-[#25D366]" : "bg-destructive";
   return (
-    <div className="absolute bottom-0 left-0 right-0 h-[48px] lg:h-[56px] [border-top:0.5px_solid_rgba(244,241,234,0.06)] backdrop-blur-md bg-[rgba(15,15,15,0.92)]">
-      <HomeIndicator />
-      <div className="relative flex h-full items-center justify-around px-2">
-        <div className="flex flex-col items-center gap-1 text-bone">
+    <div className="absolute bottom-0 left-0 right-0 h-[56px] lg:h-[64px] [border-top:0.5px_solid_rgba(244,241,234,0.06)] backdrop-blur-md bg-[rgba(15,15,15,0.92)]">
+      <div className="relative flex h-full items-stretch px-2">
+        <div className="flex-1 relative flex flex-col items-center justify-center gap-0.5 text-bone">
           <div className="relative">
-            <ChatsTabIcon size={22} />
+            <ChatsTabIcon size={20} />
             <div
-              className={`absolute -top-1 -right-2 min-w-[18px] h-[18px] px-[5px] rounded-full ${badgeBg} flex items-center justify-center text-[#fff] text-[11px] font-bold tabular-nums leading-none font-sans`}
+              className="absolute -top-1 -right-2 min-w-[18px] h-[18px] px-[5px] rounded-full bg-[#25D366] flex items-center justify-center text-white text-[11px] font-bold tabular-nums leading-none font-sans"
               aria-label="unread chats"
             >
               {countMV ? (
@@ -676,19 +1003,25 @@ function TabBar({
               )}
             </div>
           </div>
-          <span className="text-[9px] leading-none font-sans">Chats</span>
+          <span className="text-[10px] leading-none font-sans">Chats</span>
+          <span
+            aria-hidden="true"
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-7 h-[2px] bg-[#25D366]"
+          />
         </div>
-        <div className="flex flex-col items-center gap-1 text-stone-soft">
-          <PhoneGlyphIcon size={22} />
-          <span className="text-[9px] leading-none font-sans">Calls</span>
+        <div className="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-soft">
+          <UpdatesIcon size={20} />
+          <span className="text-[10px] leading-none font-sans">Updates</span>
         </div>
-        <div className="flex flex-col items-center gap-1 text-stone-soft">
-          <StatusTabIcon size={22} />
-          <span className="text-[9px] leading-none font-sans">Status</span>
+        <div className="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-soft">
+          <CommunitiesIcon size={20} />
+          <span className="text-[10px] leading-none font-sans">
+            Communities
+          </span>
         </div>
-        <div className="flex flex-col items-center gap-1 text-stone-soft">
-          <GearTabIcon size={22} />
-          <span className="text-[9px] leading-none font-sans">Settings</span>
+        <div className="flex-1 flex flex-col items-center justify-center gap-0.5 text-stone-soft">
+          <PhoneGlyphIcon size={20} />
+          <span className="text-[10px] leading-none font-sans">Calls</span>
         </div>
       </div>
     </div>
@@ -733,7 +1066,7 @@ function PhoneDevice({
 
   return (
     <div
-      className="relative w-[220px] h-[450px] lg:w-[260px] lg:h-[540px] rounded-[44px]"
+      className="relative w-[220px] h-[430px] lg:w-[260px] lg:h-[520px] rounded-[44px]"
       style={{
         backgroundImage: "linear-gradient(180deg, #1f1a15 0%, #15110d 100%)",
         boxShadow:
@@ -748,25 +1081,53 @@ function PhoneDevice({
           staticClock={reduce ? "8:33" : undefined}
           staticBattery={reduce ? 23 : undefined}
         />
-        <AppHeader phone={phone} />
-        <div className="flex flex-col">
-          <AnimatePresence initial={false}>
-            {visibleSlots.map(({ slot, index }) => (
-              <MessageRow
-                key={`${phone.variant}-${index}`}
-                slot={slot}
-                scrollYProgress={scrollYProgress}
-                isWhatsApp={isWhatsApp}
-                isStatic={reduce}
-              />
-            ))}
-          </AnimatePresence>
-        </div>
-        <TabBar
-          isWhatsApp={isWhatsApp}
-          countMV={reduce ? undefined : badgeCountMV ?? undefined}
-          staticCount={reduce ? phone.badgeEnd : undefined}
-        />
+        {isWhatsApp ? (
+          <>
+            <AppHeaderWhatsApp reduce={reduce} />
+            <SearchField placeholder="Search messages" reduce={reduce} />
+            <div className="flex flex-col">
+              <AnimatePresence initial={false}>
+                {visibleSlots.map(({ slot, index }) => (
+                  <MessageRowWhatsApp
+                    key={`${phone.variant}-${index}`}
+                    slot={slot}
+                    scrollYProgress={scrollYProgress}
+                    isStatic={reduce}
+                    reduce={reduce}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+            <TabBarWhatsApp
+              countMV={reduce ? undefined : badgeCountMV ?? undefined}
+              staticCount={reduce ? phone.badgeEnd : undefined}
+            />
+          </>
+        ) : (
+          <>
+            <AppHeaderInstagram
+              phone={phone}
+              countMV={reduce ? undefined : badgeCountMV ?? undefined}
+              staticCount={reduce ? phone.badgeEnd : undefined}
+              reduce={reduce}
+            />
+            <SearchField placeholder="Search" reduce={reduce} />
+            <div className="flex flex-col">
+              <AnimatePresence initial={false}>
+                {visibleSlots.map(({ slot, index }) => (
+                  <MessageRowInstagram
+                    key={`${phone.variant}-${index}`}
+                    slot={slot}
+                    scrollYProgress={scrollYProgress}
+                    isStatic={reduce}
+                    reduce={reduce}
+                  />
+                ))}
+              </AnimatePresence>
+            </div>
+          </>
+        )}
+        <HomeIndicator />
         <ScreenReflection />
       </div>
     </div>
@@ -951,15 +1312,20 @@ function PhoneShell({
         transition={{ duration: 0.3, ease: "easeOut" }}
       >
         <motion.div animate={pulseControls}>
-          <PhoneDevice
-            phone={phone}
-            scrollYProgress={scrollYProgress}
-            clockMV={clockMV}
-            batteryFillMV={batteryFillMV}
-            visibleSlotIndices={visibleSlotIndices}
-            badgeCountMV={badgeCountMV}
-            reduce={false}
-          />
+          <motion.div
+            whileTap={{ scale: 0.99, filter: "brightness(0.95)" }}
+            transition={{ duration: 0.15 }}
+          >
+            <PhoneDevice
+              phone={phone}
+              scrollYProgress={scrollYProgress}
+              clockMV={clockMV}
+              batteryFillMV={batteryFillMV}
+              visibleSlotIndices={visibleSlotIndices}
+              badgeCountMV={badgeCountMV}
+              reduce={false}
+            />
+          </motion.div>
         </motion.div>
       </motion.div>
     </motion.div>
@@ -973,8 +1339,8 @@ function Headline({
   reduce: boolean;
   scrollYProgress: MotionValue<number>;
 }) {
-  const opacity = useTransform(scrollYProgress, [0.8, 1.0], [0, 1]);
-  const y = useTransform(scrollYProgress, [0.8, 1.0], [20, 0]);
+  const opacity = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]);
+  const y = useTransform(scrollYProgress, [0.7, 0.85], [20, 0]);
 
   const headlineText = copy.home.phoneScene.headline;
   const parts = headlineText.split(/(\bloses\b)/);
@@ -1047,7 +1413,11 @@ export function PhoneScene() {
   const badge1 = useTransform(badge1Raw, (v) => Math.round(v));
   const badge2 = useTransform(badge2Raw, (v) => Math.round(v));
 
-  const headlineOverlayOpacity = useTransform(scrollYProgress, [0.8, 1.0], [0, 1]);
+  const headlineOverlayOpacity = useTransform(
+    scrollYProgress,
+    [0.7, 0.85],
+    [0, 1],
+  );
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -1079,7 +1449,7 @@ export function PhoneScene() {
     <section
       ref={sectionRef}
       aria-labelledby="problem-heading"
-      className="relative bg-ink min-h-[280vh] lg:min-h-[200vh] motion-reduce:min-h-screen"
+      className="relative bg-ink min-h-[280vh] lg:min-h-[240vh] motion-reduce:min-h-screen"
     >
       <h2 id="problem-heading" className="sr-only">
         The problem
@@ -1109,7 +1479,7 @@ export function PhoneScene() {
           <Headline reduce scrollYProgress={scrollYProgress} />
         </div>
       ) : (
-        <div className="lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center px-6 py-16 lg:py-0 [perspective:1200px]">
+        <div className="lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center px-6 py-16 lg:py-0 pt-8 lg:pt-12 [perspective:1200px]">
           <div className="relative flex flex-col lg:flex-row gap-16 lg:gap-12 items-center justify-center">
             {phoneArgs.map((args) => (
               <PhoneShell
