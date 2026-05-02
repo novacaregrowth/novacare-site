@@ -430,7 +430,7 @@ export function Phone({
   return (
     <div className="relative">
       <div
-        className="relative w-[min(82vw,320px)] md:w-[min(340px,38vh)] aspect-[9/19.5] rounded-[44px]"
+        className="relative w-[min(55vw,210px)] md:w-[min(340px,38vh)] aspect-[9/19.5] rounded-[44px]"
         style={{
           backgroundImage: FRAME_GRADIENT,
           boxShadow: FRAME_BOX_SHADOW,

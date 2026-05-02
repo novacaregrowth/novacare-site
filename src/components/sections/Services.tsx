@@ -19,9 +19,9 @@ import { Tier3Panel } from "./Services/Tier3Panel";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const HEADLINE_WORD_STAGGER = 0.08;
-const HEADLINE_WORD_DURATION = 0.5;
-const T_HEADLINE_START = 1.1;
+const HEADLINE_WORD_STAGGER = 0.04;
+const HEADLINE_WORD_DURATION = 0.25;
+const T_HEADLINE_START = 0.55;
 
 function StaticServices() {
   const services = copy.home.services;
@@ -31,7 +31,7 @@ function StaticServices() {
       className="bg-ink pb-32 md:pb-40"
     >
       <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12">
-        <div className="relative pt-32 pb-24 md:pt-40">
+        <div className="relative pt-20 pb-24 md:pt-40">
           <div className="relative flex flex-col items-center text-center">
             <div aria-hidden="true" className="h-px w-12 bg-terracotta" />
             <span className="mt-4 font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft">
@@ -83,7 +83,7 @@ export function Services() {
     hidden: { width: 0 },
     visible: {
       width: 48,
-      transition: { duration: 0.6, ease: EASE },
+      transition: { duration: 0.3, ease: EASE },
     },
   };
 
@@ -92,7 +92,7 @@ export function Services() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: 0.8, duration: 0.3, ease: EASE },
+      transition: { delay: 0.4, duration: 0.2, ease: EASE },
     },
   };
 
@@ -120,7 +120,7 @@ export function Services() {
     visible: {
       opacity: 1,
       y: 0,
-      transition: { delay: headlineEnd + 0.1, duration: 0.4, ease: EASE },
+      transition: { delay: headlineEnd, duration: 0.25, ease: EASE },
     },
   };
 
@@ -131,7 +131,7 @@ export function Services() {
       className="bg-ink pb-32 md:pb-40"
     >
       <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12">
-        <div className="relative pt-32 pb-24 md:pt-40">
+        <div className="relative pt-20 pb-24 md:pt-40">
           <motion.div
             initial="hidden"
             animate={inView ? "visible" : "hidden"}

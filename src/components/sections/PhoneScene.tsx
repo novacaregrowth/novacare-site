@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
+  animate,
   AnimatePresence,
   motion,
   useAnimationControls,
+  useInView,
   useMotionTemplate,
   useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useSpring,
@@ -272,6 +275,18 @@ function useIsLg() {
     return () => mq.removeEventListener("change", sync);
   }, []);
   return isLg;
+}
+
+function useIsMd() {
+  const [isMd, setIsMd] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 768px)");
+    const sync = () => setIsMd(mq.matches);
+    sync();
+    mq.addEventListener("change", sync);
+    return () => mq.removeEventListener("change", sync);
+  }, []);
+  return isMd;
 }
 
 function SignalIcon() {
@@ -1066,7 +1081,7 @@ function PhoneDevice({
 
   return (
     <div
-      className="relative w-[220px] h-[430px] lg:w-[260px] lg:h-[520px] rounded-[44px]"
+      className="relative w-[min(72vw,280px)] aspect-[220/430] lg:w-[260px] lg:h-[520px] lg:aspect-auto rounded-[44px]"
       style={{
         backgroundImage: "linear-gradient(180deg, #1f1a15 0%, #15110d 100%)",
         boxShadow:
@@ -1174,6 +1189,108 @@ const ENTRANCE: Record<0 | 1 | 2, EntranceConfig> = {
   },
 };
 
+const MOBILE_TIMELINE_S = 3.6;
+const SLOT_REVEAL_FACTOR_S = 3.84;
+const RESET_DEBOUNCE_MS = 500;
+
+function MobileAlivePhone({ phone }: { phone: Phone }) {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const inView = useInView(containerRef, { once: false, amount: 0, margin: "300px 0px 0px 0px" });
+  const resetTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const progress = useMotionValue(0);
+
+  const clockMinutes = useTransform(
+    progress,
+    [0, 0.2, 0.4, 0.6, 0.8, 1.0],
+    [581, 615, 750, 887, 1032, 1233],
+  );
+  const clockMV = useTransform(clockMinutes, formatClock);
+
+  const batteryPercent = useTransform(progress, [0, 1], [100, 40]);
+  const batteryFillMV = useTransform(batteryPercent, (v) => v * 0.19);
+
+  const badgeRaw = useTransform(
+    progress,
+    [0.2, 0.8],
+    [phone.badgeStart, phone.badgeEnd],
+  );
+  const badgeCountMV = useTransform(badgeRaw, (v) => Math.round(v));
+
+  const [visibleSlotIndices, setVisibleSlotIndices] = useState<number[]>(() =>
+    phone.slots
+      .map((s, i) => (s.appearsAt === 0 ? i : -1))
+      .filter((i) => i >= 0),
+  );
+
+  useEffect(() => {
+    const initialSlotIndices = phone.slots
+      .map((s, i) => (s.appearsAt === 0 ? i : -1))
+      .filter((i) => i >= 0);
+
+    if (inView) {
+      if (resetTimerRef.current) {
+        clearTimeout(resetTimerRef.current);
+        resetTimerRef.current = null;
+      }
+
+      progress.set(0);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setVisibleSlotIndices(initialSlotIndices);
+
+      const ctrl = animate(progress, 1, {
+        duration: MOBILE_TIMELINE_S,
+        ease: "linear",
+      });
+
+      const timers: ReturnType<typeof setTimeout>[] = [];
+      phone.slots.forEach((slot, slotIdx) => {
+        if (slot.appearsAt === 0) return;
+        const delayMs = slot.appearsAt * SLOT_REVEAL_FACTOR_S * 1000;
+        const timer = setTimeout(() => {
+          setVisibleSlotIndices((prev) =>
+            prev.includes(slotIdx)
+              ? prev
+              : [...prev, slotIdx].sort((a, b) => a - b),
+          );
+        }, delayMs);
+        timers.push(timer);
+      });
+
+      return () => {
+        ctrl.stop();
+        timers.forEach(clearTimeout);
+      };
+    }
+
+    resetTimerRef.current = setTimeout(() => {
+      progress.set(0);
+      setVisibleSlotIndices(initialSlotIndices);
+    }, RESET_DEBOUNCE_MS);
+
+    return () => {
+      if (resetTimerRef.current) {
+        clearTimeout(resetTimerRef.current);
+        resetTimerRef.current = null;
+      }
+    };
+  }, [inView, phone.slots, progress]);
+
+  return (
+    <div ref={containerRef}>
+      <PhoneDevice
+        phone={phone}
+        scrollYProgress={progress}
+        clockMV={clockMV}
+        batteryFillMV={batteryFillMV}
+        visibleSlotIndices={visibleSlotIndices}
+        badgeCountMV={badgeCountMV}
+        reduce={false}
+      />
+    </div>
+  );
+}
+
 function PhoneShell({
   phone,
   index,
@@ -1213,7 +1330,7 @@ function PhoneShell({
   const pulseControls = useAnimationControls();
 
   useEffect(() => {
-    if (reduce) return;
+    if (reduce || !isLg) return;
     const unsubscribe = scrollYProgress.on("change", (progress) => {
       const next = phone.slots
         .map((s, i) => (progress >= s.appearsAt ? i : -1))
@@ -1231,7 +1348,7 @@ function PhoneShell({
       }
     });
     return unsubscribe;
-  }, [scrollYProgress, phone.slots, pulseControls, reduce]);
+  }, [scrollYProgress, phone.slots, pulseControls, reduce, isLg]);
 
   const scaleEntrance = useTransform(
     scrollYProgress,
@@ -1286,6 +1403,10 @@ function PhoneShell({
     );
   }
 
+  if (!isLg) {
+    return <MobileAlivePhone phone={phone} />;
+  }
+
   return (
     <motion.div
       style={{
@@ -1334,14 +1455,11 @@ function PhoneShell({
 
 function Headline({
   reduce,
-  scrollYProgress,
+  revealed,
 }: {
   reduce: boolean;
-  scrollYProgress: MotionValue<number>;
+  revealed: boolean;
 }) {
-  const opacity = useTransform(scrollYProgress, [0.7, 0.85], [0, 1]);
-  const y = useTransform(scrollYProgress, [0.7, 0.85], [20, 0]);
-
   const headlineText = copy.home.phoneScene.headline;
   const parts = headlineText.split(/(\bloses\b)/);
 
@@ -1365,8 +1483,10 @@ function Headline({
 
   return (
     <motion.div
-      style={{ opacity, y }}
       className="flex items-center justify-center"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: revealed ? 1 : 0, y: revealed ? 0 : 20 }}
+      transition={{ duration: 0.6, ease: EASE }}
     >
       {inner}
     </motion.div>
@@ -1376,6 +1496,7 @@ function Headline({
 export function PhoneScene() {
   const reduce = useReducedMotion() ?? false;
   const isLg = useIsLg();
+  const isMd = useIsMd();
   const sectionRef = useRef<HTMLElement>(null);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
@@ -1413,11 +1534,11 @@ export function PhoneScene() {
   const badge1 = useTransform(badge1Raw, (v) => Math.round(v));
   const badge2 = useTransform(badge2Raw, (v) => Math.round(v));
 
-  const headlineOverlayOpacity = useTransform(
-    scrollYProgress,
-    [0.7, 0.85],
-    [0, 1],
-  );
+  const [headlineRevealed, setHeadlineRevealed] = useState(false);
+
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    if (v >= 0.7 && !headlineRevealed) setHeadlineRevealed(true);
+  });
 
   const mouseX = useMotionValue(0);
   const mouseY = useMotionValue(0);
@@ -1439,11 +1560,13 @@ export function PhoneScene() {
     return () => section.removeEventListener("mousemove", handler);
   }, [isLg, reduce, mouseX, mouseY]);
 
-  const phoneArgs = [
-    { phone: PHONES[0], index: 0 as const, badgeCountMV: badge0 },
-    { phone: PHONES[1], index: 1 as const, badgeCountMV: badge1 },
-    { phone: PHONES[2], index: 2 as const, badgeCountMV: badge2 },
-  ];
+  const phoneArgs = isMd
+    ? [
+        { phone: PHONES[0], index: 0 as const, badgeCountMV: badge0 },
+        { phone: PHONES[1], index: 1 as const, badgeCountMV: badge1 },
+        { phone: PHONES[2], index: 2 as const, badgeCountMV: badge2 },
+      ]
+    : [{ phone: PHONES[1], index: 1 as const, badgeCountMV: badge1 }];
 
   return (
     <section
@@ -1476,7 +1599,7 @@ export function PhoneScene() {
               />
             ))}
           </div>
-          <Headline reduce scrollYProgress={scrollYProgress} />
+          <Headline reduce revealed />
         </div>
       ) : (
         <div className="lg:sticky lg:top-0 lg:h-screen flex flex-col items-center justify-center px-6 py-16 lg:py-0 pt-8 lg:pt-12 [perspective:1200px]">
@@ -1498,15 +1621,12 @@ export function PhoneScene() {
                 reduce={false}
               />
             ))}
-            <motion.div
-              className="pointer-events-none absolute inset-0 hidden lg:flex items-center justify-center px-6 z-10"
-              style={{ opacity: headlineOverlayOpacity }}
-            >
-              <Headline reduce={false} scrollYProgress={scrollYProgress} />
-            </motion.div>
+            <div className="pointer-events-none absolute inset-0 hidden lg:flex items-center justify-center px-6 z-10">
+              <Headline reduce={false} revealed={headlineRevealed} />
+            </div>
           </div>
           <div className="lg:hidden mt-16">
-            <Headline reduce={false} scrollYProgress={scrollYProgress} />
+            <Headline reduce={false} revealed={headlineRevealed} />
           </div>
         </div>
       )}

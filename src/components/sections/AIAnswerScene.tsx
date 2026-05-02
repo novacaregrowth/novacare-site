@@ -93,10 +93,10 @@ function StaticAIAnswerScene() {
       {/* Scene-transition fade from Beat 2 into Beat 4 */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[120px] bg-gradient-to-b from-transparent to-ink"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[200px] bg-gradient-to-b from-transparent to-ink"
       />
 
-      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 max-w-[1200px] w-full">
+      <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-12 max-w-[1200px] w-full">
         <div className="relative flex items-center justify-center">
           <div
             aria-hidden="true"
@@ -396,7 +396,7 @@ export function AIAnswerScene() {
     <section
       ref={sectionRef}
       aria-labelledby="ai-answer-heading"
-      className="relative bg-ink min-h-[550vh] md:min-h-[600vh] motion-reduce:min-h-screen [perspective:1200px]"
+      className="relative bg-ink min-h-[400vh] md:min-h-[600vh] motion-reduce:min-h-screen [perspective:1200px]"
     >
       <h2 id="ai-answer-heading" className="sr-only">
         How Novacare answers
@@ -409,7 +409,7 @@ export function AIAnswerScene() {
       {/* Scene-transition fade from Beat 2 into Beat 4 */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[120px] bg-gradient-to-b from-transparent to-ink"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[200px] bg-gradient-to-b from-transparent to-ink"
       />
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden pt-20">
         {/* Vignette */}
@@ -419,7 +419,7 @@ export function AIAnswerScene() {
           style={{ backgroundImage: VIGNETTE_GRADIENT }}
         />
 
-        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 md:gap-16 px-6 max-w-[1200px] w-full">
+        <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-6 md:gap-16 px-6 max-w-[1200px] w-full">
           {/* Phone column */}
           <div className="relative flex items-center justify-center">
             {/* Atmospheric glow layer 1 (800px) */}
@@ -498,12 +498,20 @@ export function AIAnswerScene() {
               );
             })}
           </motion.p>
+
+          {/* Mobile-only inline caption (desktop uses the absolute caption below) */}
+          <motion.span
+            style={{ opacity: captionOpacity }}
+            className="md:hidden block px-6 text-center font-sans text-[12px] tracking-[0.12em] uppercase font-medium text-stone-soft"
+          >
+            {copy.home.aiAnswerScene.caption}
+          </motion.span>
         </div>
 
-        {/* Caption */}
+        {/* Desktop absolute caption */}
         <motion.span
           style={{ opacity: captionOpacity }}
-          className="absolute bottom-6 left-6 right-6 md:right-auto md:bottom-12 md:left-12 font-sans text-[12px] tracking-[0.12em] uppercase font-medium text-stone-soft text-center md:text-left"
+          className="hidden md:block absolute md:bottom-12 md:left-12 font-sans text-[12px] tracking-[0.12em] uppercase font-medium text-stone-soft md:text-left"
         >
           {copy.home.aiAnswerScene.caption}
         </motion.span>
