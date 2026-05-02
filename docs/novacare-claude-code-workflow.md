@@ -3,6 +3,8 @@
 > The missing manual. How to use Claude Code, the installed MCPs/plugins, the ui-ux-pro-max skill, and how to write prompts that produce non-generic output for Novacare's site.
 >
 > Read this before prompting Claude Code for any non-trivial task. It will save you hours of iteration.
+>
+> v2 update: Lessons from Beat 1 captured at the bottom. Read those first if you're about to build a scroll-driven cinematic scene. They will save you days, not hours.
 
 ---
 
@@ -215,6 +217,40 @@ Use the ui-ux-pro-max skill to audit the [component] component against:
 Report what passes, what fails, and proposed fixes. Do not make changes yet.
 ```
 
+### Pattern 5: Cinematic scene prompt (NEW, from Beat 1 lessons)
+
+Use when building scroll-driven scenes (PhoneScene, AI Answer scene, scroll-driven case study reveals). These are the most expensive components in the build because they require multiple iterations on visual fidelity.
+
+```
+ultrathink this one.
+
+Read first, in this order:
+1. CLAUDE.md
+2. The current file you're iterating on (if any)
+3. Any reference component already shipped (e.g. PhoneScene for motion patterns)
+4. Relevant design system sections
+
+## Scene architecture (lock these BEFORE design iteration begins)
+
+- Section wrapper: min-h-[Nvh] + sticky h-screen child + useScroll target ref + Lenis active globally
+- Data model: locked typed structures for whatever the scene contains (slots, messages, stages)
+- Motion model: useTransform tables with explicit scroll ranges per element
+- Reduced-motion path: render static final state in single branch, no per-property guards
+
+## Visual layer (iterate this)
+
+- Frame and chrome details
+- Typography weights and sizes
+- Hover states and micro-interactions
+- Color discipline (document hex exceptions explicitly)
+
+## Critical rule
+
+Once the scene's motion choreography and data model land cleanly, freeze them. All further iteration happens at the render layer only. This is what allows iteration to converge instead of regress.
+
+[rest of standard component spec follows]
+```
+
 ---
 
 ## Anti-patterns — prompts that produce bad output
@@ -249,6 +285,12 @@ Result: blue-tinted cold minimalism, wrong palette, wrong tone. Our aesthetic is
 
 Result: Claude creates 8 files, makes assumptions you'd have caught, and you can't roll back cleanly.
 
+### Anti-pattern 6: iterate the whole component at once (NEW, from Beat 1)
+
+> "Refine the phone scene — make the phones look more iOS, fix the timing, add interactions, change the layout"
+
+Result: each requested change competes with the others. Two iterations later you're re-litigating the first change. Fix one layer at a time.
+
 ---
 
 ## Workflow for building a new page — step by step
@@ -261,17 +303,18 @@ Check `src/content/copy.ts` has the relevant page's copy populated. If not, fill
 
 ### Step 2: Plan the sections
 
-List every section the page contains. Example for Home:
-1. Hero
-2. Positioning statement
-3. Services (3 tiers)
-4. Featured case study
-5. Why Novacare (4 points)
-6. Closing CTA
+List every section the page contains. Example for Home (current state, post-Beat 1):
+1. Hero (SHIPPED)
+2. PhoneScene / Beat 1 — The Problem (SHIPPED)
+3. AI Answer / Beat 2 — The Solution (PLANNED)
+4. Featured case study / Beat 3 — Proof (PLANNED)
+5. Services tiers / Beat 4 — The Offer (PLANNED)
+6. Why Novacare / Beat 5 (PLANNED)
+7. Closing CTA / Beat 6 (PLANNED)
 
 ### Step 3: Build sections one at a time
 
-For each section, use Pattern 1 (Component build prompt). Build, test, verify, then move to the next.
+For each section, use Pattern 1 (Component build prompt) or Pattern 5 (cinematic scene prompt). Build, test, verify, then move to the next.
 
 Order matters: build the Hero first because it sets the tone. Then the smallest/simplest sections. Build the CTA closer last — it's mostly a repeat of patterns already used.
 
@@ -397,6 +440,8 @@ If a component isn't landing after 2-3 iterations:
 
 Don't drown in 10 iterations on a single component. Strip and restart faster.
 
+Note from Beat 1: this rule needs nuance. For cinematic scroll scenes specifically, 5-7 iterations is normal and not a sign of failure, AS LONG AS the iterations stay at the render layer and the architecture stays frozen. If you find yourself iterating motion choreography or data structure on the third pass, that's the failure mode — strip and restart with a tighter spec.
+
 ---
 
 ## Final checklist before moving on from any component
@@ -414,3 +459,85 @@ Don't drown in 10 iterations on a single component. Strip and restart faster.
 - [ ] No em dashes anywhere
 - [ ] Content reads from `src/content/copy.ts`, not hardcoded
 - [ ] Git committed as a single cohesive change
+
+---
+
+## Lessons from Beat 1 (PhoneScene)
+
+The PhoneScene took roughly seven iterations from first POC to final ship: simple POC, fidelity rebuild, iOS modernization, app-distinct rebuild, plus two visual cleanup passes and one micro-interaction pass. Capturing what was learned so the next cinematic scene (Beat 2 onward) ships in three iterations instead of seven.
+
+### What works (do this on every cinematic scene)
+
+**Lock the architecture, iterate the render.**
+The scroll mechanics, data model, and motion choreography should be settled in iteration 1 and never touched again. All subsequent passes happen at the render layer only — frame styling, typography, micro-interactions. This is what made Beat 1 converge. Every iteration that touched motion ranges or data structure was a regression.
+
+**Use Lenis + Framer Motion + sticky h-screen as the proven scaffold.**
+Pattern: `min-h-[Nvh] motion-reduce:min-h-screen` outer section + `sticky top-0 h-screen` inner container + `useScroll({ target: ref, offset: ['start start', 'end end'] })`. This is the foundation of every scroll-driven scene. Lenis must be wired globally via SmoothScroll.tsx in layout.tsx. Don't reach for GSAP or ScrollTrigger unless this pattern fails for a specific reason — it doesn't, for any scene we've needed.
+
+**Custom UI beats fake real-app clones.**
+We tried mocking Instagram and WhatsApp directly in v2. It read as fake-Instagram, not as real iOS. Pivoted to a unified custom messaging UI in v3 — that read as flat and didn't differentiate the phones. Final answer in v4: app-distinct visual language without literal app cloning. Each phone reads as "a different messaging app" but neither is a 1:1 recreation. This avoids legal/uncanny risks while preserving narrative variety.
+
+**Phone fidelity requires every layer.**
+Don't skip any of these:
+- Outer frame with gradient (titanium feel)
+- Inner bezel with proper inset
+- Dynamic Island (the single most recognizable iOS signifier)
+- Status bar with custom SVG icons (not lucide — lucide reads as web)
+- Screen reflection overlay (subtle glass feeling)
+- Tab bar (when app-appropriate) or its absence (Instagram DM screens have none)
+- Home indicator pill at bottom
+
+Skipping any single one of these breaks the illusion. The home indicator in particular is the cheapest, smallest element with the highest visual payoff.
+
+**Micro-interactions are the line between "pretty" and "alive."**
+Hover states on rows, click feedback on devices, focus rings on inputs (even decorative ones), warm-glow on hovered icons — these are what make the scene feel real, not just rendered. Always gate them behind `useReducedMotion`. The visual difference is the difference between "AI-coded marketing site" and "a real product page."
+
+**Reduced motion is not optional.**
+Build it as you go. The pattern: `if (reduce) return <StaticVersion />` early-return at the top of the motion component. Rendering motion components with style props set to `undefined` is harder to maintain than two render branches. Two branches, one for each mode, is cleaner long-term.
+
+**Real-sounding data sells the scene.**
+"Patient A / Patient B / Patient C" reads as placeholder. Real UAE names (Fatima Al Mansouri, Mohammed Al Rashid, Hassan Al Falasi) and realistic message previews ("Hi, I'd like to book a dermatology consultation for next week, are you available?") sell the argument. The visitor reads one phone and feels the loss. Generic placeholders make them notice the construction.
+
+**Time evolution makes scenes argue, not just exist.**
+The clock ticking forward, battery draining, timestamps aging from "5m ago" to "3d ago", new messages sliding in — these are what turn a static mockup into a story. Without time evolution, the phones argue "look, three phones exist." With time evolution, they argue "look, time is passing and nobody is replying." Same elements, different conversion.
+
+### What doesn't work (avoid these on every cinematic scene)
+
+**Don't iterate motion choreography after iteration 2.**
+If your motion ranges, stagger timings, or scroll thresholds are still being adjusted on iteration 3+, the architecture is wrong and no amount of visual polish will save it. Strip and restart with a tighter spec.
+
+**Don't compromise on typography weights to save a hex value.**
+The micro-typography weights (15px / 14px / 13px at semibold / regular / regular for name / preview / timestamp) are what make the scene feel iOS-modern instead of generic web. These specific values matter. Don't approximate.
+
+**Don't ship a custom global cursor.**
+Per design system. They break trackpad gestures, look bad on retina, don't exist on touch (60% of UAE traffic). Use cursor-pointer on individual interactive elements instead — gives the same affordance without the breakage.
+
+**Don't stack too many concurrent animations.**
+Each cinematic scene is allowed one motion moment per scroll beat. Three phones entering with focus-pull is one moment. Mouse parallax responding to cursor is one moment. New messages sliding in is one moment. Try to stack four or five and the scene reads as chaotic. Less is more.
+
+**Don't skip the Plan Mode review on cinematic scenes.**
+This is the most expensive build category. A 600-line component touching one file looks small but it's not. Plan Mode review catches structural problems (hooks-in-loops, missing reduced-motion paths, color budget violations) before they're written into the code. Skip Plan Mode and you'll iterate 3 extra times.
+
+### Iteration cost economics
+
+Cinematic scenes average 5-7 iterations. Each iteration costs less than the previous one if architecture stays frozen. Budget time accordingly:
+
+- POC iteration: 2-3 hours (motion mechanics, data model, basic render)
+- Fidelity rebuild: 3-4 hours (proper frame, status bar, app UI)
+- Polish iterations: 30-60 min each (typography tightening, micro-interactions, dwell timing)
+
+Total for a single cinematic scene: 8-12 hours of focused work. Plan the homepage build accordingly — three cinematic beats (1, 2, 3) is roughly 30 hours of build time. The conversion-phase beats (4, 5, 6) are much faster: 1-2 hours each, because they're typography-driven, not motion-driven.
+
+### When to start a new chat (model context management)
+
+For Novacare-scale builds, start a new Claude chat at these natural boundaries:
+- Between major beats (Beat 1 ships → new chat for Beat 2)
+- When the previous chat has been through 5+ iterations on one component
+- When the chat starts responding noticeably slower or referencing decisions imprecisely
+
+Do NOT start a new chat:
+- Mid-iteration on the same component
+- When the conversation context contains active visual judgment that the new chat would have to reconstruct from screenshots
+- When you're about to debug a specific error (you'll lose the diagnostic thread)
+
+Always commit before transitioning chats. The new chat reads project files fresh; the only state that transfers is what's in git.

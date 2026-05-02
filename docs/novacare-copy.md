@@ -1,6 +1,8 @@
-# Novacare Growth — Full Site Copy (v3, LOCKED)
+# Novacare Growth — Full Site Copy (v4, LOCKED)
 
 > Source of truth for every piece of text on novacaregrowth.com. If this document and a component disagree, this document wins. All copy follows the voice rules in the project instructions: no em dashes, no AI-slop phrases, direct and confident.
+>
+> v4 update: home page restructured to reflect the cinematic scroll arc that shipped in Beat 1 (PhoneScene). Old prose-heavy Positioning section retired. Beats 2 through 5 reserved for upcoming builds.
 
 ---
 
@@ -27,7 +29,9 @@ Primary CTA: "Start a project" → WhatsApp link (`https://wa.me/971XXXXXXXXX` �
 
 ## Home
 
-### Hero
+The home page is built as a sequence of scroll-driven beats, not a stack of conventional sections. Each beat is a moment in a single argument: problem → solution → proof → offer → close. The cinematic phase (Beats 1 through 3) does the emotional work. The practical phase (Beats 4 through 5) does the conversion work.
+
+### Beat 0 — Hero (SHIPPED)
 
 **H1**: Websites and AI systems for the UAE's most ambitious clinics.
 
@@ -36,15 +40,66 @@ Primary CTA: "Start a project" → WhatsApp link (`https://wa.me/971XXXXXXXXX` �
 **Primary CTA**: Start a project → WhatsApp
 **Secondary CTA**: See our work → `/work`
 
-### Section 2 — Positioning
+**Visual treatment**: Word-by-word fade-in on H1 (60ms stagger, 600ms duration each). Background video is an ambient amber smoke-through-pendant-light loop generated via Veo 3.1, with a three-stop left-to-right gradient overlay for text legibility, and a bottom 30% fade-to-black for transition continuity into Beat 1.
 
-**Label (caption style)**: What we do
+### Beat 1 — The Problem / PhoneScene (SHIPPED)
 
-Most clinics in the UAE are losing patients every week. A slow website. DMs that go unanswered for hours. A booking flow that makes people give up before they reach a calendar. These are not design problems. They are revenue problems.
+A scroll-driven scene replacing what used to be the prose Positioning section. Three iPhone-style mockups show three UAE clinics' messaging inboxes filling with unanswered patient inquiries. No paragraphs. The argument is made visually.
 
-Novacare builds fast, high-end websites for wellness centers, therapy practices, and medical clinics across the UAE, and pairs them with AI systems that handle the parts of your practice that shouldn't need a human. Instant replies on WhatsApp. 24/7 booking. Automatic follow-ups. You keep the human work. We automate the rest.
+**Composition**:
+- Phone 1 (left): dr.sara.derma — Instagram-style DM list (dermatology clinic)
+- Phone 2 (center): waveclinic.therapy — WhatsApp-style chats list (therapy practice)
+- Phone 3 (right): skylinedental.dxb — Instagram-style DM list (dental clinic)
 
-### Section 3 — Services (tiers with visible pricing)
+Each phone shows seven real-sounding UAE patient names (Fatima Al Mansouri, Mohammed Al Rashid, Hassan Al Falasi, etc.) with realistic message previews like "Hi, I'd like to book a dermatology consultation for next week, are you available?" and "Looking for a therapist for anxiety, do you have availability this month?"
+
+As the user scrolls:
+- The clock on each phone advances 9:41 → 10:15 → 12:30 → 2:47 → 5:12 → 8:33
+- Battery drains from 100% to 23%
+- Timestamps age (5m → 2h → 1d → 3d ago, with subtle per-phone variation: therapy fills fastest, dental is most-neglected)
+- Unread message counts tick up (3 → 7, 5 → 14, 2 → 23)
+- New messages slide in from above with parent-phone scale pulse on each insert
+- Phones receive a subtle desaturation and warm glow as the scene progresses
+
+**Headline (revealed at end of scroll arc, scroll progress 0.7 → 0.85, then dwells through 1.0)**:
+"Every clinic in the UAE loses patients like this."
+
+The word "loses" appears in terracotta. The rest stays bone serif. No subhead, no CTA in this beat — the headline is the whole point.
+
+**Why this beat**: the previous prose version of Positioning argued the same point in two paragraphs. The visual scene argues it in 30 seconds of scroll. Same thesis, different conversion mechanism. The reader feels the loss, not just understands it.
+
+### Beat 2 — The Answer / AI Reception scene (PLANNED, NOT YET BUILT)
+
+The inverse of Beat 1. Where Beat 1 shows clinics losing patients to silence, Beat 2 shows what happens when a clinic uses Novacare. A patient sends a message. Eight seconds later, an AI agent in clinic tone replies. The booking is confirmed. The patient is closed before they would have moved on to a competitor.
+
+**Tentative composition** (subject to design pass):
+- Single phone, centered (or split-screen showing the same conversation from both patient and clinic sides)
+- Scroll-driven message exchange: patient inquiry, brief typing indicator, AI reply, follow-up, booking confirmation
+- Tone of the AI must match real clinic warmth — not corporate, not chatbot
+- Visual climax: the booking confirmation card appearing in the conversation
+
+**Tentative headline**:
+"This is what they message back when you let them."
+
+(Subject to revision once the visual is locked.)
+
+**Why this beat**: Beat 1 created tension. Beat 2 must release it. Without this release, the visitor leaves the page anxious about a problem instead of confident in the solution.
+
+### Beat 3 — Featured case study / Al Yasmine (PLANNED, NOT YET BUILT)
+
+Visual proof. A scroll-driven device frame (laptop or browser-window mockup) showing alyasminecenter.com being toured. The visitor sees the actual site we built for our actual client.
+
+**Headline**:
+"Al Yasmine Center. A therapy practice with 120,000+ followers, now with a home online."
+
+**Body**:
+Alia Bahri built one of the most trusted therapy presences in the UAE. Thousands of DMs a week. A waiting list. A community of 120,000+ people following her work on Instagram. What was missing was a proper digital home. We designed and built it.
+
+**CTA**: See the case study → /work/al-yasmine
+
+### Beat 4 — Services tiers (PLANNED, NOT YET BUILT)
+
+The practical phase begins here. Three tier cards with visible pricing. Hover to expand details. This is where copy.ts finally does heavy lifting — the cinematic phase ends, the conversion phase begins.
 
 **Label**: How we work together
 
@@ -70,17 +125,7 @@ Novacare builds fast, high-end websites for wellness centers, therapy practices,
 - Launch: Launch in 4 to 6 weeks.
 - CTA: Book a call → /contact
 
-### Section 4 — Featured case study
-
-**Label**: Recent work
-
-**Headline**: Al Yasmine Center. A therapy practice with 120,000+ followers, now with a home online.
-
-**Body**: Alia Bahri built one of the most trusted therapy presences in the UAE. Thousands of DMs a week. A waiting list. A community of 120,000+ people following her work on Instagram. What was missing was a proper digital home. We designed and built it.
-
-**CTA**: See the case study → /work/al-yasmine
-
-### Section 5 — Why Novacare
+### Beat 5 — Why Novacare (PLANNED, NOT YET BUILT)
 
 **Label**: Why Novacare
 
@@ -98,11 +143,13 @@ Our sites are built on Next.js, TypeScript, and Vercel. The same stack used by O
 **We work with a small number of clinics at once.**
 We take on a limited number of clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.
 
-### Section 6 — Closing CTA
+### Beat 6 — Closing CTA (PLANNED, NOT YET BUILT)
 
 **H2**: Let's build something you're proud to send people to.
 
 **Subhead**: Tell us about your clinic. We'll reply within the day.
+
+**Capacity indicator (small caption above H2)**: Three slots remaining this quarter.
 
 **Primary CTA**: Message us on WhatsApp
 **Secondary CTA**: yazan@novacaregrowth.com (replace with real email)

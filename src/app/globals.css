@@ -38,6 +38,7 @@
   --color-popover: var(--popover);
   --color-card-foreground: var(--card-foreground);
   --color-card: var(--card);
+  --color-card-elevated: var(--card-elevated);
   --color-ink: var(--ink);
   --color-bone: var(--bone);
   --color-espresso: var(--espresso);
@@ -45,6 +46,7 @@
   --color-stone: var(--stone);
   --color-stone-soft: var(--stone-soft);
   --color-border-warm: var(--border-warm);
+  --color-bubble-sent: var(--bubble-sent);
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
   --radius-lg: var(--radius);
@@ -58,6 +60,7 @@
   --background: #0A0A0A;
   --foreground: #F4F1EA;
   --card: #1A1410;
+  --card-elevated: #1F1812;
   --card-foreground: #F4F1EA;
   --popover: #1A1410;
   --popover-foreground: #F4F1EA;
@@ -82,6 +85,12 @@
   --stone: #6B655C;
   --stone-soft: #8A8378;
   --border-warm: #2A2520;
+  --bubble-sent: #3A2820;
+}
+
+@keyframes chart-dot-pulse {
+  0%, 100% { opacity: 0.85; }
+  50% { opacity: 1; }
 }
 
 @layer base {
