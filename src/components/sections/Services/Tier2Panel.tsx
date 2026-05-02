@@ -13,20 +13,22 @@ import { copy } from "@/content/copy";
 
 import { ArtifactPhoneReal } from "./artifacts/ArtifactPhoneReal";
 import { FeaturesConversation } from "./features/FeaturesConversation";
-import { PanelChrome } from "./PanelChrome";
 import { PanelPrice } from "./PanelPrice";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const ARTIFACT_INTRO_DELAY_SEC = 0.15;
-const ARTIFACT_FADE_DUR = 0.6;
+const ARTIFACT_INTRO_DELAY_SEC = 0.1;
+const ARTIFACT_FADE_DUR = 0.4;
 
-const CASCADE_START_SEC = 1.6;
+const CHROME_START_SEC = 0.65;
+const CHROME_DUR_SEC = 0.3;
+const TIER2_MARKER_DUR_SEC = 0.75;
+
+const CASCADE_START_SEC = 1.15;
 const DEL_LABEL = 0;
 const DEL_HEADLINE = 0.05;
 const DEL_PRICE = 0.15;
 const DEL_HAIRLINE_1 = 0.25;
-const DEL_PHONE_CONTAINER = 0.3;
 const DEL_HAIRLINE_2 = 0.5;
 const DEL_INTRO_HEADER = 0.55;
 const DEL_FEATURES_BASE = 0.6;
@@ -34,10 +36,12 @@ const DEL_HAIRLINE_3 = 0.85;
 const DEL_META = 0.9;
 const DEL_CTA = 0.95;
 const DEL_CONVERSATION_INTRO = 1.0;
-const DEL_TIER2_MARKER = 1.45;
 
 const FADE_DUR = 0.4;
 const HAIRLINE_DUR = 0.2;
+
+const HAIRLINE_GRADIENT =
+  "linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--border-warm) 60%, transparent) 20%, color-mix(in srgb, var(--border-warm) 60%, transparent) 80%, transparent 100%)";
 
 type Props = {
   play: boolean;
@@ -109,10 +113,10 @@ export function Tier2Panel({ play, isStatic }: Props) {
 
   const hairlineProps = (delaySec: number) =>
     isStatic
-      ? { initial: { scaleX: 1 }, animate: { scaleX: 1 } }
+      ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
       : {
-          initial: { scaleX: 0 },
-          animate: play ? { scaleX: 1 } : { scaleX: 0 },
+          initial: { opacity: 0 },
+          animate: play ? { opacity: 1 } : { opacity: 0 },
           transition: {
             delay: CASCADE_START_SEC + delaySec,
             duration: HAIRLINE_DUR,
@@ -120,8 +124,59 @@ export function Tier2Panel({ play, isStatic }: Props) {
           },
         };
 
+  const chromeStaticFinal = {
+    borderColor: "var(--border-warm)",
+    borderTopColor: "var(--terracotta)",
+    backgroundColor: "var(--card-elevated)",
+  };
+  const chromeInitial = isStatic
+    ? chromeStaticFinal
+    : {
+        borderColor: "transparent",
+        borderTopColor: "transparent",
+        backgroundColor: "transparent",
+      };
+  const chromeAnimate = isStatic
+    ? chromeStaticFinal
+    : play
+    ? {
+        borderColor: "var(--border-warm)",
+        borderTopColor: [
+          "transparent",
+          "var(--border-warm)",
+          "var(--border-warm)",
+          "var(--terracotta)",
+        ],
+        backgroundColor: "var(--card-elevated)",
+      }
+    : {
+        borderColor: "transparent",
+        borderTopColor: "transparent",
+        backgroundColor: "transparent",
+      };
+  const chromeTransition = isStatic
+    ? undefined
+    : {
+        borderColor: {
+          delay: CHROME_START_SEC,
+          duration: CHROME_DUR_SEC,
+          ease: EASE,
+        },
+        backgroundColor: {
+          delay: CHROME_START_SEC,
+          duration: CHROME_DUR_SEC,
+          ease: EASE,
+        },
+        borderTopColor: {
+          delay: CHROME_START_SEC,
+          duration: TIER2_MARKER_DUR_SEC,
+          times: [0, 0.4, 0.6, 1],
+          ease: EASE,
+        },
+      };
+
   return (
-    <a
+    <motion.a
       href={tier.ctaHref}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
@@ -129,19 +184,11 @@ export function Tier2Panel({ play, isStatic }: Props) {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative block rounded-md p-6 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:p-8"
+      className="group relative block rounded-2xl border p-6 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:p-8"
+      initial={chromeInitial}
+      animate={chromeAnimate}
+      transition={chromeTransition}
     >
-      <PanelChrome
-        tierIndex={1}
-        featured
-        play={play}
-        isStatic={isStatic}
-        bgClassName="bg-card-elevated"
-        tier2MarkerDelaySec={
-          isStatic ? 0 : CASCADE_START_SEC + DEL_TIER2_MARKER
-        }
-      />
-
       <motion.div
         className="relative z-[1]"
         style={enableParallax ? { x: headlineX, y: headlineY } : undefined}
@@ -173,16 +220,15 @@ export function Tier2Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_1)}
       />
 
       <motion.div
         className="relative z-[1] mt-6"
         style={enableParallax ? { x: artifactX, y: artifactY } : undefined}
-        initial={
-          isStatic ? { opacity: 1, y: 0 } : { opacity: 0.01, y: 24 }
-        }
+        initial={isStatic ? { opacity: 1, y: 0 } : { opacity: 0.01, y: 24 }}
         animate={
           isStatic
             ? { opacity: 1, y: 0 }
@@ -206,7 +252,8 @@ export function Tier2Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_2)}
       />
 
@@ -233,7 +280,8 @@ export function Tier2Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_3)}
       />
 
@@ -255,6 +303,6 @@ export function Tier2Panel({ play, isStatic }: Props) {
           {tier.ctaLabel} →
         </motion.span>
       </motion.div>
-    </a>
+    </motion.a>
   );
 }

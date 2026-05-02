@@ -1449,7 +1449,7 @@ export function PhoneScene() {
     <section
       ref={sectionRef}
       aria-labelledby="problem-heading"
-      className="relative bg-ink min-h-[280vh] lg:min-h-[240vh] motion-reduce:min-h-screen"
+      className="relative bg-ink min-h-screen md:min-h-[280vh] lg:min-h-[240vh] motion-reduce:min-h-screen"
     >
       <h2 id="problem-heading" className="sr-only">
         The problem

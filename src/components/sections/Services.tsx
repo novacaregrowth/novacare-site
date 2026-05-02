@@ -68,7 +68,7 @@ function StaticServices() {
 export function Services() {
   const reduce = useReducedMotion() ?? false;
   const sectionRef = useRef<HTMLElement>(null);
-  const inView = useInView(sectionRef, { once: true, amount: 0.2 });
+  const inView = useInView(sectionRef, { once: true, amount: 0.05 });
 
   if (reduce) return <StaticServices />;
 
@@ -179,7 +179,7 @@ export function Services() {
           </motion.div>
         </div>
 
-        <div className="relative">
+        <div className="relative overflow-hidden">
           <SectionSweep play={inView} />
           <div className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
             <Tier1Panel play={inView} />

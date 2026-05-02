@@ -25,6 +25,7 @@ const HOVER_TIMINGS_MS = {
 
 const BUBBLE_INITIAL = { opacity: 0.01, scale: 0.96 };
 const BUBBLE_ANIMATE = { opacity: 1, scale: [0.96, 1.04, 1] };
+const BUBBLE_EXIT = { opacity: 0.01, scale: 0.96 };
 const BUBBLE_TRANSITION = { duration: 0.35, ease: EASE };
 
 const TYPING_INITIAL = { opacity: 0.01, y: 6 };
@@ -46,6 +47,7 @@ export function ArtifactPhoneReal({
 }: Props) {
   const [stage, setStage] = useState<Stage>(enableIntros ? "init" : "settled");
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
+  const introPlayedRef = useRef(false);
 
   const clearTimers = () => {
     timeoutsRef.current.forEach((t) => clearTimeout(t));
@@ -53,42 +55,45 @@ export function ArtifactPhoneReal({
   };
 
   useEffect(() => {
+    return () => clearTimers();
+  }, []);
+
+  useEffect(() => {
     if (!enableIntros) {
       setStage("settled");
       return;
     }
     if (!play) return;
-    if (stage !== "init") return;
+    if (introPlayedRef.current) return;
 
+    introPlayedRef.current = true;
     const offsetMs = introDelaySec * 1000;
-    clearTimers();
-    timeoutsRef.current = [
+    timeoutsRef.current.push(
       setTimeout(() => setStage("patient"), offsetMs + INTRO_TIMINGS_MS.patient),
       setTimeout(() => setStage("typing"), offsetMs + INTRO_TIMINGS_MS.typing),
       setTimeout(() => setStage("settled"), offsetMs + INTRO_TIMINGS_MS.ai),
-    ];
-
-    return clearTimers;
-  }, [play, introDelaySec, enableIntros, stage]);
+    );
+  }, [play, introDelaySec, enableIntros]);
 
   useEffect(() => {
     if (!enableIntros) return;
-    if (stage !== "settled") return;
     if (!hovered) return;
+    if (!introPlayedRef.current) return;
+    if (stage !== "settled") return;
 
     clearTimers();
     setStage("init");
-    timeoutsRef.current = [
+    timeoutsRef.current.push(
       setTimeout(() => setStage("patient"), HOVER_TIMINGS_MS.patient),
       setTimeout(() => setStage("typing"), HOVER_TIMINGS_MS.typing),
       setTimeout(() => setStage("settled"), HOVER_TIMINGS_MS.ai),
-    ];
-
-    return clearTimers;
+    );
+    // Intentionally no cleanup return: hover-out should not cancel an in-flight
+    // replay. The cycle completes on its own; the next hover-in starts a fresh one.
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hovered]);
+  }, [hovered, enableIntros]);
 
-  const showPatient = stage !== "init";
+  const showPatient = stage === "patient" || stage === "typing" || stage === "settled";
   const showTyping = stage === "typing";
   const showAi = stage === "settled";
 
@@ -114,6 +119,7 @@ export function ArtifactPhoneReal({
               className="flex flex-col items-end"
               initial={BUBBLE_INITIAL}
               animate={BUBBLE_ANIMATE}
+              exit={BUBBLE_EXIT}
               transition={BUBBLE_TRANSITION}
             >
               <div className="max-w-[80%] rounded-2xl rounded-br-sm bg-bubble-sent px-2.5 py-1.5 font-sans text-[10px] leading-[1.35] text-bone">
@@ -126,7 +132,7 @@ export function ArtifactPhoneReal({
           )}
         </AnimatePresence>
 
-        <AnimatePresence mode="wait">
+        <AnimatePresence>
           {showTyping && (
             <motion.div
               key="typing"
@@ -151,13 +157,16 @@ export function ArtifactPhoneReal({
               ))}
             </motion.div>
           )}
+        </AnimatePresence>
 
+        <AnimatePresence>
           {showAi && (
             <motion.div
               key="ai"
               className="flex flex-col items-start"
               initial={BUBBLE_INITIAL}
               animate={BUBBLE_ANIMATE}
+              exit={BUBBLE_EXIT}
               transition={BUBBLE_TRANSITION}
             >
               <div className="max-w-[85%] rounded-2xl rounded-bl-sm bg-card px-2.5 py-1.5 font-sans text-[10px] leading-[1.35] text-bone">

@@ -90,6 +90,12 @@ function StaticAIAnswerScene() {
         style={{ backgroundImage: VIGNETTE_GRADIENT }}
       />
 
+      {/* Scene-transition fade from Beat 2 into Beat 4 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[120px] bg-gradient-to-b from-transparent to-ink"
+      />
+
       <div className="relative z-10 flex flex-col md:flex-row items-center justify-center gap-12 max-w-[1200px] w-full">
         <div className="relative flex items-center justify-center">
           <div
@@ -399,6 +405,11 @@ export function AIAnswerScene() {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-x-0 top-0 h-[40vh] bg-gradient-to-b from-ink to-transparent z-[2]"
+      />
+      {/* Scene-transition fade from Beat 2 into Beat 4 */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-[20] h-[120px] bg-gradient-to-b from-transparent to-ink"
       />
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden pt-20">
         {/* Vignette */}

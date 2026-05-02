@@ -13,15 +13,17 @@ import { copy } from "@/content/copy";
 
 import { ArtifactBrowserLarge } from "./artifacts/ArtifactBrowserLarge";
 import { FeaturesPoem } from "./features/FeaturesPoem";
-import { PanelChrome } from "./PanelChrome";
 import { PanelPrice } from "./PanelPrice";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const ARTIFACT_INTRO_DELAY_SEC = 0;
-const ARTIFACT_FADE_DUR = 0.6;
+const ARTIFACT_FADE_DUR = 0.4;
 
-const CASCADE_START_SEC = 1.4;
+const CHROME_START_SEC = 0.5;
+const CHROME_DUR_SEC = 0.3;
+
+const CASCADE_START_SEC = 1.0;
 const DEL_LABEL = 0;
 const DEL_HEADLINE = 0.05;
 const DEL_PRICE = 0.15;
@@ -35,6 +37,9 @@ const DEL_CTA = 0.95;
 
 const FADE_DUR = 0.4;
 const HAIRLINE_DUR = 0.2;
+
+const HAIRLINE_GRADIENT =
+  "linear-gradient(90deg, transparent 0%, color-mix(in srgb, var(--border-warm) 60%, transparent) 20%, color-mix(in srgb, var(--border-warm) 60%, transparent) 80%, transparent 100%)";
 
 type Props = {
   play: boolean;
@@ -106,10 +111,10 @@ export function Tier1Panel({ play, isStatic }: Props) {
 
   const hairlineProps = (delaySec: number) =>
     isStatic
-      ? { initial: { scaleX: 1 }, animate: { scaleX: 1 } }
+      ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
       : {
-          initial: { scaleX: 0 },
-          animate: play ? { scaleX: 1 } : { scaleX: 0 },
+          initial: { opacity: 0 },
+          animate: play ? { opacity: 1 } : { opacity: 0 },
           transition: {
             delay: CASCADE_START_SEC + delaySec,
             duration: HAIRLINE_DUR,
@@ -117,8 +122,35 @@ export function Tier1Panel({ play, isStatic }: Props) {
           },
         };
 
+  const chromeFinal = {
+    borderColor: "var(--border-warm)",
+    backgroundColor: "var(--card)",
+  };
+  const chromeInitial = isStatic
+    ? chromeFinal
+    : { borderColor: "transparent", backgroundColor: "transparent" };
+  const chromeAnimate = isStatic
+    ? chromeFinal
+    : play
+    ? chromeFinal
+    : { borderColor: "transparent", backgroundColor: "transparent" };
+  const chromeTransition = isStatic
+    ? undefined
+    : {
+        borderColor: {
+          delay: CHROME_START_SEC,
+          duration: CHROME_DUR_SEC,
+          ease: EASE,
+        },
+        backgroundColor: {
+          delay: CHROME_START_SEC,
+          duration: CHROME_DUR_SEC,
+          ease: EASE,
+        },
+      };
+
   return (
-    <a
+    <motion.a
       href={tier.ctaHref}
       target={isExternal ? "_blank" : undefined}
       rel={isExternal ? "noopener noreferrer" : undefined}
@@ -126,15 +158,11 @@ export function Tier1Panel({ play, isStatic }: Props) {
       onMouseEnter={handleMouseEnter}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="group relative block rounded-md p-6 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:p-8"
+      className="group relative block rounded-2xl border p-6 transition-transform duration-300 ease-out hover:-translate-y-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-terracotta focus-visible:ring-offset-2 focus-visible:ring-offset-ink md:p-8"
+      initial={chromeInitial}
+      animate={chromeAnimate}
+      transition={chromeTransition}
     >
-      <PanelChrome
-        tierIndex={0}
-        featured={false}
-        play={play}
-        isStatic={isStatic}
-      />
-
       <motion.div
         className="relative z-[1]"
         style={enableParallax ? { x: headlineX, y: headlineY } : undefined}
@@ -166,16 +194,15 @@ export function Tier1Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_1)}
       />
 
       <motion.div
         className="relative z-[1] mt-6"
         style={enableParallax ? { x: artifactX, y: artifactY } : undefined}
-        initial={
-          isStatic ? { opacity: 1, y: 0 } : { opacity: 0.01, y: 24 }
-        }
+        initial={isStatic ? { opacity: 1, y: 0 } : { opacity: 0.01, y: 24 }}
         animate={
           isStatic
             ? { opacity: 1, y: 0 }
@@ -197,7 +224,8 @@ export function Tier1Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_2)}
       />
 
@@ -224,7 +252,8 @@ export function Tier1Panel({ play, isStatic }: Props) {
 
       <motion.div
         aria-hidden="true"
-        className="relative z-[1] mt-6 h-px origin-left bg-border-warm"
+        className="relative z-[1] mt-6 h-px"
+        style={{ background: HAIRLINE_GRADIENT }}
         {...hairlineProps(DEL_HAIRLINE_3)}
       />
 
@@ -246,6 +275,6 @@ export function Tier1Panel({ play, isStatic }: Props) {
           {tier.ctaLabel} →
         </motion.span>
       </motion.div>
-    </a>
+    </motion.a>
   );
 }

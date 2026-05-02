@@ -20,7 +20,7 @@ export function SectionSweep({ play, isStatic }: Props) {
       }}
       initial={{ x: "-100%" }}
       animate={play ? { x: "333%" } : { x: "-100%" }}
-      transition={{ delay: 0.4, duration: 0.7, ease: "linear" }}
+      transition={{ delay: 0.25, duration: 0.6, ease: "linear" }}
     />
   );
 }
