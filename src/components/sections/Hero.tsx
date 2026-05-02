@@ -2,7 +2,6 @@
 // TODO: replace WhatsApp placeholder in copy.ts once real number is issued.
 
 import Image from "next/image";
-import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 import { cn } from "@/lib/utils";
@@ -27,11 +26,6 @@ const primaryBtnClasses = cn(
   "bg-bone text-ink hover:bg-terracotta hover:text-bone",
 );
 
-const secondaryBtnClasses = cn(
-  sharedBtn,
-  "bg-transparent border border-bone/25 text-bone hover:bg-bone hover:text-ink hover:border-bone",
-);
-
 const hero = copy.home.hero;
 const words = hero.h1.split(" ");
 const subheadDelayMs =
@@ -40,36 +34,13 @@ const subheadDelayMs =
   ) * 100;
 const ctaDelayMs = subheadDelayMs + SUBHEAD_TO_CTA_MS;
 
-const ctaContainer = {
-  hidden: { opacity: 0.01, y: 12 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      delay: ctaDelayMs / 1000,
-      duration: 0.5,
-      ease: EASE,
-      staggerChildren: 0.1,
-    },
-  },
-};
-
-const ctaItem = {
-  hidden: { opacity: 0.01, y: 8 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.5, ease: EASE },
-  },
-};
-
 export function Hero() {
   const reduce = useReducedMotion();
 
   return (
     <section
       aria-label="Novacare introduction"
-      className="relative overflow-hidden bg-ink min-h-screen flex items-center"
+      className="relative overflow-hidden bg-ink min-h-[100svh] flex items-center"
     >
       {reduce ? (
         <Image
@@ -119,8 +90,8 @@ export function Hero() {
             aria-label={hero.h1}
             className={cn(
               "font-serif font-light text-bone max-w-[16ch]",
-              "text-[36px] tracking-[-0.02em] leading-[1.08]",
-              "md:text-[52px] md:tracking-[-0.025em] md:leading-[1.02]",
+              "text-[56px] tracking-[-0.025em] leading-[1.0]",
+              "md:text-[64px] md:tracking-[-0.025em] md:leading-[1.0]",
               "lg:text-[64px] lg:leading-[1.0]",
             )}
           >
@@ -161,28 +132,22 @@ export function Hero() {
             {hero.subhead}
           </motion.p>
 
-          <motion.div
-            variants={ctaContainer}
-            initial={reduce ? "visible" : "hidden"}
-            animate="visible"
-            className="mt-12 flex flex-col sm:flex-row gap-3 sm:gap-4"
+          <motion.a
+            href={hero.primaryCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Start a project on WhatsApp (opens in a new tab)"
+            className={cn(primaryBtnClasses, "mt-12 w-full self-start sm:w-auto")}
+            initial={reduce ? false : { opacity: 0.01, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{
+              duration: 0.5,
+              ease: EASE,
+              delay: ctaDelayMs / 1000,
+            }}
           >
-            <motion.a
-              variants={ctaItem}
-              href={hero.primaryCta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Start a project on WhatsApp (opens in a new tab)"
-              className={primaryBtnClasses}
-            >
-              {hero.primaryCta.label}
-            </motion.a>
-            <motion.span variants={ctaItem} className="inline-flex">
-              <Link href="/work" className={secondaryBtnClasses}>
-                {hero.secondaryCta.label}
-              </Link>
-            </motion.span>
-          </motion.div>
+            {hero.primaryCta.label}
+          </motion.a>
         </div>
       </div>
     </section>
