@@ -12,17 +12,16 @@ import {
 import { copy } from "@/content/copy";
 
 import { AddOnNote } from "./Services/AddOnNote";
-import { SectionEntry } from "./Services/SectionEntry";
-import { TierPanel, type TierData } from "./Services/TierPanel";
+import { SectionSweep } from "./Services/SectionSweep";
+import { Tier1Panel } from "./Services/Tier1Panel";
+import { Tier2Panel } from "./Services/Tier2Panel";
+import { Tier3Panel } from "./Services/Tier3Panel";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const HEADLINE_WORD_STAGGER = 0.08;
 const HEADLINE_WORD_DURATION = 0.5;
 const T_HEADLINE_START = 1.1;
-
-const PANEL_MATERIALIZE_DELAY_SEC = [0.9, 1.06, 0.98] as const;
-const ARTIFACT_INTRO_DELAY_SEC = [1.5, 1.7, 1.6] as const;
 
 function StaticServices() {
   const services = copy.home.services;
@@ -33,7 +32,6 @@ function StaticServices() {
     >
       <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12">
         <div className="relative pt-32 pb-24 md:pt-40">
-          <SectionEntry play={false} isStatic />
           <div className="relative flex flex-col items-center text-center">
             <div aria-hidden="true" className="h-px w-12 bg-terracotta" />
             <span className="mt-4 font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft">
@@ -51,18 +49,12 @@ function StaticServices() {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          {services.tiers.map((tier, i) => (
-            <TierPanel
-              key={tier.label}
-              tier={tier as TierData}
-              index={i}
-              materializeDelaySec={PANEL_MATERIALIZE_DELAY_SEC[i] ?? 0}
-              artifactIntroDelaySec={ARTIFACT_INTRO_DELAY_SEC[i] ?? 0}
-              play={false}
-              isStatic
-            />
-          ))}
+        <div className="relative">
+          <div className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            <Tier1Panel play={false} isStatic />
+            <Tier2Panel play={false} isStatic />
+            <Tier3Panel play={false} isStatic />
+          </div>
         </div>
 
         <div className="mt-16">
@@ -140,7 +132,6 @@ export function Services() {
     >
       <div className="mx-auto w-full max-w-[1400px] px-6 md:px-12">
         <div className="relative pt-32 pb-24 md:pt-40">
-          <SectionEntry play={inView} />
           <motion.div
             initial="hidden"
             animate={inView ? "visible" : "hidden"}
@@ -170,7 +161,9 @@ export function Services() {
                     key={i}
                     aria-hidden="true"
                     variants={wordVariants}
-                    className={isLast ? "inline-block" : "inline-block mr-[0.25em]"}
+                    className={
+                      isLast ? "inline-block" : "inline-block mr-[0.25em]"
+                    }
                   >
                     {word}
                   </motion.span>
@@ -186,17 +179,13 @@ export function Services() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
-          {services.tiers.map((tier, i) => (
-            <TierPanel
-              key={tier.label}
-              tier={tier as TierData}
-              index={i}
-              materializeDelaySec={PANEL_MATERIALIZE_DELAY_SEC[i] ?? 0}
-              artifactIntroDelaySec={ARTIFACT_INTRO_DELAY_SEC[i] ?? 0}
-              play={inView}
-            />
-          ))}
+        <div className="relative">
+          <SectionSweep play={inView} />
+          <div className="relative z-[1] grid grid-cols-1 gap-6 md:grid-cols-3 md:gap-8">
+            <Tier1Panel play={inView} />
+            <Tier2Panel play={inView} />
+            <Tier3Panel play={inView} />
+          </div>
         </div>
 
         <div className="mt-16">
