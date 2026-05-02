@@ -295,7 +295,7 @@ Result: each requested change competes with the others. Two iterations later you
 
 ## Workflow for building a new page — step by step
 
-This is the playbook for building each of: Home, Work, Services, About, Contact, Case Study.
+This is the playbook for building each of: Home, Services, AI Reception, Approach.
 
 ### Step 1: Ensure copy exists
 

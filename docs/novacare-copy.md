@@ -1,8 +1,13 @@
-# Novacare Growth — Full Site Copy (v4, LOCKED)
+# Novacare Growth — Full Site Copy (v5, LOCKED)
 
 > Source of truth for every piece of text on novacaregrowth.com. If this document and a component disagree, this document wins. All copy follows the voice rules in the project instructions: no em dashes, no AI-slop phrases, direct and confident.
 >
-> v4 update: home page restructured to reflect the cinematic scroll arc that shipped in Beat 1 (PhoneScene). Old prose-heavy Positioning section retired. Beats 2 through 5 reserved for upcoming builds.
+> v5 update: information architecture restructured. Standalone /work, /about, /contact pages and the standalone /al-yasmine case study page are killed. Site IA is now Home plus three pages: Services, AI Reception, Approach. Beat 3 of home retains the Al Yasmine case study as an inline scene only, with no standalone case study URL. AI Reception and Approach pages are planned with structural skeletons; copy is TODO and will be drafted in dedicated build conversations.
+>
+> The Home section below is the live, shipped copy as of v5. Beats 0, 1, 2, and 4 reflect what's actually on production. Beats 3, 5, and 6 are planned. Where v5 IA changes affect already-shipped beats, those changes are flagged as follow-up code edits, not copy rewrites:
+> 1. Beat 0 Hero secondary CTA "See our work → /work" needs to be removed in code (Hero now ships with a single primary CTA).
+> 2. Beat 4 Tier 3 CTA "Book a call → /contact" needs to be repointed to /book in code.
+> 3. The global Nav needs to be updated to the new four-item structure (Services · AI Reception · Approach · WhatsApp CTA).
 
 ---
 
@@ -10,7 +15,7 @@
 
 ### Navigation
 
-Links (in order): Work, Services, About, Contact
+Links (in order): Services, AI Reception, Approach
 
 Primary CTA: "Start a project" → WhatsApp link (`https://wa.me/971XXXXXXXXX` — replace with real number)
 
@@ -21,15 +26,13 @@ Primary CTA: "Start a project" → WhatsApp link (`https://wa.me/971XXXXXXXXX` �
 ### Footer
 
 - Left column: Novacare Growth · Dubai, United Arab Emirates · [Trade License number when issued]
-- Middle column: Work · Services · About · Contact
+- Middle column: Services · AI Reception · Approach
 - Right column: WhatsApp · Email · Instagram · LinkedIn
 - Bottom line: © 2026 Novacare Growth.
 
 ---
 
 ## Home
-
-The home page is built as a sequence of scroll-driven beats, not a stack of conventional sections. Each beat is a moment in a single argument: problem → solution → proof → offer → close. The cinematic phase (Beats 1 through 3) does the emotional work. The practical phase (Beats 4 through 5) does the conversion work.
 
 ### Beat 0 — Hero (SHIPPED)
 
@@ -40,94 +43,99 @@ The home page is built as a sequence of scroll-driven beats, not a stack of conv
 **Primary CTA**: Start a project → WhatsApp
 **Secondary CTA**: See our work → `/work`
 
-**Visual treatment**: Word-by-word fade-in on H1 (60ms stagger, 600ms duration each). Background video is an ambient amber smoke-through-pendant-light loop generated via Veo 3.1, with a three-stop left-to-right gradient overlay for text legibility, and a bottom 30% fade-to-black for transition continuity into Beat 1.
-
 ### Beat 1 — The Problem / PhoneScene (SHIPPED)
 
-A scroll-driven scene replacing what used to be the prose Positioning section. Three iPhone-style mockups show three UAE clinics' messaging inboxes filling with unanswered patient inquiries. No paragraphs. The argument is made visually.
+Three iPhone-style mockups showing UAE clinics' messaging inboxes filling with unanswered patient inquiries. Real UAE patient names (Fatima Al Mansouri, Mohammed Al Rashid, Hassan Al Falasi, etc.) with realistic message previews like "Hi, I'd like to book a dermatology consultation for next week, are you available?"
 
-**Composition**:
-- Phone 1 (left): dr.sara.derma — Instagram-style DM list (dermatology clinic)
-- Phone 2 (center): waveclinic.therapy — WhatsApp-style chats list (therapy practice)
-- Phone 3 (right): skylinedental.dxb — Instagram-style DM list (dental clinic)
+**Headline (revealed at end of scroll arc)**: Every clinic in the UAE loses patients like this.
 
-Each phone shows seven real-sounding UAE patient names (Fatima Al Mansouri, Mohammed Al Rashid, Hassan Al Falasi, etc.) with realistic message previews like "Hi, I'd like to book a dermatology consultation for next week, are you available?" and "Looking for a therapist for anxiety, do you have availability this month?"
+The word "loses" appears in terracotta. No subhead, no CTA in this beat.
 
-As the user scrolls:
-- The clock on each phone advances 9:41 → 10:15 → 12:30 → 2:47 → 5:12 → 8:33
-- Battery drains from 100% to 23%
-- Timestamps age (5m → 2h → 1d → 3d ago, with subtle per-phone variation: therapy fills fastest, dental is most-neglected)
-- Unread message counts tick up (3 → 7, 5 → 14, 2 → 23)
-- New messages slide in from above with parent-phone scale pulse on each insert
-- Phones receive a subtle desaturation and warm glow as the scene progresses
+### Beat 2 — The Answer / AIAnswerScene (SHIPPED)
 
-**Headline (revealed at end of scroll arc, scroll progress 0.7 → 0.85, then dwells through 1.0)**:
-"Every clinic in the UAE loses patients like this."
+Single phone, abstract WhatsApp-style chat. Conversation between a patient (Layla Al Suwaidi) and Maison Aesthetic clinic featuring Dr. Rana Haddad. Six messages playing out as the visitor scrolls, ending in a confirmed booking.
 
-The word "loses" appears in terracotta. The rest stays bone serif. No subhead, no CTA in this beat — the headline is the whole point.
+**Conversation script:**
 
-**Why this beat**: the previous prose version of Positioning argued the same point in two paragraphs. The visual scene argues it in 30 seconds of scroll. Same thesis, different conversion mechanism. The reader feels the loss, not just understands it.
+- Layla, 11:47 PM: "Hi, do you have any availability this week for a consultation? Saw your work on Instagram."
+- Maison Aesthetic, 11:47 PM: "Hi Layla, thanks for reaching out. We have two openings: Thursday 2 PM or Friday 10 AM. The consultation is 45 minutes with Dr. Rana Haddad, AED 300. Would either work for you?"
+- Layla, 11:48 PM: "Friday 10 AM works. Do I need to bring anything?"
+- Maison Aesthetic, 11:48 PM: "Just your Emirates ID. We'll send a reminder Thursday evening with the clinic address and parking. Could I get your full name and mobile number to confirm?"
+- Layla, 11:49 PM: "Layla Al Suwaidi, +971 50 412 8867"
+- Confirmation card appears: APPOINTMENT CONFIRMED · Friday, 10:00 AM · Dr. Rana Haddad · 45 min consultation · Maison Aesthetic, Jumeirah · [+ Add to Calendar]
 
-### Beat 2 — The Answer / AI Reception scene (PLANNED, NOT YET BUILT)
+**Headline (revealed at end of scroll arc)**: Every clinic in the UAE could answer them like this.
 
-The inverse of Beat 1. Where Beat 1 shows clinics losing patients to silence, Beat 2 shows what happens when a clinic uses Novacare. A patient sends a message. Eight seconds later, an AI agent in clinic tone replies. The booking is confirmed. The patient is closed before they would have moved on to a competitor.
+The word "answer" appears in terracotta.
 
-**Tentative composition** (subject to design pass):
-- Single phone, centered (or split-screen showing the same conversation from both patient and clinic sides)
-- Scroll-driven message exchange: patient inquiry, brief typing indicator, AI reply, follow-up, booking confirmation
-- Tone of the AI must match real clinic warmth — not corporate, not chatbot
-- Visual climax: the booking confirmation card appearing in the conversation
+**Caption (bottom-left, fades in alongside headline)**: Replies handled by your Novacare AI agent
 
-**Tentative headline**:
-"This is what they message back when you let them."
+### Beat 3 — Featured case study / Al Yasmine (POSTPONED)
 
-(Subject to revision once the visual is locked.)
+Skipped for now because alyasminecenter.com is still being rebuilt. Will return after Alia's site ships.
 
-**Why this beat**: Beat 1 created tension. Beat 2 must release it. Without this release, the visitor leaves the page anxious about a problem instead of confident in the solution.
+When built, will contain:
 
-### Beat 3 — Featured case study / Al Yasmine (PLANNED, NOT YET BUILT)
+**Headline**: Al Yasmine Center. A therapy practice with 120,000+ followers, now with a home online.
 
-Visual proof. A scroll-driven device frame (laptop or browser-window mockup) showing alyasminecenter.com being toured. The visitor sees the actual site we built for our actual client.
+**Body**: Alia Bahri built one of the most trusted therapy presences in the UAE. Thousands of DMs a week. A waiting list. A community of 120,000+ people following her work on Instagram. What was missing was a proper digital home. We designed and built it.
 
-**Headline**:
-"Al Yasmine Center. A therapy practice with 120,000+ followers, now with a home online."
+**CTA**: See the case study → `/work/al-yasmine`
 
-**Body**:
-Alia Bahri built one of the most trusted therapy presences in the UAE. Thousands of DMs a week. A waiting list. A community of 120,000+ people following her work on Instagram. What was missing was a proper digital home. We designed and built it.
+### Beat 4 — Services tiers (SHIPPED)
 
-**CTA**: See the case study → /work/al-yasmine
+**Section label**: HOW WE WORK TOGETHER
 
-### Beat 4 — Services tiers (PLANNED, NOT YET BUILT)
+**H2**: Three ways to work with us.
 
-The practical phase begins here. Three tier cards with visible pricing. Hover to expand details. This is where copy.ts finally does heavy lifting — the cinematic phase ends, the conversion phase begins.
-
-**Label**: How we work together
+**Subhead**: Each tier is a complete system, not a menu of add-ons. Pricing is public because your time is worth more than a sales funnel.
 
 **Tier 1 — Clinic Site**
-- Price: from AED 6,500 setup + AED 850/month
-- Blurb: A high-end, custom-designed website that replaces every half-finished, outdated, template-based thing your clinic has lived with for years.
-- Details: Custom design, five pages, bilingual-ready (EN/AR), integrated booking, WhatsApp throughout, hosted on the same infrastructure as OpenAI and Perplexity. Monthly fee covers hosting, domain, email, maintenance, content changes, security, and performance monitoring.
-- Launch: Launch in 10 to 14 days.
+- Price: AED 6,500
+- Subtitle: setup, plus AED 850 / month
+- Positioning: A high-end, custom-designed website that replaces every half-finished, outdated, template-based thing your clinic has lived with for years.
+- Features:
+  - Custom design, no templates
+  - Five pages, mobile-first, sub-1s load
+  - Booking integrated with your calendar
+  - Bilingual EN/AR
+  - Hosting, security, monthly maintenance included
+- Meta: Launch in 10 to 14 days
 - CTA: Start a project → WhatsApp
 
-**Tier 2 — Clinic Site + AI Reception**
-- Price: from AED 12,000 setup + AED 1,800/month
-- Blurb: Everything in Clinic Site, plus a WhatsApp AI agent that replies in under 10 seconds, around the clock, in Arabic and English.
-- Details: Trained on your clinic's services, hours, prices, and tone of voice. Qualifies new patients, books consultations directly into your calendar, and escalates complex or sensitive messages to your team. Monthly fee covers everything above plus ongoing tuning of the AI agent.
-- Launch: Launch in 3 to 4 weeks.
+**Tier 2 — Clinic Site, plus AI Reception**
+- Price: AED 12,000
+- Subtitle: setup, plus AED 1,800 / month
+- Positioning: Everything in Clinic Site, plus a WhatsApp AI agent that replies in seconds, in Arabic and English.
+- Features:
+  - Everything in Clinic Site
+  - WhatsApp AI agent trained on your tone
+  - Replies in under 10 seconds, 24/7
+  - Books consultations directly to your calendar
+  - Monthly tuning of the AI agent
+- Meta: Launch in 3 to 4 weeks
 - CTA: Start a project → WhatsApp
 
 **Tier 3 — Growth System**
-- Price: from AED 20,000 setup + AED 3,500/month
-- Blurb: The full practice, automated. For clinics ready to scale past the owner's inbox.
-- Details: Everything in Clinic Site + AI Reception, plus Instagram DM automation, no-show follow-up flows, review request automation, ad landing pages, and a monthly performance dashboard.
-- Add-on: Fully managed Meta and Google ads, handled by us end to end. Pricing depends on your monthly ad budget and campaign goals, so we scope this on a call.
-- Launch: Launch in 4 to 6 weeks.
-- CTA: Book a call → /contact
+- Price: AED 20,000
+- Subtitle: setup, plus AED 3,500 / month
+- Positioning: The full practice, automated. For clinics ready to scale past the owner's inbox.
+- Features:
+  - Everything in Clinic Site + AI Reception
+  - Instagram DM automation
+  - No-show follow-up flows
+  - Ad landing pages for Meta and Google
+  - Performance dashboard and quarterly strategy
+- Meta: Launch in 4 to 6 weeks
+- CTA: Book a call → `/contact`
+
+**Add-on note (below the three panels)**
+- Label: OPTIONAL ADD-ON
+- Body: Fully managed Meta and Google ads, scoped on a call.
 
 ### Beat 5 — Why Novacare (PLANNED, NOT YET BUILT)
 
-**Label**: Why Novacare
+**Section label**: Why Novacare
 
 Four statements, typography-driven, generous spacing, no icons:
 
@@ -152,71 +160,13 @@ We take on a limited number of clients each quarter so every project gets real a
 **Capacity indicator (small caption above H2)**: Three slots remaining this quarter.
 
 **Primary CTA**: Message us on WhatsApp
-**Secondary CTA**: yazan@novacaregrowth.com (replace with real email)
+**Secondary CTA**: yazan@novacaregrowth.com
 
 ---
 
-## Work (index page)
+## Notes on Beat 4 vs the Services page
 
-**H1**: Selected work.
-
-**Subhead**: A small, growing collection of websites and systems we've built for UAE clinics.
-
-Grid of case studies. Currently one (Al Yasmine).
-
-**Capacity note (below grid)**: We're currently taking on three new clinics this quarter. If you'd like to be one of them, let's talk.
-
-**CTA**: Start a project → WhatsApp
-
----
-
-## Case Study — Al Yasmine Center
-
-**Client**: Alia Bahri, Al Yasmine Center
-**Location**: Dubai, UAE
-**Scope**: Website design, development, hosting, ongoing maintenance
-**Timeline**: 14 days, kickoff to launch
-**Live**: alyasminecenter.com (replace with real URL)
-
-### The brief
-
-Alia Bahri is one of the most-followed therapists in the UAE. Her practice at Al Yasmine Center serves clients across the country, and her community on Instagram has grown past 120,000 people who follow her for honest, bilingual guidance on mental health, relationships, and self-work.
-
-There was one missing piece. No website. Every potential client had to DM her, wait for a reply, and book through a chain of back-and-forth messages. She needed a digital home that matched the standard of her practice.
-
-### The approach
-
-We built the site around three decisions.
-
-One. The tone of the site had to feel like her. Warm, honest, direct, not clinical.
-
-Two. The booking flow had to be three taps. Every extra step was a client lost.
-
-Three. The site had to load instantly on a phone, because that is how every single visitor would arrive.
-
-We built it on Next.js, deployed through Vercel, with a booking system integrated directly into her calendar. No WordPress. No page builders. No plugins that would break in six months.
-
-### The work
-
-(Insert 4 to 6 screenshots: desktop hero, mobile hero, service or bio page, booking flow, detail shot.)
-
-### The outcome
-
-Alia now points her Instagram bio, her replies, and her referrals to one link. Her new clients see a proper first impression of the practice before they ever message her.
-
-(When real metrics exist, add a short stat line here. Example: "Booking requests up 3x in the first month." Don't invent numbers.)
-
-### In her words
-
-(Pull quote from Alia, two to four sentences. Placeholder example of what to ask her for:)
-
-> "Yazan and Hamza understood what I was building without me having to explain twice. The site feels like the practice, not a generic therapy page. And they've been there every week since we launched to keep it running."
-
-**Alia Bahri, Founder, Al Yasmine Center**
-
-### Want work like this for your clinic?
-
-**CTA**: Start a project → WhatsApp
+The Beat 4 copy on the live site is tighter than the full feature lists on the dedicated Services page. The home tier panels carry 5 load-bearing features each so the panels read clean at a glance. The full 8-10 item feature lists belong on `/services` when that page is built. Both surfaces argue the same offer; they just operate at different levels of depth.
 
 ---
 
@@ -314,64 +264,38 @@ A small number each quarter. If we're at capacity, we'll tell you and we'll tell
 
 ---
 
-## About
+## AI Reception page (PLANNED, NOT YET BUILT)
 
-### Hero
-
-**H1**: A small studio for clinics that deserve better.
-
-**Subhead**: Novacare Growth is based in Dubai. We build websites and AI systems for wellness centers, therapy practices, and medical clinics across the UAE.
-
-### Body
-
-Novacare was started by Yazan Ghawi and Hamza Barakat in 2025. We started it for a simple reason. The best clinics in the UAE deserve better websites than they have.
-
-Most clinic sites fall into one of three categories. A decade old and built on something no one maintains anymore. A template that doesn't match the care the clinic actually gives. Or, more recently, a site slapped together in a weekend with a drag-and-drop AI tool. Meanwhile, the best clinics are losing patients every day to slow load times, broken booking flows, and DMs that go unanswered for hours.
-
-We built Novacare to close that gap. We're small on purpose. We take on a limited number of clients at once so every project gets real attention, from the first conversation through every month after launch. We design, we write, we engineer, we automate, and we stay for the long-term maintenance that most agencies skip.
-
-Our first client was Alia Bahri at Al Yasmine Center, a therapist with a 120,000+ community in the UAE. We built her website from the ground up and continue to manage it. That is the kind of work we want to keep doing.
-
-### The founders
-
-**Yazan Ghawi** — *Co-founder. Design and client work.*
-
-Yazan leads design and client relationships at Novacare. He oversees every project from the first conversation through launch, works directly with each clinic on brand direction, and handles the ongoing relationship after a site goes live. Based in Dubai.
-
-**Hamza Barakat** — *Co-founder. Engineering and automation.*
-
-Hamza leads engineering and automation at Novacare. He builds the websites, designs the AI systems, and handles everything technical: performance, security, integrations, and the infrastructure that keeps clients' sites running fast and reliably. Based in Dubai.
-
-### Closing
-
-If you run a clinic and you've been meaning to sort out your website or your lead flow for a while, we'd love to talk.
-
-**CTA**: Start a project → WhatsApp
+> Purpose: dedicated landing page for the AI Reception product. Serves the upsell-as-entry-point use case. A clinic owner who isn't ready to redo their website might still buy AI Reception alone. Also the page used in cold outreach, IG bio links, and paid ads specifically about the AI agent. Different from home Beat 2 in depth and intent. Home Beat 2 is the visual hook for cold visitors. /ai-reception is the dossier with demo, integrations, pricing, and FAQ for high-intent visitors who clicked through specifically for the AI product.
+>
+> Status: build after one or two clients have launched on Tier 2 so we have actual conversation logs and demo footage to reference. Until then, /ai-reception does not exist as a live URL and the Nav link should be hidden or deferred.
+>
+> Sections planned:
+> 1. Hero. H1 leads on the speed and the language guarantee. Subhead frames the cost of slow replies. Primary CTA to WhatsApp.
+> 2. Live or recorded demo. The AI agent in action. Both Arabic and English exchanges. Clinic-tone replies, not corporate.
+> 3. How it works. Training on clinic data, response time guarantees, escalation logic, hours of operation (24/7 default).
+> 4. What it integrates with. WhatsApp Business API, Instagram DMs, Google Calendar, Cal.com, optional CRM/EMR connections.
+> 5. Pricing. Framed product-first not site-first. AED 12,000 setup + AED 1,800/month. Matches Tier 2 from the Services page but reads as a standalone product offer.
+> 6. FAQ specific to the AI agent. Training time, what happens when it doesn't know an answer, ownership of conversation data, escalation rules, cancellation, what happens to existing patients during onboarding.
+> 7. Closing CTA. WhatsApp primary, book a call secondary.
+>
+> Copy: TODO. Draft in a dedicated build conversation once the prerequisites above are met.
 
 ---
 
-## Contact
+## Approach page (PLANNED, NOT YET BUILT)
 
-### Hero
-
-**H1**: Let's talk.
-
-**Subhead**: Tell us about your clinic. We reply within the day.
-
-### Options
-
-**WhatsApp** — *The fastest way.*
-Click to message → `https://wa.me/971XXXXXXXXX`
-
-**Email** — *For longer conversations.*
-yazan@novacaregrowth.com → `mailto:yazan@novacaregrowth.com`
-
-**Book a call** — *20 minutes, free.*
-Pick a time → `/book` (Cal.com embed)
-
-### Location
-
-Novacare Growth
-Dubai, United Arab Emirates
-
-We work with clinics across the UAE. Meetings on Zoom, WhatsApp video, or in person at your clinic.
+> Purpose: the how-we-work page. Pre-handles the "what am I actually buying" question that sits under every Services-page click. Serves the practice manager doing diligence before approving spend. Demonstrates competence by showing process detail. Makes "we ship, then we stay" concrete instead of slogan.
+>
+> Status: build after home Beats 5 and 6 ship and after Services is built. This is intended to be the second non-home page to launch (after Services), before AI Reception.
+>
+> Sections planned:
+> 1. Hero. H1 frames the page as the playbook. Subhead promises clarity on every week between kickoff and launch.
+> 2. Week 1: Kickoff and discovery. What happens in the first seven days. What we ask the clinic for (content, brand assets, calendar access, photo references). What the clinic gets from us (kickoff doc, design direction, project channel).
+> 3. Week 2: Design. Design surfaces shipped directly in code, not Figma. How we share progress (live preview links, async walkthroughs). How feedback works (a single shared doc, async comments, no design-by-committee).
+> 4. Weeks 3 to 4: Build. Dev environment, performance baselines, integrations, content review. What we test before launch.
+> 5. Launch week. Deployment, DNS, email setup, Google Business connection, Search Console, analytics. What the clinic does on launch day. What we do.
+> 6. After launch: the ongoing relationship. What the monthly retainer covers (content changes, performance monitoring, security, hosting, AI agent tuning if applicable, monthly check-ins). What's in scope vs out of scope. How cancellation works. How we handoff if the clinic ever leaves.
+> 7. Closing CTA. WhatsApp.
+>
+> Copy: TODO. Draft in a dedicated build conversation.

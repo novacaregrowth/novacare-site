@@ -91,7 +91,7 @@ Headings are in Fraunces, weight 400 (regular), unless noted. Body/UI is Inter.
 
 The "caption" token is critical. It's how we signal structure without headings. Used for:
 
-- Nav links ("WORK", "SERVICES", "ABOUT")
+- Nav links ("SERVICES", "AI RECEPTION", "APPROACH")
 - Section labels ("WHAT WE DO", "RECENT WORK", "WHY NOVACARE")
 - CTA text ("START A PROJECT", "BOOK A CALL")
 - Metadata labels ("CLIENT", "SCOPE", "TIMELINE")
