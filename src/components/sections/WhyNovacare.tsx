@@ -45,17 +45,14 @@ function StaticWhyNovacare() {
           </span>
         </div>
 
-        <div className="mt-16 md:mt-24 flex flex-col gap-16 md:gap-24">
-          {why.points.map((p, i) => (
-            <article
-              key={p.title}
-              className={`md:max-w-[60%] ${i % 2 === 0 ? "md:self-start" : "md:self-end"}`}
-            >
+        <div className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24">
+          {why.points.map((p) => (
+            <article key={p.title}>
               <div aria-hidden="true" className="h-px w-8 bg-terracotta" />
               <h3 className="mt-4 font-serif font-normal text-bone text-[24px] md:text-[32px] tracking-[-0.02em] leading-[1.2]">
                 {p.title}
               </h3>
-              <p className="mt-6 max-w-[880px] md:max-w-[520px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]">
+              <p className="mt-6 max-w-[880px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]">
                 {p.body}
               </p>
             </article>
@@ -166,9 +163,9 @@ export function WhyNovacare() {
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
           variants={pillarsContainerVariants}
-          className="mt-16 md:mt-24 flex flex-col gap-16 md:gap-24"
+          className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24"
         >
-          {why.points.map((p, i) => {
+          {why.points.map((p) => {
             const words = p.title.split(" ");
             const bodyDelay = bodyDelayForTitle(p.title);
 
@@ -186,11 +183,7 @@ export function WhyNovacare() {
             };
 
             return (
-              <motion.article
-                key={p.title}
-                variants={pillarVariants}
-                className={`md:max-w-[60%] ${i % 2 === 0 ? "md:self-start" : "md:self-end"}`}
-              >
+              <motion.article key={p.title} variants={pillarVariants}>
                 <motion.div
                   variants={pillarHairlineVariants}
                   aria-hidden="true"
@@ -219,7 +212,7 @@ export function WhyNovacare() {
                 </motion.h3>
                 <motion.p
                   variants={bodyVariants}
-                  className="mt-6 max-w-[880px] md:max-w-[520px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]"
+                  className="mt-6 max-w-[880px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]"
                 >
                   {p.body}
                 </motion.p>
