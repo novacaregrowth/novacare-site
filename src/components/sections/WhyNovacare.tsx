@@ -6,6 +6,8 @@ import {
   motion,
   useInView,
   useReducedMotion,
+  useScroll,
+  useTransform,
   type Variants,
 } from "framer-motion";
 
@@ -26,10 +28,15 @@ const POST_HEADING_GAP_S = 0.2;
 const BODY_DURATION_S = 0.5;
 const NUMERAL_DURATION_S = 0.5;
 
+const BODY_OPACITY_RANGE = [0, 0.4, 0.6, 1];
+const BODY_OPACITY_OUTPUT = [0.3, 1, 1, 0.3];
+
 function bodyDelayForTitle(title: string): number {
   const wordCount = title.split(" ").length;
   return WORD_DURATION_S + (wordCount - 1) * WORD_STAGGER_S + POST_HEADING_GAP_S;
 }
+
+type WhyPillar = (typeof copy.home.why)["points"][number];
 
 function StaticWhyNovacare() {
   const why = copy.home.why;
@@ -73,6 +80,103 @@ function StaticWhyNovacare() {
         </div>
       </div>
     </section>
+  );
+}
+
+function PillarMotion({
+  point,
+  index,
+}: {
+  point: WhyPillar;
+  index: number;
+}) {
+  const ref = useRef<HTMLElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end start"],
+  });
+  const bodyOpacity = useTransform(
+    scrollYProgress,
+    BODY_OPACITY_RANGE,
+    BODY_OPACITY_OUTPUT,
+  );
+
+  const numeral = String(index + 1).padStart(2, "0");
+  const words = point.title.split(" ");
+  const bodyDelay = bodyDelayForTitle(point.title);
+
+  const pillarVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0 } },
+  };
+
+  const pillarNumeralVariants: Variants = {
+    hidden: { opacity: 0.01, y: 8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: NUMERAL_DURATION_S, ease: EASE },
+    },
+  };
+
+  const headingContainerVariants: Variants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: WORD_STAGGER_S } },
+  };
+
+  const wordVariants: Variants = {
+    hidden: { opacity: 0.01, y: 12 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: WORD_DURATION_S, ease: EASE },
+    },
+  };
+
+  const bodyVariants: Variants = {
+    hidden: { y: 16 },
+    visible: {
+      y: 0,
+      transition: { delay: bodyDelay, duration: BODY_DURATION_S, ease: EASE },
+    },
+  };
+
+  return (
+    <motion.article ref={ref} variants={pillarVariants}>
+      <motion.span
+        variants={pillarNumeralVariants}
+        aria-hidden="true"
+        className="block font-serif font-light text-stone-soft text-[36px] md:text-[48px] tracking-[-0.02em] leading-none"
+      >
+        {numeral}
+      </motion.span>
+      <motion.h3
+        variants={headingContainerVariants}
+        aria-label={point.title}
+        className="mt-4 font-serif font-normal text-bone text-[24px] md:text-[32px] tracking-[-0.02em] leading-[1.2]"
+      >
+        {words.map((word, i) => {
+          const isLast = i === words.length - 1;
+          return (
+            <motion.span
+              key={i}
+              aria-hidden="true"
+              variants={wordVariants}
+              className={isLast ? "inline-block" : "mr-[0.25em] inline-block"}
+            >
+              {word}
+            </motion.span>
+          );
+        })}
+      </motion.h3>
+      <motion.p
+        variants={bodyVariants}
+        style={{ opacity: bodyOpacity }}
+        className="mt-6 max-w-[880px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]"
+      >
+        {point.body}
+      </motion.p>
+    </motion.article>
   );
 }
 
@@ -137,38 +241,6 @@ export function WhyNovacare() {
     },
   };
 
-  const pillarVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: 0 },
-    },
-  };
-
-  const pillarNumeralVariants: Variants = {
-    hidden: { opacity: 0.01, y: 8 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: NUMERAL_DURATION_S, ease: EASE },
-    },
-  };
-
-  const headingContainerVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: { staggerChildren: WORD_STAGGER_S },
-    },
-  };
-
-  const wordVariants: Variants = {
-    hidden: { opacity: 0.01, y: 12 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: WORD_DURATION_S, ease: EASE },
-    },
-  };
-
   return (
     <section
       ref={sectionRef}
@@ -223,63 +295,9 @@ export function WhyNovacare() {
           variants={pillarsContainerVariants}
           className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24"
         >
-          {why.points.map((p, i) => {
-            const words = p.title.split(" ");
-            const bodyDelay = bodyDelayForTitle(p.title);
-            const numeral = String(i + 1).padStart(2, "0");
-
-            const bodyVariants: Variants = {
-              hidden: { opacity: 0.01, y: 16 },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  delay: bodyDelay,
-                  duration: BODY_DURATION_S,
-                  ease: EASE,
-                },
-              },
-            };
-
-            return (
-              <motion.article key={p.title} variants={pillarVariants}>
-                <motion.span
-                  variants={pillarNumeralVariants}
-                  aria-hidden="true"
-                  className="block font-serif font-light text-stone-soft text-[36px] md:text-[48px] tracking-[-0.02em] leading-none"
-                >
-                  {numeral}
-                </motion.span>
-                <motion.h3
-                  variants={headingContainerVariants}
-                  aria-label={p.title}
-                  className="mt-4 font-serif font-normal text-bone text-[24px] md:text-[32px] tracking-[-0.02em] leading-[1.2]"
-                >
-                  {words.map((word, i) => {
-                    const isLast = i === words.length - 1;
-                    return (
-                      <motion.span
-                        key={i}
-                        aria-hidden="true"
-                        variants={wordVariants}
-                        className={
-                          isLast ? "inline-block" : "mr-[0.25em] inline-block"
-                        }
-                      >
-                        {word}
-                      </motion.span>
-                    );
-                  })}
-                </motion.h3>
-                <motion.p
-                  variants={bodyVariants}
-                  className="mt-6 max-w-[880px] font-sans font-normal text-stone-soft text-[18px] md:text-[20px] leading-[1.5]"
-                >
-                  {p.body}
-                </motion.p>
-              </motion.article>
-            );
-          })}
+          {why.points.map((p, i) => (
+            <PillarMotion key={p.title} point={p} index={i} />
+          ))}
         </motion.div>
       </div>
     </section>
