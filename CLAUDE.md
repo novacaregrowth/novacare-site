@@ -17,9 +17,10 @@ Shipped:
 - PhoneScene / Beat 1 (three app-distinct iPhone mockups, scroll-driven cinematic, focus-pull entrance, mouse-driven 3D parallax, real UAE patient names, time-evolving status bars, AnimatePresence message inserts, full Dynamic Island and home indicator and screen reflection fidelity, full reduced-motion path; mobile pass deferred — desktop is shipping quality, mobile gets min-h-screen with no large empty stretches but no cinematic-quality treatment yet)
 - AIAnswerScene / Beat 2 (single phone, WhatsApp-feeling chat, 6-message conversation between Layla Al Suwaidi and Maison Aesthetic, scroll-coupled state machine over 600vh desktop / 550vh mobile, milestone-based reveal, mouse parallax, layered phone parallax, diagonal screen reflection responsive to cursor, two-layer warm radial glow, vignette, contact shadow, 3D entrance arc, confirmation card climax with terracotta accent, headline cascade with letter-spacing animation, full reduced-motion path; bottom-edge gradient mask for smooth transition into Beat 4)
 - Services / Beat 4 v4 (three-panel side-by-side layout with three distinct architectures: Tier 1 browser-led, Tier 2 conversation-led, Tier 3 dashboard-led. Center-stage emphasis on Tier 2 with terracotta top border + bg-card-elevated. Section entry choreography: artifacts seed first, terracotta atmospheric sweep passes left to right, panel chrome materializes around each artifact via animated borderColor + backgroundColor, internal cascade per panel. Three living artifacts: ArtifactBrowserLarge with hover-driven scroll to booking page mockup, ArtifactPhoneReal with three-message conversation between Patient and Maison Aesthetic plus hover replay, ArtifactDashboard with primary metric counter, line chart, three secondary metrics, and hover refresh. Three distinct feature treatments: FeaturesPoem asymmetric indentation for Tier 1, FeaturesConversation left-aligned fragments for Tier 2, FeaturesCapabilities tighter tracking for Tier 3. rounded-2xl panel corners. Gradient hairline separators. Compressed ~1.2s entry choreography with useInView amount: 0.05 trigger. Layered parallax on panel hover. Full reduced-motion path)
+- WhyNovacare / Beat 5 (Patek-restrained header, no visible H2: section opens with the WHY NOVACARE caption then drops straight into the four pillars. 2x2 grid on desktop, single column on mobile. Fraunces serif numerals 01-04 in weight 300 at 36/48px stone-soft anchor each pillar, replacing the per-pillar terracotta hairlines. Terracotta survives at the section header level only. Pillars cascade on viewport entry with PRE_PILLARS_DELAY_S 0.8s and 0.4s pillar-to-pillar stagger, total beat lands at ~3.7s. Per pillar: numeral fade-up, h3 heading with word-by-word reveal mirroring Hero/Services pattern, body paragraph. Per-pillar useScroll plus useTransform fades each body between 0.3 and 1.0 opacity as the pillar passes through viewport center, while headings and numerals stay solid throughout. Visually-hidden h2 with id why-heading provides landmark naming via aria-labelledby. Full reduced-motion path renders all bodies at full opacity with no scroll coupling.)
 - SmoothScroll provider wired globally via Lenis in layout.tsx
 - shadcn/ui initialized with Card primitive
-- copy.ts contains hero, phoneScene, aiAnswerScene, services with v4 shape (sectionLabel, headline, subhead, tiers with introHeader, dashboard data on tier3, addon)
+- copy.ts contains hero, phoneScene, aiAnswerScene, services with v4 shape (sectionLabel, headline, subhead, tiers with introHeader, dashboard data on tier3, addon), and why (label, four points with title and body)
 
 Skipped for now:
 - Beat 3 (Al Yasmine featured case study) — postponed because alyasminecenter.com is still being rebuilt. Will return to it after Alia's site ships.
@@ -27,10 +28,9 @@ Skipped for now:
 Mobile audit pending:
 - Beats 1, 2, and 4 each have known mobile issues. PhoneScene was built desktop-only. AIAnswerScene's phone may overflow at 375px. Beat 4 needs mobile validation post-fixes. A focused mobile audit session is the next priority before adding more beats.
 
-Next: Mobile audit, then Beat 5 (Why Novacare) and Beat 6 (Closing CTA) for the home page.
+Next: Mobile audit, then Beat 6 (Closing CTA) for the home page.
 
 Planned but not built:
-- Beat 5 (Why Novacare typographic statements)
 - Beat 6 (Closing CTA with capacity indicator)
 - Work index page
 - Services page
@@ -120,7 +120,7 @@ No Three.js / R3F in v1. No new dependencies without approval.
 
 - src/app — routes
 - src/components/ui — shadcn primitives (don't hand-edit)
-- src/components/sections — page sections (Hero, PhoneScene, AIAnswerScene, Services, etc.)
+- src/components/sections — page sections (Hero, PhoneScene, AIAnswerScene, Services, WhyNovacare, etc.)
 - src/components/shared — Header, Footer, Nav, SmoothScroll
 - src/content — copy and case study data (copy.ts is the source of truth)
 - src/lib — utilities

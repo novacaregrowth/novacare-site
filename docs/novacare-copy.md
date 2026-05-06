@@ -133,23 +133,29 @@ When built, will contain:
 - Label: OPTIONAL ADD-ON
 - Body: Fully managed Meta and Google ads, scoped on a call.
 
-### Beat 5 — Why Novacare (PLANNED, NOT YET BUILT)
+### Beat 5 — Why Novacare (SHIPPED)
 
 **Section label**: Why Novacare
 
-Four statements, typography-driven, generous spacing, no icons:
+Patek-restrained header: section opens with the WHY NOVACARE caption only. No H2 above the pillars. The four pillar headings are themselves declarative statements; an H2 framing line was tried and removed because it read as redundant preamble.
 
-**We don't use templates.**
-Every Novacare site is designed from a blank canvas. No WordPress themes, no drag-and-drop builders, no shortcuts. Your clinic is not a template.
+Four pillars in a 2x2 grid on desktop, single column on mobile. Each pillar carries a Fraunces serif numeral (01-04) in weight 300 at 36/48px stone-soft, anchoring the pillar where a hairline would on a more decorated layout. Numerals replaced the per-pillar terracotta hairlines during build; terracotta survives at the section header level only (next to the WHY NOVACARE caption). No icons, no card chrome, no dividers between pillars.
 
-**We ship, then we stay.**
-Most agencies vanish the week after launch. We handle everything after. Hosting, updates, content changes, performance, security. For one flat monthly fee.
+Body opacity is scroll-coupled per pillar: each body fades between 0.3 and 1.0 as that pillar passes through viewport center. Headings and numerals stay solid throughout. Reduced-motion path bypasses the scroll coupling and renders all bodies at full opacity. Visually-hidden h2 carries "Why Novacare" for screen-reader landmark naming.
 
-**We write code, not prompts.**
-Our sites are built on Next.js, TypeScript, and Vercel. The same stack used by OpenAI, Notion, and the world's leading tech companies. Fast today. Maintainable for years.
+The third pillar copy was refreshed away from tech jargon: the original "We write code, not prompts." was replaced with "We answer the messages ourselves." (more on-tone for a clinic-owner audience).
 
-**We work with a small number of clinics at once.**
-We take on a limited number of clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.
+**01. We don't use templates.**
+Every Novacare site is designed from a blank canvas, for your clinic specifically. Not a recolored theme. Not a layout we've used before. Your clinic is not a copy of someone else's clinic, and your site shouldn't be either.
+
+**02. We ship, then we stay.**
+Most agencies vanish the week after launch. We handle everything that comes after. Hosting, updates, content changes, performance, security. For one flat monthly fee. The launch is the start of the work, not the end of it.
+
+**03. We answer the messages ourselves.**
+Two founders. No account managers. No handoffs to junior staff. When you message us, you're talking to the people who designed and built your site.
+
+**04. We work with a small number of clinics at once.**
+We take on a limited number of new clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.
 
 ### Beat 6 — Closing CTA (PLANNED, NOT YET BUILT)
 
