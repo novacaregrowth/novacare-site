@@ -381,21 +381,21 @@ function MessageList({
           "linear-gradient(to bottom, transparent 0%, black 12%, black 100%)",
       }}
     >
-      {visible.map((message) => (
-        <ChatMessage
-          key={message.id}
-          message={message}
-          receiptState={
-            message.kind === "text" && message.side === "sent"
-              ? receiptStates[message.id]
-              : undefined
-          }
-          cardHovered={cardHovered}
-          cardLanded={cardLanded}
-          reduce={reduce}
-        />
-      ))}
       <AnimatePresence mode="popLayout" initial={false}>
+        {visible.map((message) => (
+          <ChatMessage
+            key={message.id}
+            message={message}
+            receiptState={
+              message.kind === "text" && message.side === "sent"
+                ? receiptStates[message.id]
+                : undefined
+            }
+            cardHovered={cardHovered}
+            cardLanded={cardLanded}
+            reduce={reduce}
+          />
+        ))}
         {typingSide ? (
           <TypingIndicator key={`typing-${typingSide}`} side={typingSide} />
         ) : null}

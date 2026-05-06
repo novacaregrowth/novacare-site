@@ -52,7 +52,11 @@ export function ConfirmationCard({
   const [cardGlowed, setCardGlowed] = useState(false);
 
   useEffect(() => {
-    if (!cardLanded || reduce) return;
+    if (reduce) return;
+    if (!cardLanded) {
+      setCardGlowed(false);
+      return;
+    }
     const id = setTimeout(() => setCardGlowed(true), 16);
     return () => clearTimeout(id);
   }, [cardLanded, reduce]);

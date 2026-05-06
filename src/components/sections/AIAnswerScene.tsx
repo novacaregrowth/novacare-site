@@ -181,83 +181,46 @@ export function AIAnswerScene() {
   const [phoneHovered, setPhoneHovered] = useState(false);
   const [revealed, setRevealed] = useState(false);
 
-  const firedRef = useRef<Set<number>>(new Set());
+  const computeSceneState = (v: number) => {
+    let nextVisible = 0;
+    if (v >= 0.74) nextVisible = 6;
+    else if (v >= 0.63) nextVisible = 5;
+    else if (v >= 0.56) nextVisible = 4;
+    else if (v >= 0.45) nextVisible = 3;
+    else if (v >= 0.37) nextVisible = 2;
+    else if (v >= 0.25) nextVisible = 1;
 
-  const setReceipt = (id: string, state: ReceiptState) =>
-    setReceiptStates((s) => ({ ...s, [id]: state }));
+    let nextTyping: TypingSide = null;
+    if (v >= 0.69 && v < 0.74) nextTyping = "received";
+    else if (v >= 0.6 && v < 0.63) nextTyping = "sent";
+    else if (v >= 0.52 && v < 0.56) nextTyping = "received";
+    else if (v >= 0.32 && v < 0.37) nextTyping = "received";
 
-  const milestones: Array<{ threshold: number; apply: () => void }> = [
-    {
-      threshold: 0.25,
-      apply: () => {
-        setVisibleCount(1);
-        setReceipt("m1", "single");
-      },
-    },
-    { threshold: 0.27, apply: () => setReceipt("m1", "double-soft") },
-    {
-      threshold: 0.32,
-      apply: () => {
-        setTypingSide("received");
-        setReceipt("m1", "double-bone");
-      },
-    },
-    {
-      threshold: 0.37,
-      apply: () => {
-        setVisibleCount(2);
-        setTypingSide(null);
-      },
-    },
-    {
-      threshold: 0.45,
-      apply: () => {
-        setVisibleCount(3);
-        setReceipt("m3", "single");
-      },
-    },
-    { threshold: 0.47, apply: () => setReceipt("m3", "double-soft") },
-    {
-      threshold: 0.52,
-      apply: () => {
-        setTypingSide("received");
-        setReceipt("m3", "double-bone");
-      },
-    },
-    {
-      threshold: 0.56,
-      apply: () => {
-        setVisibleCount(4);
-        setTypingSide(null);
-      },
-    },
-    { threshold: 0.6, apply: () => setTypingSide("sent") },
-    {
-      threshold: 0.63,
-      apply: () => {
-        setVisibleCount(5);
-        setTypingSide(null);
-        setReceipt("m5", "single");
-      },
-    },
-    { threshold: 0.65, apply: () => setReceipt("m5", "double-soft") },
-    {
-      threshold: 0.69,
-      apply: () => {
-        setTypingSide("received");
-        setReceipt("m5", "double-bone");
-      },
-    },
-    {
-      threshold: 0.74,
-      apply: () => {
-        setVisibleCount(6);
-        setTypingSide(null);
-      },
-    },
-    { threshold: 0.78, apply: () => setCardLanded(true) },
-    { threshold: 0.82, apply: () => setRevealed(true) },
-  ];
+    let m1: ReceiptState | undefined;
+    if (v >= 0.32) m1 = "double-bone";
+    else if (v >= 0.27) m1 = "double-soft";
+    else if (v >= 0.25) m1 = "single";
+
+    let m3: ReceiptState | undefined;
+    if (v >= 0.52) m3 = "double-bone";
+    else if (v >= 0.47) m3 = "double-soft";
+    else if (v >= 0.45) m3 = "single";
+
+    let m5: ReceiptState | undefined;
+    if (v >= 0.69) m5 = "double-bone";
+    else if (v >= 0.65) m5 = "double-soft";
+    else if (v >= 0.63) m5 = "single";
+
+    return {
+      nextVisible,
+      nextTyping,
+      m1,
+      m3,
+      m5,
+      cardLanded: v >= 0.78,
+      revealed: v >= 0.82,
+    };
+  };
 
   // Phone entrance values (clamped)
   const phoneScale = useTransform(
@@ -347,14 +310,27 @@ export function AIAnswerScene() {
   const reflectionX = useTransform(smoothMouseX, [-200, 200], [10, -10]);
   const reflectionY = useTransform(smoothMouseY, [-200, 200], [10, -10]);
 
-  // Milestone state machine: latched, monotonic, idempotent
+  // Pure scroll-derived state: bidirectional, no latch
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    for (let i = 0; i < milestones.length; i++) {
-      if (v >= milestones[i].threshold && !firedRef.current.has(i)) {
-        firedRef.current.add(i);
-        milestones[i].apply();
+    const next = computeSceneState(v);
+    setVisibleCount(next.nextVisible);
+    setTypingSide(next.nextTyping);
+    setCardLanded(next.cardLanded);
+    setRevealed(next.revealed);
+    setReceiptStates((prev) => {
+      if (
+        prev.m1 === next.m1 &&
+        prev.m3 === next.m3 &&
+        prev.m5 === next.m5
+      ) {
+        return prev;
       }
-    }
+      const out: Record<string, ReceiptState> = {};
+      if (next.m1) out.m1 = next.m1;
+      if (next.m3) out.m3 = next.m3;
+      if (next.m5) out.m5 = next.m5;
+      return out;
+    });
   });
 
   // Mouse tracking

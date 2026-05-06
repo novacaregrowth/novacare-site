@@ -1537,7 +1537,7 @@ export function PhoneScene() {
   const [headlineRevealed, setHeadlineRevealed] = useState(false);
 
   useMotionValueEvent(scrollYProgress, "change", (v) => {
-    if (v >= 0.7 && !headlineRevealed) setHeadlineRevealed(true);
+    setHeadlineRevealed(v >= 0.7);
   });
 
   const mouseX = useMotionValue(0);

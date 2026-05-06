@@ -9,6 +9,12 @@ const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const BUBBLE_INITIAL = { opacity: 0, scale: 0.96, y: 8 };
 const BUBBLE_ANIMATE = { opacity: 1, scale: [0.96, 1.04, 1], y: 0 };
+const BUBBLE_EXIT = {
+  opacity: 0,
+  scale: 0.96,
+  y: -4,
+  transition: { duration: 0.2, ease: EASE },
+};
 const BUBBLE_TRANSITION = {
   duration: 0.45,
   ease: EASE,
@@ -92,17 +98,25 @@ export function ChatMessage({
   const rowAlign = isSent ? "justify-end" : "justify-start";
 
   if (message.kind === "card") {
-    const inner = (
-      <div className={`w-full flex ${rowAlign}`}>
-        <ConfirmationCard
-          data={message.data}
-          cardHovered={cardHovered}
-          cardLanded={cardLanded}
-          reduce={reduce}
-        />
-      </div>
+    const cardInner = (
+      <ConfirmationCard
+        data={message.data}
+        cardHovered={cardHovered}
+        cardLanded={cardLanded}
+        reduce={reduce}
+      />
     );
-    return inner;
+    if (reduce) {
+      return <div className={`w-full flex ${rowAlign}`}>{cardInner}</div>;
+    }
+    return (
+      <motion.div
+        exit={BUBBLE_EXIT}
+        className={`w-full flex ${rowAlign}`}
+      >
+        {cardInner}
+      </motion.div>
+    );
   }
 
   const bubbleColor = isSent ? "bg-bubble-sent" : "bg-card";
@@ -137,6 +151,7 @@ export function ChatMessage({
     <motion.div
       initial={BUBBLE_INITIAL}
       animate={BUBBLE_ANIMATE}
+      exit={BUBBLE_EXIT}
       transition={BUBBLE_TRANSITION}
       className={`w-full flex ${rowAlign}`}
     >
