@@ -15,11 +15,7 @@ import { copy } from "@/content/copy";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const T_HEADLINE_START = 0.55;
-const HEADLINE_WORD_STAGGER = 0.04;
-const HEADLINE_WORD_DURATION = 0.25;
-const POST_HEADLINE_GAP_S = 0.24;
-
+const PRE_PILLARS_DELAY_S = 0.8;
 const PILLAR_STAGGER_S = 0.4;
 
 const WORD_DURATION_S = 0.3;
@@ -46,19 +42,15 @@ function StaticWhyNovacare() {
       className="bg-ink py-20 md:py-32"
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
+        <h2 id="why-heading" className="sr-only">
+          {why.label}
+        </h2>
         <div className="flex items-center gap-4">
           <div aria-hidden="true" className="h-px w-12 bg-terracotta" />
           <span className="font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft">
             {why.label}
           </span>
         </div>
-
-        <h2
-          id="why-heading"
-          className="mt-6 font-serif font-normal text-bone text-[32px] md:text-[48px] tracking-[-0.02em] leading-[1.1]"
-        >
-          {why.headline}
-        </h2>
 
         <div className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24">
           {why.points.map((p, i) => (
@@ -188,12 +180,6 @@ export function WhyNovacare() {
   if (reduce) return <StaticWhyNovacare />;
 
   const why = copy.home.why;
-  const headlineWords = why.headline.split(" ");
-  const headlineEnd =
-    T_HEADLINE_START +
-    (headlineWords.length - 1) * HEADLINE_WORD_STAGGER +
-    HEADLINE_WORD_DURATION;
-  const prePillarsDelay = headlineEnd + POST_HEADLINE_GAP_S;
 
   const headerLineVariants: Variants = {
     hidden: { width: 0 },
@@ -212,30 +198,11 @@ export function WhyNovacare() {
     },
   };
 
-  const headlineGroupVariants: Variants = {
-    hidden: {},
-    visible: {
-      transition: {
-        delayChildren: T_HEADLINE_START,
-        staggerChildren: HEADLINE_WORD_STAGGER,
-      },
-    },
-  };
-
-  const headlineWordVariants: Variants = {
-    hidden: { opacity: 0.01, y: 12 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: HEADLINE_WORD_DURATION, ease: EASE },
-    },
-  };
-
   const pillarsContainerVariants: Variants = {
     hidden: {},
     visible: {
       transition: {
-        delayChildren: prePillarsDelay,
+        delayChildren: PRE_PILLARS_DELAY_S,
         staggerChildren: PILLAR_STAGGER_S,
       },
     },
@@ -248,6 +215,10 @@ export function WhyNovacare() {
       className="bg-ink py-20 md:py-32"
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
+        <h2 id="why-heading" className="sr-only">
+          {why.label}
+        </h2>
+
         <motion.div
           initial="hidden"
           animate={inView ? "visible" : "hidden"}
@@ -265,29 +236,6 @@ export function WhyNovacare() {
             {why.label}
           </motion.span>
         </motion.div>
-
-        <motion.h2
-          id="why-heading"
-          initial="hidden"
-          animate={inView ? "visible" : "hidden"}
-          variants={headlineGroupVariants}
-          aria-label={why.headline}
-          className="mt-6 font-serif font-normal text-bone text-[32px] md:text-[48px] tracking-[-0.02em] leading-[1.1]"
-        >
-          {headlineWords.map((word, i) => {
-            const isLast = i === headlineWords.length - 1;
-            return (
-              <motion.span
-                key={i}
-                aria-hidden="true"
-                variants={headlineWordVariants}
-                className={isLast ? "inline-block" : "mr-[0.25em] inline-block"}
-              >
-                {word}
-              </motion.span>
-            );
-          })}
-        </motion.h2>
 
         <motion.div
           initial="hidden"

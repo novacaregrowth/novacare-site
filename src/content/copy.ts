@@ -135,7 +135,6 @@ export const copy = {
     },
     why: {
       label: "Why Novacare",
-      headline: "Four reasons this won't be like every other agency you've used.",
       points: [
         {
           title: "We don't use templates.",
