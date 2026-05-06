@@ -138,19 +138,19 @@ export const copy = {
       points: [
         {
           title: "We don't use templates.",
-          body: "Every Novacare site is designed from a blank canvas. No WordPress themes, no drag-and-drop builders, no shortcuts. Your clinic is not a template.",
+          body: "Every Novacare site is designed from a blank canvas, for your clinic specifically. Not a recolored theme. Not a layout we've used before. Your clinic is not a copy of someone else's clinic, and your site shouldn't be either.",
         },
         {
           title: "We ship, then we stay.",
-          body: "Most agencies vanish the week after launch. We handle everything after. Hosting, updates, content changes, performance, security. For one flat monthly fee.",
+          body: "Most agencies vanish the week after launch. We handle everything that comes after. Hosting, updates, content changes, performance, security. For one flat monthly fee. The launch is the start of the work, not the end of it.",
         },
         {
-          title: "We write code, not prompts.",
-          body: "Our sites are built on Next.js, TypeScript, and Vercel. The same stack used by OpenAI, Notion, and the world's leading tech companies. Fast today. Maintainable for years.",
+          title: "We answer the messages ourselves.",
+          body: "Two founders. No account managers. No handoffs to junior staff. When you message us, you're talking to the people who designed and built your site.",
         },
         {
           title: "We work with a small number of clinics at once.",
-          body: "We take on a limited number of clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.",
+          body: "We take on a limited number of new clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.",
         },
       ],
     },
