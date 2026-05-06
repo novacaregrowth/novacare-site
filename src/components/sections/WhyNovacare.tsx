@@ -20,7 +20,7 @@ const WORD_DURATION_S = 0.3;
 const WORD_STAGGER_S = 0.08;
 const POST_HEADING_GAP_S = 0.2;
 const BODY_DURATION_S = 0.5;
-const HAIRLINE_DURATION_S = 0.5;
+const NUMERAL_DURATION_S = 0.5;
 
 function bodyDelayForTitle(title: string): number {
   const wordCount = title.split(" ").length;
@@ -46,9 +46,14 @@ function StaticWhyNovacare() {
         </div>
 
         <div className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24">
-          {why.points.map((p) => (
+          {why.points.map((p, i) => (
             <article key={p.title}>
-              <div aria-hidden="true" className="h-px w-8 bg-terracotta" />
+              <span
+                aria-hidden="true"
+                className="block font-serif font-light text-stone-soft text-[36px] md:text-[48px] tracking-[-0.02em] leading-none"
+              >
+                {String(i + 1).padStart(2, "0")}
+              </span>
               <h3 className="mt-4 font-serif font-normal text-bone text-[24px] md:text-[32px] tracking-[-0.02em] leading-[1.2]">
                 {p.title}
               </h3>
@@ -106,11 +111,12 @@ export function WhyNovacare() {
     },
   };
 
-  const pillarHairlineVariants: Variants = {
-    hidden: { scaleX: 0 },
+  const pillarNumeralVariants: Variants = {
+    hidden: { opacity: 0.01, y: 8 },
     visible: {
-      scaleX: 1,
-      transition: { duration: HAIRLINE_DURATION_S, ease: EASE },
+      opacity: 1,
+      y: 0,
+      transition: { duration: NUMERAL_DURATION_S, ease: EASE },
     },
   };
 
@@ -165,9 +171,10 @@ export function WhyNovacare() {
           variants={pillarsContainerVariants}
           className="mt-16 md:mt-24 grid grid-cols-1 gap-x-12 gap-y-16 md:grid-cols-2 md:gap-x-16 md:gap-y-24"
         >
-          {why.points.map((p) => {
+          {why.points.map((p, i) => {
             const words = p.title.split(" ");
             const bodyDelay = bodyDelayForTitle(p.title);
+            const numeral = String(i + 1).padStart(2, "0");
 
             const bodyVariants: Variants = {
               hidden: { opacity: 0.01, y: 16 },
@@ -184,11 +191,13 @@ export function WhyNovacare() {
 
             return (
               <motion.article key={p.title} variants={pillarVariants}>
-                <motion.div
-                  variants={pillarHairlineVariants}
+                <motion.span
+                  variants={pillarNumeralVariants}
                   aria-hidden="true"
-                  className="h-px w-8 origin-left bg-terracotta"
-                />
+                  className="block font-serif font-light text-stone-soft text-[36px] md:text-[48px] tracking-[-0.02em] leading-none"
+                >
+                  {numeral}
+                </motion.span>
                 <motion.h3
                   variants={headingContainerVariants}
                   aria-label={p.title}
