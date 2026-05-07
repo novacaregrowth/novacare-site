@@ -156,10 +156,10 @@ export const copy = {
     },
     closing: {
       capacity: "Three slots remaining this quarter.",
-      h2: "A website worth the practice behind it.",
-      sub: "Tell us about your clinic. We'll reply within the day.",
+      h2: "Built for the practice you've earned.",
+      sub: "Tell us about your clinic. We'll reply today.",
       primaryCta: { label: "Message us on WhatsApp", href: WHATSAPP_HREF },
-      secondaryCtaPrefix: "Or email ",
+      secondaryCtaPrefix: "",
       secondaryCta: { label: EMAIL_DISPLAY, href: EMAIL_HREF },
     },
   },

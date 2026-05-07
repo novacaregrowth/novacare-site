@@ -114,7 +114,7 @@ function StaticClosingArc() {
 
       <section
         aria-labelledby="closing-heading"
-        className="relative pt-[30vh] md:pt-[40vh] overflow-hidden"
+        className="relative pt-[12vh] md:pt-[16vh] overflow-hidden"
       >
         <Image
           src="/beat-6-amber-smoke-poster.jpg"
@@ -127,7 +127,7 @@ function StaticClosingArc() {
 
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[30vh] md:h-[40vh] pointer-events-none z-[1]"
+          className="absolute inset-x-0 top-0 h-[12vh] md:h-[16vh] pointer-events-none z-[1]"
           style={{ background: TOP_FADE_FROM_INK }}
         />
         <div
@@ -141,7 +141,7 @@ function StaticClosingArc() {
           style={{ background: BOTTOM_FADE_TO_INK }}
         />
 
-        <div className="relative z-10 flex min-h-[120svh] items-center">
+        <div className="relative z-10 flex min-h-[70svh] items-center">
           <div className="mx-auto w-full max-w-[1440px] px-6 py-24 md:px-12 md:py-40 lg:px-24">
             <div className="flex max-w-[1200px] flex-col items-start">
               <div className="flex items-center gap-4">
@@ -467,7 +467,7 @@ export function ClosingArc() {
 
       <section
         aria-labelledby="closing-heading"
-        className="relative pt-[30vh] md:pt-[40vh] overflow-hidden"
+        className="relative pt-[12vh] md:pt-[16vh] overflow-hidden"
       >
         <video
           src="/beat-6-amber-smoke.mp4"
@@ -483,7 +483,7 @@ export function ClosingArc() {
 
         <div
           aria-hidden="true"
-          className="absolute inset-x-0 top-0 h-[30vh] md:h-[40vh] pointer-events-none z-[1]"
+          className="absolute inset-x-0 top-0 h-[12vh] md:h-[16vh] pointer-events-none z-[1]"
           style={{ background: TOP_FADE_FROM_INK }}
         />
         <div
@@ -499,7 +499,7 @@ export function ClosingArc() {
 
         <div
           ref={closingContentRef}
-          className="relative z-10 flex min-h-[120svh] items-center"
+          className="relative z-10 flex min-h-[70svh] items-center"
         >
           <div className="mx-auto w-full max-w-[1440px] px-6 py-24 md:px-12 md:py-40 lg:px-24">
             <motion.div
