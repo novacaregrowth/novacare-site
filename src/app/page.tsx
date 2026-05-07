@@ -1,4 +1,5 @@
 import { AIAnswerScene } from "@/components/sections/AIAnswerScene";
+import { ClosingCTA } from "@/components/sections/ClosingCTA";
 import { Hero } from "@/components/sections/Hero";
 import { PhoneScene } from "@/components/sections/PhoneScene";
 import { Services } from "@/components/sections/Services";
@@ -12,6 +13,7 @@ export default function Home() {
       <AIAnswerScene />
       <Services />
       <WhyNovacare />
+      <ClosingCTA />
     </main>
   );
 }

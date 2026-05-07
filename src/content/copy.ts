@@ -155,6 +155,7 @@ export const copy = {
       ],
     },
     closing: {
+      capacity: "Three slots remaining this quarter.",
       h2: "Let's build something you're proud to send people to.",
       sub: "Tell us about your clinic. We'll reply within the day.",
       primaryCta: { label: "Message us on WhatsApp", href: WHATSAPP_HREF },
