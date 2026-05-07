@@ -2,6 +2,8 @@
 
 import { useRef } from "react";
 
+import Image from "next/image";
+
 import {
   motion,
   useInView,
@@ -39,7 +41,7 @@ function StaticWhyNovacare() {
   return (
     <section
       aria-labelledby="why-heading"
-      className="bg-ink py-20 md:py-32"
+      className="relative bg-ink pt-20 md:pt-32 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
         <h2 id="why-heading" className="sr-only">
@@ -70,6 +72,26 @@ function StaticWhyNovacare() {
             </article>
           ))}
         </div>
+      </div>
+
+      <div className="relative mt-4 md:mt-8 h-[30vh] md:h-[40vh]">
+        <Image
+          src="/beat-6-amber-smoke-poster.jpg"
+          alt=""
+          aria-hidden={true}
+          fill
+          sizes="100vw"
+          className="absolute inset-0 object-cover z-0"
+        />
+
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[30%] pointer-events-none z-[1]"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 30%, rgba(10,10,10,0.4) 70%, rgba(10,10,10,0) 100%)",
+          }}
+        />
       </div>
     </section>
   );
@@ -212,7 +234,7 @@ export function WhyNovacare() {
     <section
       ref={sectionRef}
       aria-labelledby="why-heading"
-      className="bg-ink py-20 md:py-32"
+      className="relative bg-ink pt-20 md:pt-32 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-[1200px] px-6 md:px-12">
         <h2 id="why-heading" className="sr-only">
@@ -247,6 +269,29 @@ export function WhyNovacare() {
             <PillarMotion key={p.title} point={p} index={i} />
           ))}
         </motion.div>
+      </div>
+
+      <div className="relative mt-4 md:mt-8 h-[30vh] md:h-[40vh]">
+        <video
+          src="/beat-6-amber-smoke.mp4"
+          poster="/beat-6-amber-smoke-poster.jpg"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="metadata"
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover z-0"
+        />
+
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-0 top-0 h-[30%] pointer-events-none z-[1]"
+          style={{
+            background:
+              "linear-gradient(to bottom, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 30%, rgba(10,10,10,0.4) 70%, rgba(10,10,10,0) 100%)",
+          }}
+        />
       </div>
     </section>
   );

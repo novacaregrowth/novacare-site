@@ -26,6 +26,8 @@ const POST_HEADLINE_GAP_S = 0.2;
 const SUBHEAD_DURATION_S = 0.5;
 const POST_SUBHEAD_GAP_S = 0.3;
 const CTA_DURATION_S = 0.5;
+const POST_CTA_GAP_S = 0.3;
+const EMAIL_CAPTION_DURATION_S = 0.3;
 
 const sharedBtn = cn(
   "inline-flex items-center justify-center rounded-[var(--radius)]",
@@ -68,15 +70,6 @@ function StaticClosingCTA() {
 
       <div
         aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[30%] pointer-events-none z-[1]"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 30%, rgba(10,10,10,0.4) 70%, rgba(10,10,10,0) 100%)",
-        }}
-      />
-
-      <div
-        aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-[30%] pointer-events-none z-[1]"
         style={{
           background:
@@ -104,21 +97,22 @@ function StaticClosingCTA() {
             {closing.sub}
           </p>
 
-          <div className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8">
-            <a
-              href={closing.primaryCta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Message us on WhatsApp (opens in a new tab)"
-              className={cn(primaryBtnClasses, "w-full sm:w-auto")}
-            >
-              {closing.primaryCta.label}
-            </a>
+          <a
+            href={closing.primaryCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Message us on WhatsApp (opens in a new tab)"
+            className={cn(primaryBtnClasses, "mt-24 w-full sm:w-auto")}
+          >
+            {closing.primaryCta.label}
+          </a>
 
+          <p className="mt-6 font-sans text-[14px] leading-[1.5] text-stone-soft">
+            {closing.secondaryCtaPrefix}
             <a
               href={closing.secondaryCta.href}
               aria-label={`Email ${closing.secondaryCta.label}`}
-              className="group relative inline-block font-sans text-[18px] leading-[1.5] text-bone focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta md:text-[20px]"
+              className="group relative inline-block focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
             >
               <span>{closing.secondaryCta.label}</span>
               <span
@@ -126,7 +120,7 @@ function StaticClosingCTA() {
                 className="absolute -bottom-1 left-0 right-0 h-px origin-left scale-x-0 bg-terracotta transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
             </a>
-          </div>
+          </p>
         </div>
       </div>
     </section>
@@ -149,6 +143,7 @@ export function ClosingCTA() {
     POST_HEADLINE_GAP_S;
 
   const ctaDelayS = subheadDelayS + SUBHEAD_DURATION_S + POST_SUBHEAD_GAP_S;
+  const emailCaptionDelayS = ctaDelayS + CTA_DURATION_S + POST_CTA_GAP_S;
 
   const hairlineVariants: Variants = {
     hidden: { width: 0 },
@@ -203,7 +198,7 @@ export function ClosingCTA() {
     },
   };
 
-  const ctaPairVariants: Variants = {
+  const ctaVariants: Variants = {
     hidden: { opacity: 0.01, y: 16 },
     visible: {
       opacity: 1,
@@ -211,6 +206,19 @@ export function ClosingCTA() {
       transition: {
         delay: ctaDelayS,
         duration: CTA_DURATION_S,
+        ease: EASE,
+      },
+    },
+  };
+
+  const emailCaptionVariants: Variants = {
+    hidden: { opacity: 0.01, y: 8 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: emailCaptionDelayS,
+        duration: EMAIL_CAPTION_DURATION_S,
         ease: EASE,
       },
     },
@@ -240,15 +248,6 @@ export function ClosingCTA() {
         style={{
           background:
             "linear-gradient(to right, rgba(10,10,10,0.75) 0%, rgba(10,10,10,0.45) 50%, rgba(10,10,10,0.2) 100%)",
-        }}
-      />
-
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-0 top-0 h-[30%] pointer-events-none z-[1]"
-        style={{
-          background:
-            "linear-gradient(to bottom, rgba(10,10,10,1) 0%, rgba(10,10,10,0.85) 30%, rgba(10,10,10,0.4) 70%, rgba(10,10,10,0) 100%)",
         }}
       />
 
@@ -309,24 +308,26 @@ export function ClosingCTA() {
             {closing.sub}
           </motion.p>
 
-          <motion.div
-            variants={ctaPairVariants}
-            className="mt-12 flex flex-col items-start gap-6 sm:flex-row sm:items-center sm:gap-8"
+          <motion.a
+            href={closing.primaryCta.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Message us on WhatsApp (opens in a new tab)"
+            variants={ctaVariants}
+            className={cn(primaryBtnClasses, "mt-24 w-full sm:w-auto")}
           >
-            <a
-              href={closing.primaryCta.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Message us on WhatsApp (opens in a new tab)"
-              className={cn(primaryBtnClasses, "w-full sm:w-auto")}
-            >
-              {closing.primaryCta.label}
-            </a>
+            {closing.primaryCta.label}
+          </motion.a>
 
+          <motion.p
+            variants={emailCaptionVariants}
+            className="mt-6 font-sans text-[14px] leading-[1.5] text-stone-soft"
+          >
+            {closing.secondaryCtaPrefix}
             <a
               href={closing.secondaryCta.href}
               aria-label={`Email ${closing.secondaryCta.label}`}
-              className="group relative inline-block font-sans text-[18px] leading-[1.5] text-bone focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta md:text-[20px]"
+              className="group relative inline-block focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-terracotta"
             >
               <span>{closing.secondaryCta.label}</span>
               <span
@@ -334,7 +335,7 @@ export function ClosingCTA() {
                 className="absolute -bottom-1 left-0 right-0 h-px origin-left scale-x-0 bg-terracotta transition-transform duration-300 ease-out group-hover:scale-x-100 group-focus-visible:scale-x-100"
               />
             </a>
-          </motion.div>
+          </motion.p>
         </motion.div>
       </div>
     </section>
