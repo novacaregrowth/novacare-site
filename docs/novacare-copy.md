@@ -157,16 +157,20 @@ Two founders. No account managers. No handoffs to junior staff. When you message
 **04. We work with a small number of clinics at once.**
 We take on a limited number of new clients each quarter so every project gets real attention. If we're at capacity, we'll tell you, and we'll tell you when a slot opens.
 
-### Beat 6 — Closing CTA (PLANNED, NOT YET BUILT)
+### Beat 6 — Closing CTA (SHIPPED)
 
-**H2**: Let's build something you're proud to send people to.
+**H2**: Built for the practice you've earned.
 
-**Subhead**: Tell us about your clinic. We'll reply within the day.
+**Subhead**: Tell us about your clinic. We'll reply today.
 
 **Capacity indicator (small caption above H2)**: Three slots remaining this quarter.
 
 **Primary CTA**: Message us on WhatsApp
-**Secondary CTA**: yazan@novacaregrowth.com
+**Secondary**: yazan@novacaregrowth.com, rendered as a discreet caption below the CTA. No "Or email" prefix; the email address stands alone with a terracotta scaleX hover underline on the link itself.
+
+Note: the H2 was superseded during the build. The original v5 doc spec read "Let's build something you're proud to send people to." copy.ts is the canonical source for shipped strings, and the live H2 has been "Built for the practice you've earned." since Beat 6 shipped. This doc now matches.
+
+**Implementation note (Beats 5 and 6)**: rendered as a single component, `src/components/sections/ClosingArc.tsx`, on the home page. The two beats are conceptually separate (one carries reasons, the other carries the close), and the copy keys `home.why` and `home.closing` remain distinct, but a single `<video>` element atmospherically continuous across both regions plays `/beat-6-amber-smoke.mp4`. The merge eliminates the frame-async tear that occurred when each beat had its own video instance.
 
 ---
 

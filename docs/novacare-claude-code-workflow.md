@@ -541,3 +541,20 @@ Do NOT start a new chat:
 - When you're about to debug a specific error (you'll lose the diagnostic thread)
 
 Always commit before transitioning chats. The new chat reads project files fresh; the only state that transfers is what's in git.
+
+---
+
+## Lessons from the ClosingArc merge
+
+We shipped Beat 5 (Why Novacare) as `WhyNovacare.tsx` and Beat 6 (Closing CTA) as `ClosingCTA.tsx`, with each owning its own `<video>` element rendering `/beat-6-amber-smoke.mp4`. WhyNovacare carried a 30-40vh smoke bridge tail, ClosingCTA picked up smoke at full intensity over a 120svh closing scene, and the gradients were carefully matched at the seam.
+
+On hardware the seam was visibly torn. Two `<video>` decoders run on independent clocks. No matter how matched the gradient stitching is around the seam, the smoke patterns inside each video will be a frame or two apart, and the eye reads the discontinuity as a hard line.
+
+The fix was structural: collapse `WhyNovacare` and `ClosingCTA` into one component, `ClosingArc.tsx`, with one `<video>` element spanning both regions. One decoder, one frame stream, no seam.
+
+Lesson: when two adjacent sections need to share an ambient asset (video, large image, gradient field), render it in one element across both regions rather than two synchronized instances. Even if it means a single component owns more responsibility than feels natural, the visual result is what matters. Frame-async between two `<video>` elements rendering the same source is a real failure mode, not a theoretical concern.
+
+Operational notes from the merge:
+- The two reveal cadences (pillars on viewport entry, closing CTA on its own viewport entry) are preserved by keeping two `useInView` triggers, each attached to its own region.
+- The closing region's `useInView` trigger attaches to the inner content container, not the outer section, so the verbatim 0.1 amount value preserves the original visual timing despite the section now being taller than the original `ClosingCTA` was.
+- Reduced-motion path uses a single `Image fill` with the same poster image, covering both regions in one element. The same continuity argument applies in static mode.
