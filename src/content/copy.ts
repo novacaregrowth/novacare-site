@@ -209,13 +209,15 @@ export const copy = {
 
   services: {
     hero: {
+      sectionLabel: "OUR SERVICES",
       h1: "Three ways to work with us.",
       sub: "Each tier is a complete system, not a menu of add-ons. Our pricing is public because your time is worth more than a sales funnel.",
     },
     tiers: [
       {
         name: "Clinic Site",
-        price: "from AED 6,500 setup + AED 850/month",
+        price: "from AED 6,500",
+        priceSubtitle: "setup, plus AED 850 / month",
         tagline: "For clinics that need a proper online home before anything else.",
         includesLabel: "What's included:",
         includes: [
@@ -236,7 +238,8 @@ export const copy = {
       },
       {
         name: "Clinic Site + AI Reception",
-        price: "from AED 12,000 setup + AED 1,800/month",
+        price: "from AED 12,000",
+        priceSubtitle: "setup, plus AED 1,800 / month",
         tagline: "For clinics losing patients to slow replies.",
         includesLabel: "Everything in Clinic Site, plus:",
         includes: [
@@ -254,7 +257,8 @@ export const copy = {
       },
       {
         name: "Growth System",
-        price: "from AED 20,000 setup + AED 3,500/month",
+        price: "from AED 20,000",
+        priceSubtitle: "setup, plus AED 3,500 / month",
         tagline: "For clinics ready to scale past the owner's inbox.",
         includesLabel: "Everything in Clinic Site + AI Reception, plus:",
         includes: [
@@ -268,9 +272,10 @@ export const copy = {
         addOn: "Fully managed Meta and Google ads, handled by us end to end. Targeting, creative, copy, daily optimization, reporting. Pricing depends on your monthly ad budget and campaign scope, so we scope this live on a call.",
         timeline: "4 to 6 weeks from kickoff to launch.",
         idealFor: "multi-practitioner clinics, medical centers, and aesthetic practices running or preparing for paid growth.",
-        cta: { label: "Book a call", href: "/contact" },
+        cta: { label: "Book a call", href: WHATSAPP_HREF },
       },
     ],
+    faqLabel: "QUESTIONS",
     faq: [
       {
         q: "How do payments work?",
@@ -309,6 +314,14 @@ export const copy = {
         a: "A small number each quarter. If we're at capacity, we'll tell you and we'll tell you when a slot opens. We'd rather turn down work than deliver a half-finished site.",
       },
     ],
+    closing: {
+      sectionLabel: "CAPACITY",
+      capacity: "Three slots remaining this quarter.",
+      h2: "We take on a small number of clinics each quarter.",
+      sub: "If one of them is yours, tell us about your practice. We reply within the day.",
+      primaryCta: { label: "Message us on WhatsApp", href: WHATSAPP_HREF },
+      secondaryCta: { label: EMAIL_DISPLAY, href: EMAIL_HREF },
+    },
   },
 
   about: {

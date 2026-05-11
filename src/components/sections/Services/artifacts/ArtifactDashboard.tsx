@@ -7,6 +7,7 @@ import {
   motion,
   useMotionValue,
   useMotionValueEvent,
+  useReducedMotion,
 } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
@@ -30,6 +31,9 @@ const SECONDARY_STAGGER_MS = 100;
 const HOVER_PEAK = 134;
 const HOVER_DURATION_SEC = 0.6;
 
+const AUTO_CYCLE_INTERVAL_MS = 4500;
+const AUTO_CYCLE_POST_INTRO_BUFFER_MS = 800;
+
 type DashboardData = {
   primary: {
     label: string;
@@ -51,6 +55,7 @@ type Props = {
   introDelaySec: number;
   hovered: boolean;
   enableIntros: boolean;
+  enableAutoCycle?: boolean;
 };
 
 export function ArtifactDashboard({
@@ -59,7 +64,9 @@ export function ArtifactDashboard({
   introDelaySec,
   hovered,
   enableIntros,
+  enableAutoCycle,
 }: Props) {
+  const reduce = useReducedMotion();
   const finalValue = data.primary.value;
 
   const motionValue = useMotionValue(enableIntros ? COUNTER_START : finalValue);
@@ -140,6 +147,77 @@ export function ArtifactDashboard({
     return () => controls.stop();
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hovered]);
+
+  useEffect(() => {
+    if (!enableAutoCycle || reduce) return;
+    if (!enableIntros) return;
+
+    const introCompleteMs =
+      introDelaySec * 1000 +
+      COUNTER_DELAY_MS +
+      COUNTER_DURATION_SEC * 1000 +
+      AUTO_CYCLE_POST_INTRO_BUFFER_MS;
+
+    let cancelled = false;
+    let cycleTimer: ReturnType<typeof setTimeout> | undefined;
+    const innerTimers: ReturnType<typeof setTimeout>[] = [];
+
+    const fireOnce = () => {
+      if (cancelled) return;
+
+      animate(motionValue, HOVER_PEAK, {
+        duration: HOVER_DURATION_SEC / 2,
+        ease: EASE,
+        onComplete: () => {
+          if (cancelled) return;
+          animate(motionValue, finalValue, {
+            duration: HOVER_DURATION_SEC / 2,
+            ease: EASE,
+          });
+        },
+      });
+
+      innerTimers.push(
+        setTimeout(() => {
+          if (cancelled) return;
+          setSecondaryDisplay(
+            data.secondary.map((s) => s.hoverValue ?? s.value),
+          );
+        }, (HOVER_DURATION_SEC * 1000) / 2),
+        setTimeout(() => {
+          if (cancelled) return;
+          setSecondaryDisplay(data.secondary.map((s) => s.value));
+        }, HOVER_DURATION_SEC * 1000),
+      );
+
+      const el = dotPulseRef.current;
+      if (el) {
+        animate(
+          el,
+          {
+            scale: [1, 1.4, 1],
+            filter: [
+              "drop-shadow(0 0 0px color-mix(in srgb, var(--terracotta) 0%, transparent))",
+              "drop-shadow(0 0 6px color-mix(in srgb, var(--terracotta) 50%, transparent))",
+              "drop-shadow(0 0 0px color-mix(in srgb, var(--terracotta) 0%, transparent))",
+            ],
+          },
+          { duration: HOVER_DURATION_SEC, ease: EASE },
+        );
+      }
+
+      cycleTimer = setTimeout(fireOnce, AUTO_CYCLE_INTERVAL_MS);
+    };
+
+    cycleTimer = setTimeout(fireOnce, introCompleteMs);
+
+    return () => {
+      cancelled = true;
+      if (cycleTimer) clearTimeout(cycleTimer);
+      innerTimers.forEach(clearTimeout);
+    };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [enableAutoCycle, enableIntros, reduce]);
 
   const containerInitial = enableIntros ? { opacity: 0 } : { opacity: 1 };
   const containerAnimate = play

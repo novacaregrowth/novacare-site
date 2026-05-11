@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
@@ -23,6 +23,13 @@ const HOVER_TIMINGS_MS = {
   ai: 1250,
 };
 
+const AUTO_CYCLE_TIMINGS_MS = {
+  patient: 0,
+  typing: 450,
+  ai: 1250,
+};
+const AUTO_CYCLE_PAUSE_MS = 5500;
+
 const BUBBLE_INITIAL = { opacity: 0.01, scale: 0.96 };
 const BUBBLE_ANIMATE = { opacity: 1, scale: [0.96, 1.04, 1] };
 const BUBBLE_EXIT = { opacity: 0.01, scale: 0.96 };
@@ -37,6 +44,7 @@ type Props = {
   introDelaySec: number;
   hovered: boolean;
   enableIntros: boolean;
+  enableAutoCycle?: boolean;
 };
 
 export function ArtifactPhoneReal({
@@ -44,7 +52,9 @@ export function ArtifactPhoneReal({
   introDelaySec,
   hovered,
   enableIntros,
+  enableAutoCycle,
 }: Props) {
+  const reduce = useReducedMotion();
   const [stage, setStage] = useState<Stage>(enableIntros ? "init" : "settled");
   const timeoutsRef = useRef<ReturnType<typeof setTimeout>[]>([]);
   const introPlayedRef = useRef(false);
@@ -92,6 +102,39 @@ export function ArtifactPhoneReal({
     // replay. The cycle completes on its own; the next hover-in starts a fresh one.
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hovered, enableIntros]);
+
+  useEffect(() => {
+    if (!enableAutoCycle || reduce) return;
+    if (!enableIntros) return;
+    if (hovered) return;
+    if (stage !== "settled") return;
+    if (!introPlayedRef.current) return;
+
+    let cancelled = false;
+    const localTimers: ReturnType<typeof setTimeout>[] = [];
+
+    const pauseTimer = setTimeout(() => {
+      if (cancelled) return;
+      setStage("init");
+      localTimers.push(
+        setTimeout(() => {
+          if (!cancelled) setStage("patient");
+        }, AUTO_CYCLE_TIMINGS_MS.patient),
+        setTimeout(() => {
+          if (!cancelled) setStage("typing");
+        }, AUTO_CYCLE_TIMINGS_MS.typing),
+        setTimeout(() => {
+          if (!cancelled) setStage("settled");
+        }, AUTO_CYCLE_TIMINGS_MS.ai),
+      );
+    }, AUTO_CYCLE_PAUSE_MS);
+
+    return () => {
+      cancelled = true;
+      clearTimeout(pauseTimer);
+      localTimers.forEach(clearTimeout);
+    };
+  }, [enableAutoCycle, enableIntros, hovered, stage, reduce]);
 
   const showPatient = stage === "patient" || stage === "typing" || stage === "settled";
   const showTyping = stage === "typing";

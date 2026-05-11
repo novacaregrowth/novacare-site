@@ -1,19 +1,60 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
+
+import { motion, useReducedMotion } from "framer-motion";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
 const IDLE_Y = -40;
 const HOVERED_Y = -140;
 
+const AUTO_HOLD_IDLE_MS = 3500;
+const AUTO_HOLD_HOVER_MS = 2500;
+const SCROLL_DURATION_MS = 800;
+
 type Props = {
   hovered: boolean;
   enableIntros: boolean;
+  enableAutoCycle?: boolean;
 };
 
-export function ArtifactBrowserLarge({ hovered, enableIntros }: Props) {
-  const targetY = enableIntros && hovered ? HOVERED_Y : IDLE_Y;
+export function ArtifactBrowserLarge({
+  hovered,
+  enableIntros,
+  enableAutoCycle,
+}: Props) {
+  const reduce = useReducedMotion();
+  const [autoHovered, setAutoHovered] = useState(false);
+
+  useEffect(() => {
+    if (!enableAutoCycle || reduce) return;
+
+    let cancelled = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+
+    const toHovered = () => {
+      if (cancelled) return;
+      setAutoHovered(true);
+      timer = setTimeout(toIdle, SCROLL_DURATION_MS + AUTO_HOLD_HOVER_MS);
+    };
+
+    const toIdle = () => {
+      if (cancelled) return;
+      setAutoHovered(false);
+      timer = setTimeout(toHovered, SCROLL_DURATION_MS + AUTO_HOLD_IDLE_MS);
+    };
+
+    timer = setTimeout(toHovered, AUTO_HOLD_IDLE_MS);
+
+    return () => {
+      cancelled = true;
+      if (timer) clearTimeout(timer);
+    };
+  }, [enableAutoCycle, reduce]);
+
+  const effectiveHovered = hovered || autoHovered;
+  const targetY = enableIntros && effectiveHovered ? HOVERED_Y : IDLE_Y;
 
   return (
     <div className="relative h-[240px] w-full overflow-hidden rounded-md border border-border-warm bg-ink">
@@ -32,7 +73,7 @@ export function ArtifactBrowserLarge({ hovered, enableIntros }: Props) {
         aria-hidden="true"
         className="absolute inset-x-0 top-[28px]"
         animate={{ y: targetY }}
-        transition={{ duration: 0.8, ease: EASE }}
+        transition={{ duration: SCROLL_DURATION_MS / 1000, ease: EASE }}
       >
         <PageHomepage />
         <PageBooking />
