@@ -21,10 +21,10 @@ export function StatusBar({
       <span className="font-sans text-[15px] font-semibold leading-none text-bone tabular-nums">
         {time}
       </span>
-      <div className="flex items-center gap-1.5 text-bone">
-        <SignalIcon size={12} />
-        <WifiIcon size={12} />
-        <BatteryIcon size={11} percent={batteryPercent} />
+      <div className="flex items-center gap-1 text-bone">
+        <SignalIcon size={10} />
+        <WifiIcon size={10} />
+        <BatteryIcon size={9} percent={batteryPercent} />
       </div>
     </div>
   );

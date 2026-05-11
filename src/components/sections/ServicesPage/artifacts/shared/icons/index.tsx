@@ -352,6 +352,68 @@ export function GoogleGIcon({ size = 16, className }: IconProps) {
   );
 }
 
+export function MetaLogo({ size = 16, className }: IconProps) {
+  return (
+    <svg {...base(size)} viewBox="0 0 16 16" className={className}>
+      <rect x="1.5" y="1.5" width="13" height="13" rx="3" fill="currentColor" opacity="0.18" />
+      <path
+        d="M10.6 4.6h-1.2l-0.6 2.4h-1.6V5.6c0-0.4 0.2-0.6 0.6-0.6h0.8V3.6h-1.2c-1.1 0-1.8 0.7-1.8 1.9V7H4.8v1.4h0.8V12h1.6V8.4h1.4l0.3-1.4 h-1.7"
+        fill="currentColor"
+      />
+    </svg>
+  );
+}
+
+export function AdsIcon({ size = 16, className, strokeWidth = 1.3 }: StrokeIconProps) {
+  return (
+    <svg {...base(size)} viewBox="0 0 16 16" className={className}>
+      <path
+        d="M3 6.5L11.5 3v10L3 9.5z"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3 6.5H2.2a0.8 0.8 0 0 0-0.8 0.8v1.4a0.8 0.8 0 0 0 0.8 0.8H3"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M5.5 9.5L6.5 13"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function RevenueIcon({ size = 16, className, strokeWidth = 1.3 }: StrokeIconProps) {
+  return (
+    <svg {...base(size)} viewBox="0 0 16 16" className={className}>
+      <path
+        d="M2 13L6 9L9 11L14 5"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 5h-3M14 5v3"
+        stroke="currentColor"
+        strokeWidth={strokeWidth}
+        fill="none"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
 export function MapsMarkerIcon({ size = 16, className, strokeWidth = 1.3 }: StrokeIconProps) {
   return (
     <svg {...base(size)} viewBox="0 0 16 16" className={className}>

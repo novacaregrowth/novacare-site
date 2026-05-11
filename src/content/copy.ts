@@ -9,6 +9,8 @@
 const WHATSAPP_HREF = "https://wa.me/971XXXXXXXXX";
 const EMAIL_DISPLAY = "yazan@novacaregrowth.com";
 const EMAIL_HREF = "mailto:yazan@novacaregrowth.com";
+const EMAIL_SUBJECT = "Project inquiry - [Your clinic name]";
+const EMAIL_WITH_SUBJECT_HREF = `${EMAIL_HREF}?subject=${encodeURIComponent(EMAIL_SUBJECT)}`;
 
 export const copy = {
   nav: {
@@ -298,52 +300,75 @@ export const copy = {
         cta: { label: "Book a call", href: WHATSAPP_HREF },
       },
     ],
-    faqLabel: "QUESTIONS",
-    faq: [
-      {
-        q: "How do payments work?",
-        a: "Setup fees are split: 50% to start, 50% on launch. The monthly retainer begins the month after launch and is billed on the 1st.",
-      },
-      {
-        q: "Do you only work with clinics in Dubai?",
-        a: "No. We work with clinics across the UAE and occasionally elsewhere in the GCC. We're based in Dubai.",
-      },
-      {
-        q: "Do you handle Arabic content?",
-        a: "Yes. Every site is built bilingual-ready. You can launch in English only and add Arabic later, or launch with both from day one. We work with native Arabic writers for final copy when needed.",
-      },
-      {
-        q: "What if I already have a website?",
-        a: "We'll look at it and tell you honestly whether it needs a rebuild or just improvements. If it's already good, we'll tell you that too.",
-      },
-      {
-        q: "Can I cancel the monthly retainer?",
-        a: "Yes, with 30 days' notice. You own the site and the code regardless.",
-      },
-      {
-        q: "Who owns the code and content?",
-        a: "You do. Fully. If you ever leave, you take everything with you.",
-      },
-      {
-        q: "Are you compliant with DHA, DOH, and MOH marketing rules?",
-        a: "We build with regulatory sensitivity. No unverified medical claims, no before/after misuse, no off-license language. For formal compliance review, we recommend your clinic's legal or compliance contact sign off on final copy before launch.",
-      },
-      {
-        q: "What tools and platforms do you use?",
-        a: "Next.js and TypeScript for the website. Vercel for hosting. Claude and OpenAI for the AI systems. n8n and Make for workflow automation. WhatsApp Business API for messaging.",
-      },
-      {
-        q: "How many clients do you take on?",
-        a: "A small number each quarter. If we're at capacity, we'll tell you and we'll tell you when a slot opens. We'd rather turn down work than deliver a half-finished site.",
-      },
-    ],
+    faq: {
+      sectionLabel: "FREQUENTLY ASKED",
+      headline: "Questions, answered.",
+      intro:
+        "These come up on almost every first call. If yours isn't here, message us.",
+      items: [
+        {
+          q: "How do payments work?",
+          a: "Setup fees are split: 50% to start, 50% on launch. The monthly retainer begins the month after launch and is billed on the 1st.",
+        },
+        {
+          q: "Do you only work with clinics in Dubai?",
+          a: "No. We work with clinics across the UAE and occasionally elsewhere in the GCC. We're based in Dubai.",
+        },
+        {
+          q: "Do you handle Arabic content?",
+          a: "Yes. Every site is built bilingual-ready. You can launch in English only and add Arabic later, or launch with both from day one. We work with native Arabic writers for final copy when needed.",
+        },
+        {
+          q: "What if I already have a website?",
+          a: "We'll look at it and tell you honestly whether it needs a rebuild or just improvements. If it's already good, we'll tell you that too.",
+        },
+        {
+          q: "Can I cancel the monthly retainer?",
+          a: "Yes, with 30 days' notice. You own the site and the code regardless.",
+        },
+        {
+          q: "Who owns the code and content?",
+          a: "You do. Fully. If you ever leave, you take everything with you.",
+        },
+        {
+          q: "Are you compliant with DHA, DOH, and MOH marketing rules?",
+          a: "We build with regulatory sensitivity. No unverified medical claims, no before/after misuse, no off-license language. For formal compliance review, we recommend your clinic's legal or compliance contact sign off on final copy before launch.",
+        },
+        {
+          q: "How many clients do you take on?",
+          a: "A small number each quarter. If we're at capacity, we'll tell you and we'll tell you when a slot opens. We'd rather turn down work than deliver a half-finished site.",
+        },
+      ],
+    },
     closing: {
-      sectionLabel: "CAPACITY",
-      capacity: "Three slots remaining this quarter.",
-      h2: "We take on a small number of clinics each quarter.",
+      h2: "Let's build something you're proud to send people to.",
       sub: "If one of them is yours, tell us about your practice. We reply within the day.",
       primaryCta: { label: "Message us on WhatsApp", href: WHATSAPP_HREF },
-      secondaryCta: { label: EMAIL_DISPLAY, href: EMAIL_HREF },
+      secondaryCta: { label: EMAIL_DISPLAY, href: EMAIL_WITH_SUBJECT_HREF },
+      emailSubject: EMAIL_SUBJECT,
+      slots: {
+        quarters: {
+          q1: {
+            label: "Q1 2026",
+            cells: [
+              { state: "booked", label: "BOOKED" },
+              { state: "booked", label: "BOOKED" },
+              { state: "booked", label: "BOOKED" },
+            ],
+            caption: "Fully booked",
+          },
+          q2: {
+            label: "Q2 2026",
+            cells: [
+              { state: "booked", label: "BOOKED" },
+              { state: "available", label: "OPEN · Q2 2026" },
+              { state: "available", label: "OPEN · Q2 2026" },
+            ],
+            caption: "2 slots remaining",
+          },
+        },
+        defaultQuarter: "q2",
+      },
     },
     artifacts: {
       specCaptions: {
@@ -502,6 +527,8 @@ export const copy = {
           bookings: {
             label: "BOOKINGS THIS MONTH",
             current: 127,
+            baseMoM: 104,
+            baseSinceJoining: 45,
             mom: "↑ 23% vs last month",
             sinceJoining: "↑ 182% since Apr",
           },
@@ -523,6 +550,53 @@ export const copy = {
             current: "AED 156,400",
             trend: "↑ 4.1× since joining",
           },
+        },
+        ads: {
+          caption: "AD CAMPAIGNS · OCTOBER 2025",
+          active: { label: "ACTIVE CAMPAIGNS", value: "03" },
+          spend: { label: "AD SPEND THIS MONTH", value: "AED 12,400" },
+          campaigns: [
+            {
+              name: "Jumeirah females 30-50 · Awareness",
+              channel: "meta",
+              spend: "AED 4,800",
+              bookings: 12,
+              cpb: "AED 400",
+            },
+            {
+              name: "Retargeting · Site visitors",
+              channel: "meta",
+              spend: "AED 2,200",
+              bookings: 8,
+              cpb: "AED 275",
+            },
+            {
+              name: "Dermatologist Dubai · Brand",
+              channel: "google",
+              spend: "AED 5,400",
+              bookings: 14,
+              cpb: "AED 386",
+            },
+          ],
+          roas: "3.8×",
+          trackedRevenue: "AED 47,200",
+          roasLabel: "ROAS",
+          trackedRevenueLabel: "Tracked revenue from ads",
+        },
+        revenueChart: {
+          caption: "TRACKED REVENUE · OCT 2025",
+          headline: { label: "TOTAL TRACKED REVENUE", value: "AED 156,400" },
+          growthLine: "↑ 4.1× since joining Apr 2025",
+          monthly: [
+            { month: "Apr", value: 38200, baseline: true },
+            { month: "May", value: 52400 },
+            { month: "Jun", value: 71800 },
+            { month: "Jul", value: 92500 },
+            { month: "Aug", value: 118300 },
+            { month: "Sep", value: 138900 },
+            { month: "Oct", value: 156400, current: true },
+          ],
+          tooltip: "AED 156,400 · current month",
         },
       },
     },
