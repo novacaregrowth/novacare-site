@@ -49,7 +49,7 @@ export function ServicesClosingCTA() {
     <section
       ref={ref}
       aria-labelledby="services-closing-heading"
-      className="relative bg-ink py-24 md:py-40"
+      className="relative bg-ink py-24 md:py-32"
     >
       <div className="mx-auto w-full max-w-[720px] px-6 md:px-12 text-center">
         <div className="flex flex-col items-center gap-3">

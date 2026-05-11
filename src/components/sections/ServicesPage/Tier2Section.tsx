@@ -10,11 +10,10 @@ import { useIsDesktop } from "@/lib/useIsDesktop";
 
 import { PanelPrice } from "@/components/sections/Services/PanelPrice";
 import { FeaturesConversation } from "@/components/sections/Services/features/FeaturesConversation";
-import { ArtifactPhoneReal } from "@/components/sections/Services/artifacts/ArtifactPhoneReal";
+import { Tier2Artifact } from "./artifacts/Tier2Artifact";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const ARTIFACT_DURATION_S = 0.6;
 const HAIRLINE_DURATION_S = 0.6;
 const T_NAME_S = 0.4;
 const T_PRICE_S = 0.5;
@@ -49,7 +48,7 @@ export function Tier2Section() {
     <section
       ref={ref}
       aria-labelledby="tier-2-heading"
-      className="relative bg-card-elevated py-20 md:py-36 overflow-hidden"
+      className="relative bg-card-elevated py-20 md:py-24 overflow-hidden"
     >
       {reduce ? (
         <div className="absolute left-0 right-0 top-0 h-px bg-terracotta" aria-hidden="true" />
@@ -74,20 +73,9 @@ export function Tier2Section() {
               />
             </div>
 
-            <motion.div
-              className="col-span-5 col-start-8 flex items-start justify-center"
-              initial={{ opacity: 0.01, scale: 0.98 }}
-              animate={play ? { opacity: 1, scale: 1 } : { opacity: 0.01, scale: 0.98 }}
-              transition={{ duration: ARTIFACT_DURATION_S, ease: EASE }}
-            >
-              <ArtifactPhoneReal
-                play={play}
-                introDelaySec={0.1}
-                hovered={false}
-                enableIntros={true}
-                enableAutoCycle={true}
-              />
-            </motion.div>
+            <div className="col-span-5 col-start-8">
+              <Tier2Artifact play={play} />
+            </div>
           </div>
         ) : (
           <MobileOrReducedLayout
@@ -113,15 +101,7 @@ function MobileOrReducedLayout({
   if (reduce) {
     return (
       <div className="flex flex-col gap-10">
-        <div className="flex items-start justify-center">
-          <ArtifactPhoneReal
-            play={false}
-            introDelaySec={0}
-            hovered={false}
-            enableIntros={false}
-            enableAutoCycle={false}
-          />
-        </div>
+        <Tier2Artifact play={false} />
         <CopyColumn play={false} useStaticInner={useStaticInner} animate={false} />
       </div>
     );
@@ -134,15 +114,7 @@ function MobileOrReducedLayout({
       animate={play ? { opacity: 1, y: 0 } : { opacity: 0.01, y: 12 }}
       transition={{ duration: 0.6, ease: EASE }}
     >
-      <div className="flex items-start justify-center">
-        <ArtifactPhoneReal
-          play={play}
-          introDelaySec={0.1}
-          hovered={false}
-          enableIntros={true}
-          enableAutoCycle={true}
-        />
-      </div>
+      <Tier2Artifact play={play} />
       <CopyColumn play={play} useStaticInner={useStaticInner} animate={false} />
     </motion.div>
   );
@@ -214,36 +186,20 @@ function CopyColumn({
         />
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-5">
-        <div>
-          <motion.span
-            {...fade(T_META_S)}
-            className="font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft"
-          >
-            TIMELINE
-          </motion.span>
-          <motion.p
-            {...fade(T_META_S + 0.05)}
-            className="mt-1.5 font-sans text-[14px] leading-[1.5] text-bone/90"
-          >
-            {tier.timeline}
-          </motion.p>
-        </div>
-        <div>
-          <motion.span
-            {...fade(T_META_S + 0.1)}
-            className="font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft"
-          >
-            IDEAL FOR
-          </motion.span>
-          <motion.p
-            {...fade(T_META_S + 0.15)}
-            className="mt-1.5 font-sans text-[14px] leading-[1.5] text-bone/90"
-          >
-            {tier.idealFor}
-          </motion.p>
-        </div>
-      </div>
+      <motion.div
+        {...fade(T_META_S)}
+        className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-2 font-sans text-[13px] leading-[1.5] text-bone/90"
+      >
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-stone-soft">
+          TIMELINE
+        </span>
+        <span>{tier.timeline}</span>
+        <span className="text-stone-soft/40" aria-hidden="true">·</span>
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-stone-soft">
+          IDEAL FOR
+        </span>
+        <span>{tier.idealFor}</span>
+      </motion.div>
 
       <div className="mt-10">
         <motion.a

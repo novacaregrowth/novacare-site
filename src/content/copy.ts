@@ -212,6 +212,29 @@ export const copy = {
       sectionLabel: "OUR SERVICES",
       h1: "Three ways to work with us.",
       sub: "Each tier is a complete system, not a menu of add-ons. Our pricing is public because your time is worth more than a sales funnel.",
+      tierIndex: {
+        label: "WAYS TO WORK · I / II / III",
+        entries: [
+          {
+            numeral: "01",
+            markId: "site",
+            name: "CLINIC SITE",
+            descriptor: "The website your practice should already have.",
+          },
+          {
+            numeral: "02",
+            markId: "ai-reception",
+            name: "AI RECEPTION",
+            descriptor: "Replies in seconds, in Arabic and English.",
+          },
+          {
+            numeral: "03",
+            markId: "growth-system",
+            name: "GROWTH SYSTEM",
+            descriptor: "The full practice, automated.",
+          },
+        ],
+      } as const,
     },
     tiers: [
       {
@@ -321,6 +344,187 @@ export const copy = {
       sub: "If one of them is yours, tell us about your practice. We reply within the day.",
       primaryCta: { label: "Message us on WhatsApp", href: WHATSAPP_HREF },
       secondaryCta: { label: EMAIL_DISPLAY, href: EMAIL_HREF },
+    },
+    artifacts: {
+      specCaptions: {
+        tier1: ["5 pages", "sub-1s load", "bilingual EN/AR", "WCAG AA"],
+        tier2: ["Reply in 8s", "Booked in 4 messages", "After-hours inbound"],
+        tier3: ["Six months tracked", "Apr to Oct 2025"],
+      },
+      maisonAesthetic: {
+        brand: {
+          name: "Maison Aesthetic",
+          tagline: "Aesthetic Medicine · Jumeirah, Dubai",
+          domain: "maisonaesthetic.ae",
+          address: "Al Wasl Road, Jumeirah 1, Dubai",
+          phone: "+971 4 555 1234",
+          hours: "Mon to Sat · 10 AM to 9 PM",
+        },
+        services: [
+          {
+            name: "Dermatology Consultation",
+            subtitle: "45 min",
+            priceFrom: "from AED 750",
+            descriptor: "Comprehensive skin assessment with a senior dermatologist.",
+          },
+          {
+            name: "Injectables",
+            subtitle: "Botox & Fillers",
+            priceFrom: "from AED 2,800",
+            descriptor: "Botox and dermal fillers, delivered with restraint.",
+          },
+          {
+            name: "HydraFacial",
+            subtitle: "60 min",
+            priceFrom: "from AED 1,200",
+            descriptor: "Deep cleanse, gentle exfoliation, intensive hydration.",
+          },
+        ],
+        approachParagraphs: [
+          "We don't chase trends. Every recommendation is grounded in clinical evidence, your individual skin biology, and the long view.",
+          "Our practice is built around restraint. Subtle, lasting results matter more than dramatic transformations.",
+        ],
+        team: [
+          {
+            name: "Dr. Rana Haddad",
+            firstName: "Rana",
+            title: "Aesthetic Physician",
+            bio: "Lead practitioner. 12 years in dermatology and aesthetic medicine.",
+          },
+          {
+            name: "Dr. Yousef Khalil",
+            firstName: "Yousef",
+            title: "Dermatologist",
+            bio: "Specialist in skin barrier health and clinical-grade treatments.",
+          },
+          {
+            name: "Dr. Nadia Saad",
+            firstName: "Nadia",
+            title: "Cosmetic Specialist",
+            bio: "Focused on minimally invasive aesthetic medicine.",
+          },
+        ],
+        bookingSlots: [
+          {
+            day: "Mon 14",
+            time: "10:00 AM",
+            practitionerName: "Dr. Rana Haddad",
+            practitionerInitials: "RH",
+            service: "Dermatology",
+            price: "AED 750",
+          },
+          {
+            day: "Mon 14",
+            time: "2:30 PM",
+            practitionerName: "Dr. Yousef Khalil",
+            practitionerInitials: "YK",
+            service: "Dermatology",
+            price: "AED 750",
+          },
+          {
+            day: "Tue 15",
+            time: "11:00 AM",
+            practitionerName: "Dr. Nadia Saad",
+            practitionerInitials: "NS",
+            service: "HydraFacial",
+            price: "AED 1,200",
+          },
+          {
+            day: "Fri 18",
+            time: "10:00 AM",
+            practitionerName: "Dr. Rana Haddad",
+            practitionerInitials: "RH",
+            service: "Consultation",
+            price: "AED 600",
+            highlighted: true,
+          },
+        ],
+        conversation: [
+          {
+            id: "tier2-m1",
+            kind: "text",
+            side: "sent",
+            content:
+              "Hi, do you have any availability this week for a consultation? Saw your work on Instagram.",
+            timestamp: "11:47 PM",
+          },
+          {
+            id: "tier2-m2",
+            kind: "text",
+            side: "received",
+            content:
+              "Hi Layla, thanks for reaching out. We have two openings: Thursday 2 PM or Friday 10 AM. The consultation is 45 minutes with Dr. Rana Haddad, AED 600. Would either work for you?",
+            timestamp: "11:47 PM",
+          },
+          {
+            id: "tier2-m3",
+            kind: "text",
+            side: "sent",
+            content: "Friday 10 AM works. Do I need to bring anything?",
+            timestamp: "11:48 PM",
+          },
+          {
+            id: "tier2-m4",
+            kind: "text",
+            side: "received",
+            content:
+              "Just your Emirates ID. We'll send a reminder Thursday evening with the clinic address and parking. Could I get your full name and mobile number to confirm?",
+            timestamp: "11:48 PM",
+          },
+          {
+            id: "tier2-m5",
+            kind: "text",
+            side: "sent",
+            content: "Layla Al Suwaidi, +971 50 412 8867",
+            timestamp: "11:49 PM",
+          },
+        ] as const,
+        confirmationCard: {
+          label: "APPOINTMENT CONFIRMED",
+          date: "Friday, October 18",
+          time: "10:00 AM",
+          doctor: "Dr. Rana Haddad",
+          duration: "45 min consultation",
+          location: "Maison Aesthetic · Jumeirah",
+        },
+        chart: {
+          weeklyBookings: [10, 12, 11, 13, 11, 12, 9, 8, 13, 16, 18, 19, 22, 21, 24, 23, 26, 25, 28, 27, 29, 30, 28, 31, 30, 32],
+          inflectionWeekIndex: 6,
+          preNovacareBaseline: 11,
+          monthMarkers: ["May", "Jun", "Jul", "Aug", "Sep", "Oct"],
+          inflectionLabel: "Joined Novacare · Apr 2025",
+          mostRecentTooltip: "Week of Oct 21 · 32 bookings",
+          titleMain: "Weekly bookings · last 6 months",
+          titleAside: "Since joining Apr 2025",
+          preNovacareLabel: "Pre-Novacare baseline",
+        },
+        metrics: {
+          bookings: {
+            label: "BOOKINGS THIS MONTH",
+            current: 127,
+            mom: "↑ 23% vs last month",
+            sinceJoining: "↑ 182% since Apr",
+          },
+          secondary: [
+            { label: "REPLIES HANDLED", current: "1,847", baseline: "vs 470 in March" },
+            { label: "AVG RESPONSE", current: "8.2s", baseline: "was 4h 12m before AI" },
+            { label: "SHOW RATE", current: "94%", baseline: "was 76% before" },
+          ],
+          channels: {
+            title: "Where bookings came from",
+            items: [
+              { name: "WhatsApp", percentage: 47, count: "60 bookings", primary: true },
+              { name: "Instagram DMs", percentage: 34, count: "43 bookings", primary: false },
+              { name: "Google Booking", percentage: 19, count: "24 bookings", primary: false },
+            ],
+          },
+          revenue: {
+            label: "TRACKED REVENUE · OCT",
+            current: "AED 156,400",
+            trend: "↑ 4.1× since joining",
+          },
+        },
+      },
     },
   },
 

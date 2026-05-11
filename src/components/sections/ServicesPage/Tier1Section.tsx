@@ -10,11 +10,10 @@ import { useIsDesktop } from "@/lib/useIsDesktop";
 
 import { PanelPrice } from "@/components/sections/Services/PanelPrice";
 import { FeaturesPoem } from "@/components/sections/Services/features/FeaturesPoem";
-import { ArtifactBrowserLarge } from "@/components/sections/Services/artifacts/ArtifactBrowserLarge";
+import { Tier1Artifact } from "./artifacts/Tier1Artifact";
 
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 
-const ARTIFACT_DURATION_S = 0.6;
 const T_NAME_S = 0.4;
 const T_PRICE_S = 0.5;
 const T_TAGLINE_S = 0.6;
@@ -48,23 +47,14 @@ export function Tier1Section() {
     <section
       ref={ref}
       aria-labelledby="tier-1-heading"
-      className="relative bg-ink py-20 md:py-32 overflow-hidden"
+      className="relative bg-ink py-20 md:py-24 overflow-hidden"
     >
       <div className="mx-auto w-full max-w-[1440px] px-6 md:px-12">
         {animateCascade ? (
           <div className="grid grid-cols-12 gap-12 items-start">
-            <motion.div
-              className="col-span-5 col-start-1"
-              initial={{ opacity: 0.01, scale: 0.98 }}
-              animate={play ? { opacity: 1, scale: 1 } : { opacity: 0.01, scale: 0.98 }}
-              transition={{ duration: ARTIFACT_DURATION_S, ease: EASE }}
-            >
-              <ArtifactBrowserLarge
-                hovered={false}
-                enableIntros={true}
-                enableAutoCycle={true}
-              />
-            </motion.div>
+            <div className="col-span-5 col-start-1">
+              <Tier1Artifact play={play} />
+            </div>
 
             <div className="col-span-6 col-start-7">
               <CopyColumn
@@ -107,11 +97,7 @@ function MobileOrReducedLayout({
   return (
     <Wrapper className="flex flex-col gap-10" {...wrapperProps}>
       <div>
-        <ArtifactBrowserLarge
-          hovered={false}
-          enableIntros={!reduce}
-          enableAutoCycle={!reduce}
-        />
+        <Tier1Artifact play={play} />
       </div>
       <div>
         <CopyColumn
@@ -190,36 +176,20 @@ function CopyColumn({
         />
       </div>
 
-      <div className="mt-8 grid grid-cols-1 gap-5">
-        <div>
-          <motion.span
-            {...fade(T_META_S)}
-            className="font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft"
-          >
-            TIMELINE
-          </motion.span>
-          <motion.p
-            {...fade(T_META_S + 0.05)}
-            className="mt-1.5 font-sans text-[14px] leading-[1.5] text-bone/90"
-          >
-            {tier.timeline}
-          </motion.p>
-        </div>
-        <div>
-          <motion.span
-            {...fade(T_META_S + 0.1)}
-            className="font-sans text-[12px] font-medium uppercase tracking-[0.12em] text-stone-soft"
-          >
-            IDEAL FOR
-          </motion.span>
-          <motion.p
-            {...fade(T_META_S + 0.15)}
-            className="mt-1.5 font-sans text-[14px] leading-[1.5] text-bone/90"
-          >
-            {tier.idealFor}
-          </motion.p>
-        </div>
-      </div>
+      <motion.div
+        {...fade(T_META_S)}
+        className="mt-8 flex flex-wrap items-baseline gap-x-3 gap-y-2 font-sans text-[13px] leading-[1.5] text-bone/90"
+      >
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-stone-soft">
+          TIMELINE
+        </span>
+        <span>{tier.timeline}</span>
+        <span className="text-stone-soft/40" aria-hidden="true">·</span>
+        <span className="text-[11px] font-medium uppercase tracking-[0.12em] text-stone-soft">
+          IDEAL FOR
+        </span>
+        <span>{tier.idealFor}</span>
+      </motion.div>
 
       <div className="mt-10">
         <motion.a
